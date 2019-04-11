@@ -1,0 +1,69 @@
+<div class="content-container" ng-controller="StaticController">
+    <ul class="breadcrumb">
+        <li><a href="#/reports/all">{{'label.anchor.reports' | translate}}</a></li>
+        <li class="active">{{'label.anchor.runreport' | translate}}</li>
+    </ul>
+	<div class="card well">
+    <api-validate></api-validate>
+	    <div class="span gray-head" style="margin-left:0%;height:30px;">
+	          <span style="margin-left: 10px;font-size:20px;">
+	                <strong>Annual Information Statement</strong>
+	          </span>
+	    </div>
+	    <div ng-hide="isCollapsed" class="alert-block form-horizontal">
+	        <br>
+
+	        <div class="form-group info">
+	            <label class="control-label col-sm-2 ng-binding">Office</label>
+
+                <div class="col-sm-3">
+				    <select value="" class="form-control input-xlarge ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
+				        <option value="" class="ng-binding" selected="selected">--Select One--</option>
+				        <option label="Head Office" value="string:1">Head Office</option>
+				        <option label="....Makati Office" value="string:2">....Makati Office</option>
+				        <option label="....Cebu Office" value="string:3">....Cebu Office</option>
+				        <option label="....Davao Office" value="string:4">....Davao Office</option>
+				    </select>
+
+				    <!--div class="chosen-container chosen-container-single" style="width: 249px;" title="">
+				        <a class="chosen-single" tabindex="-1">
+				            <span>--Select One--</span>
+				            <div>
+				                <b></b>
+				            </div>
+				        </a>
+
+				        <div class="chosen-drop">
+				            <div class="chosen-search">
+				                <input type="text" autocomplete="off">
+				            </div>
+				            <ul class="chosen-results">
+				                <li class="active-result result-selected ng-binding" style="" data-option-array-index="0">--Select One--</li>
+				                <li class="active-result" style="" data-option-array-index="1">Head Office</li>
+				                <li class="active-result" style="" data-option-array-index="2">....Makati Office</li>
+				                <li class="active-result" style="" data-option-array-index="3">....Cebu Office</li>
+				                <li class="active-result" style="" data-option-array-index="4">....Davao Office</li>
+				            </ul>
+				        </div>
+				    </div-->
+				</div>
+	        </div>
+	        <div class="form-group info">
+	            <label class="control-label col-sm-2">Start Date</label>
+	            <div class="col-sm-3">
+	                <input style="width: 257px" type="text" datepicker-pop="yyyy-MM-dd" ng-model='one' is-open="" min=""
+	                       max="'2020-06-22'" date-disabled="disabled(date, mode)"  class="form-control" required/>
+	            </div>
+	        </div>
+	        <div class="form-group info">
+	            <label class="control-label col-sm-2">End Date</label>
+	            <div class="col-sm-3">
+	                <input style="width: 257px" type="text" datepicker-pop="yyyy-MM-dd" ng-model='two' is-open="" min=""
+	                       max="'2020-06-22'" date-disabled="disabled(date, mode)"  class="form-control" required/>
+	            </div>
+	        </div>
+	        <span class="col-md-offset-3 paddedleft120"><a href="/static/" download="AIS-SEC-Form-85-18-1.xlsx" id="run" class="btn btn-primary">
+	        <i class="fa fa-play"></i>&nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
+	    </div>
+	</div>
+</div>

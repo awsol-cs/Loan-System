@@ -1,0 +1,57 @@
+<div class="content-container" ng-controller="WorkflowController">
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.workflowmanagement' | translate}}</h4>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <ul dnd-list="models.lists.dataForm" class="list-group">
+                                <li ng-repeat="item in models.lists.dataForm"
+                                    dnd-draggable="item"
+                                    dnd-moved="models.lists.dataForm.splice($index, 1)"
+                                    dnd-effect-allowed="move"
+                                    dnd-selected="models.selected = item"
+                                    ng-class="{'selected': models.selected === item}"
+                                    class="list-group-item"
+                                    >
+                                    <dnd-nodrag>
+                                        <div class="row">
+                                            <div dnd-handle class="col-sm-1 handle">:::</div>                    
+                                            <div class="col-sm-11">
+                                                {{item.label}}
+                                            </div>
+                                        </div>
+                                    </dnd-nodrag>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li ng-repeat="item in models.lists.dataForm"
+                                    class="list-group-item">
+                                    {{$index+1}} {{item.label}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-6">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                    <button id="save" type="submit" class="btn btn-primary" ng-click="cancel()">{{'label.button.save' |
+                        translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+<div class="content-container" ng-controller="EditRuleController">
+	<div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+            <li><a href="#/scoremanager">{{'label.anchor.scoremanager' | translate}}</a></li>
+            <li class="active">{{'label.anchor.editrule' | translate}}</li>
+        </ul>
+    </div>
+
+    <fieldset>
+        <legend> {{'label.heading.editrule' | translate}}</legend>
+
+        <div class="card">
+
+            <form name="addRule" novalidate="" class="form-horizontal well">
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="attribute">{{ 'label.input.attribute' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="attribute" name="attribute" ng-model="ruleName"  class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="attribute" valattribute="attribute"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="tag">{{ 'label.input.tag' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="tag" name="tag" ng-model="tag"  class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="tag" valattribute="tag"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="weightedvalue">{{ 'label.input.weightedvalue' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="weightedvalue" name="weightedvalue" ng-model="weightedValue"  class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="weightedvalue" valattribute="weightedvalue"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="type">{{ 'label.input.type' | translate }}</label>
+
+                    <div class="col-sm-3">
+                            <select chosen="type" id="type" ng-model="type" ng-change='changeType(type)' class="form-control"
+                            ng-options="type.value as type.type for type in types" value="{{type}}">
+                                <option value="" class="hidden"></option>
+                            </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="type" valattribute="type"/>
+                    </div>
+                </div>
+
+                <div ng-switch on="type">
+                    <div ng-switch-when="1" id="rangeType" class="form-group">
+                        <label class="control-label col-sm-2" for="type"></label>
+                        <div class="row col-sm-10">
+                            <div class="col-sm-1">
+                                <button id="addRow" ng-click="addForm(1)" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label" for="minimum">{{ 'label.input.minimum' | translate }}</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label" for="maximum">{{ 'label.input.maximum' | translate }}</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label" for="relativevalue">{{ 'label.input.relativevalue' | translate }}</label>
+                            </div>
+                        </div>
+                        <div ng-repeat="form in displayedForms track by $index">
+                            <ng-include src="form"></ng-include>
+                        </div>
+                    </div>
+
+                    <div ng-switch-when="2" id="choiceType" class="form-group">
+                        <label class="control-label col-sm-2" for="type"></label>
+                        <div class="row col-sm-10">
+                            <div class="col-sm-1">
+                                <button id="addRow1" ng-click="addForm(2)" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label" for="name">{{ 'label.input.name' | translate }}</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label" for="relativevalue">{{ 'label.input.relativevalue' | translate }}</label>
+                            </div>
+                        </div>
+                        <div ng-repeat="form in displayedForms track by $index">
+                            <ng-include src="form"></ng-include>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/ng-template" id="range.tpl.html">
+                    <label class="control-label col-sm-2" for="type"></label>
+                    <div  class="row col-sm-10">
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary" ng-click="removeRow($index)" ng-show="displayedForms.length> 1"><i class="fa fa-minus"></i></button>
+                        </div>
+                        <label class="control-label hidden" ng-show="ruleTypeDataList[$index].id" ng-model="ruleTypeDataList[$index].id" for="relativevalue"></label>
+                        <div class="col-sm-3">
+                            <input type="text" name="minimum" ng-model="ruleTypeDataList[$index].minValue"  class="form-control">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" name="maximum" ng-model="ruleTypeDataList[$index].maxValue"  class="form-control">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" name="relativevalue" ng-model="ruleTypeDataList[$index].relativeValue"  class="form-control">
+                        </div>
+                    </div>
+                </script>
+
+                <script type="text/ng-template" id="choice.tpl.html">
+                    <label class="control-label col-sm-2" for="type"></label>
+                    <div class="row col-sm-10">
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary" ng-click="removeRow($index)" ng-show="displayedForms.length> 1"><i class="fa fa-minus"></i></button>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" name="name" ng-model="ruleTypeDataList[$index].choiceName"  class="form-control">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text"  name="relativevalue" ng-model="ruleTypeDataList[$index].relativeValue"  class="form-control">
+                        </div>
+                    </div>
+                </script>
+
+                <div class="col-md-offset-3">
+
+                    <button id="save" type="submit" ng-click="submit()" class="btn btn-primary">{{
+                        'label.button.save' | translate }}
+                    </button>
+
+                    <a id="cancel"  data-ng-click="routeTo()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+
+
+                </div>
+
+            </form>
+
+
+        </div>
+    </fieldset>
+</div>

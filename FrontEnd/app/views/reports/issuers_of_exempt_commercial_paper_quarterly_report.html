@@ -1,0 +1,94 @@
+<div class="content-container" ng-controller="StaticController">
+    <ul class="breadcrumb">
+        <li><a href="#/reports/all">{{'label.anchor.reports' | translate}}</a></li>
+        <li class="active">{{'label.anchor.runreport' | translate}}</li>
+    </ul>
+	<div class="card well">
+    <api-validate></api-validate>
+	    <div class="span gray-head" style="margin-left:0%;height:30px;">
+	          <span style="margin-left: 10px;font-size:20px;">
+	                <strong>Quarterly Report of Issuers of Exempt Commercial Paper</strong>
+	          </span>
+	    </div>
+	    <div ng-hide="isCollapsed" class="alert-block form-horizontal">
+	        <br>
+
+	        <div class="form-group info">
+	            <label class="control-label col-sm-2 ng-binding">Office</label>
+                <div class="col-sm-3">
+				    <select value="" class="form-control input-xlarge ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
+				        <option value="" class="ng-binding" selected="selected">--Select One--</option>
+				        <option label="Head Office" value="string:1">Head Office</option>
+				        <option label="....Makati Office" value="string:2">....Makati Office</option>
+				        <option label="....Cebu Office" value="string:3">....Cebu Office</option>
+				        <option label="....Davao Office" value="string:4">....Davao Office</option>
+				    </select>
+
+				    <!--div class="chosen-container chosen-container-single" style="width: 249px;" title="">
+				        <a class="chosen-single" tabindex="-1">
+				            <span>--Select One--</span>
+				            <div>
+				                <b></b>
+				            </div>
+				        </a>
+
+				        <div class="chosen-drop">
+				            <div class="chosen-search">
+				                <input type="text" autocomplete="off">
+				            </div>
+				            <ul class="chosen-results">
+				                <li class="active-result result-selected ng-binding" style="" data-option-array-index="0">--Select One--</li>
+				                <li class="active-result" style="" data-option-array-index="1">Head Office</li>
+				                <li class="active-result" style="" data-option-array-index="2">....Makati Office</li>
+				                <li class="active-result" style="" data-option-array-index="3">....Cebu Office</li>
+				                <li class="active-result" style="" data-option-array-index="4">....Davao Office</li>
+				            </ul>
+				        </div>
+				    </div-->
+				</div>
+	        </div>
+	        <div class="form-group info">
+	            <label class="control-label col-sm-2">Quarter</label>
+	            <div class="col-sm-3">
+				    <select value="" class="form-control input-xlarge ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
+				        <option value="" class="ng-binding" selected="selected">--Select One--</option>
+				        <option label="1st" value="string:1">1st</option>
+				        <option label="2nd" value="string:2">2nd</option>
+				        <option label="3rd" value="string:3">2rd</option>
+				        <option label="4th" value="string:4">4th</option>
+				    </select>
+	            </div>
+	        </div>
+	        <div class="form-group info">
+	            <label class="control-label col-sm-2">Year</label>
+	            <div class="col-sm-3">
+	                <select value="" class="form-control input-xlarge ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
+				        <option value="" class="ng-binding" selected="selected">--Select One--</option>
+				        <option label="2019" value="string:1">2019</option>
+				        <option label="2018" value="string:2">2018</option>
+				        <option label="2017" value="string:3">2017</option>
+				        <option label="2016" value="string:4">2016</option>
+				        <option label="2015" value="string:5">2015</option>
+				        <option label="2014" value="string:6">2014</option>
+				        <option label="2013" value="string:7">2013</option>
+				        <option label="2012" value="string:8">2012</option>
+				        <option label="2011" value="string:9">2011</option>
+				        <option label="2010" value="string:10">2010</option>
+				        <option label="2009" value="string:11">2009</option>
+				        <option label="2008" value="string:12">2008</option>
+				        <option label="2007" value="string:13">2007</option>
+				        <option label="2006" value="string:14">2006</option>
+				        <option label="2005" value="string:15">2005</option>
+				        <option label="2004" value="string:16">2004</option>
+				        <option label="2003" value="string:17">2003</option>
+				        <option label="2002" value="string:18">2002</option>
+				        <option label="2001" value="string:19">2001</option>
+				        <option label="2000" value="string:20">2000</option>
+				    </select>
+	            </div>
+	        </div>
+	        <span class="col-md-offset-3 paddedleft120"><a href="./static/SEC-Form-QEPS2.xlsx" download id="run" class="btn btn-primary">
+	        <i class="fa fa-play"></i>&nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
+	    </div>
+	</div>
+</div>

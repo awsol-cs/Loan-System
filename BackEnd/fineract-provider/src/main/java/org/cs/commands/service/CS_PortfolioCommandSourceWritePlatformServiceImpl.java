@@ -1,0 +1,190 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+package org.cs.commands.service;
+
+import java.util.Random;
+
+import org.cs.commands.domain.CS_CommandSource;
+import org.cs.commands.domain.CS_CommandSourceRepository;
+import org.cs.commands.domain.CS_CommandWrapper;
+import org.apache.fineract.commands.exception.CommandNotAwaitingApprovalException;
+import org.apache.fineract.commands.exception.CommandNotFoundException;
+import org.cs.commands.exception.CS_RollbackTransactionAsCommandIsNotApprovedByCheckerException;
+import org.cs.infrastructure.core.api.CS_JsonCommand;
+import org.apache.fineract.infrastructure.core.data.CommandProcessingResult;
+import org.apache.fineract.infrastructure.core.serialization.FromJsonHelper;
+import org.apache.fineract.infrastructure.core.service.ThreadLocalContextUtil;
+import org.apache.fineract.infrastructure.jobs.service.SchedulerJobRunnerReadService;
+import org.cs.infrastructure.security.service.CS_PlatformSecurityContext;
+import org.apache.fineract.useradministration.domain.AppUser;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.CannotAcquireLockException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.google.gson.JsonElement;
+
+@Service
+public class CS_PortfolioCommandSourceWritePlatformServiceImpl implements CS_PortfolioCommandSourceWritePlatformService {
+
+    private final CS_PlatformSecurityContext context;
+    private final CS_CommandSourceRepository commandSourceRepository;
+    private final FromJsonHelper fromApiJsonHelper;
+    private final CS_CommandProcessingService processAndLogCommandService;
+    private final SchedulerJobRunnerReadService schedulerJobRunnerReadService;
+    private final static Logger logger = LoggerFactory.getLogger(CS_PortfolioCommandSourceWritePlatformServiceImpl.class);
+
+    @Autowired
+    public CS_PortfolioCommandSourceWritePlatformServiceImpl(final CS_PlatformSecurityContext context,
+            final CS_CommandSourceRepository commandSourceRepository, final FromJsonHelper fromApiJsonHelper,
+            final CS_CommandProcessingService processAndLogCommandService, final SchedulerJobRunnerReadService schedulerJobRunnerReadService) {
+        this.context = context;
+        this.commandSourceRepository = commandSourceRepository;
+        this.fromApiJsonHelper = fromApiJsonHelper;
+        this.processAndLogCommandService = processAndLogCommandService;
+        this.schedulerJobRunnerReadService = schedulerJobRunnerReadService;
+    }
+
+    @Override
+    public CommandProcessingResult logCommandSource(final CS_CommandWrapper wrapper) {
+        boolean isApprovedByChecker = false;
+        // check if is update of own account details
+        if (wrapper.isUpdateOfOwnUserDetails(this.context.authenticatedUser(wrapper).getId())) {
+            // then allow this operation to proceed.
+            // maker checker doesnt mean anything here.
+            isApprovedByChecker = true; // set to true in case permissions have
+                                        // been maker-checker enabled by
+                                        // accident.
+        } else {
+            // if not user changing their own details - check user has
+            // permission to perform specific task.
+            this.context.authenticatedUser(wrapper).validateHasPermissionTo(wrapper.getTaskPermissionName());
+        }
+        validateIsUpdateAllowed();
+
+        final String json = wrapper.getJson();
+        CommandProcessingResult result = null;
+        CS_JsonCommand command = null;
+        Integer numberOfRetries = 0;
+        Integer maxNumberOfRetries = ThreadLocalContextUtil.getTenant().getConnection().getMaxRetriesOnDeadlock();
+        Integer maxIntervalBetweenRetries = ThreadLocalContextUtil.getTenant().getConnection().getMaxIntervalBetweenRetries();
+        final JsonElement parsedCommand = this.fromApiJsonHelper.parse(json);
+        command = CS_JsonCommand.from(json, parsedCommand, this.fromApiJsonHelper, wrapper.getEntityName(), wrapper.getEntityId(), wrapper.getSubentityId(),
+                wrapper.getGroupId(), wrapper.getClientId(), wrapper.getLoanId(), wrapper.getSavingsId(), wrapper.getTransactionId(), wrapper.getHref(),
+                wrapper.getProductId(),wrapper.getCreditBureauId(),wrapper.getOrganisationCreditBureauId(), wrapper.getScoreManagerId(), wrapper.getCreditScoreId(), wrapper.getFormulaId());
+        while (numberOfRetries <= maxNumberOfRetries) {
+            try {
+                result = this.processAndLogCommandService.processAndLogCommand(wrapper, command, isApprovedByChecker);
+                numberOfRetries = maxNumberOfRetries + 1;
+            } catch (CannotAcquireLockException | ObjectOptimisticLockingFailureException exception) {
+                logger.info("The following command " + command.json() + " has been retried  " + numberOfRetries + " time(s)");
+                /***
+                 * Fail if the transaction has been retired for
+                 * maxNumberOfRetries
+                 **/
+                if (numberOfRetries >= maxNumberOfRetries) {
+                    logger.warn("The following command " + command.json() + " has been retried for the max allowed attempts of "
+                            + numberOfRetries + " and will be rolled back");
+                    throw (exception);
+                }
+                /***
+                 * Else sleep for a random time (between 1 to 10 seconds) and
+                 * continue
+                 **/
+                try {
+                    Random random = new Random();
+                    int randomNum = random.nextInt(maxIntervalBetweenRetries + 1);
+                    Thread.sleep(1000 + (randomNum * 1000));
+                    numberOfRetries = numberOfRetries + 1;
+                } catch (InterruptedException e) {
+                    throw (exception);
+                }
+            } catch (final CS_RollbackTransactionAsCommandIsNotApprovedByCheckerException e) {
+                numberOfRetries = maxNumberOfRetries + 1;
+                result = this.processAndLogCommandService.logCommand(e.getCommandSourceResult());
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public CommandProcessingResult approveEntry(final Long makerCheckerId) {
+
+        final CS_CommandSource commandSourceInput = validateMakerCheckerTransaction(makerCheckerId);
+        validateIsUpdateAllowed();
+
+        final CS_CommandWrapper wrapper = CS_CommandWrapper.fromExistingCommand(makerCheckerId, commandSourceInput.getActionName(), commandSourceInput.getEntityName(),
+                commandSourceInput.resourceId(), commandSourceInput.subresourceId(), commandSourceInput.getResourceGetUrl(), commandSourceInput.getProductId(),
+                commandSourceInput.getOfficeId(), commandSourceInput.getGroupId(), commandSourceInput.getClientId(), commandSourceInput.getLoanId(),
+                commandSourceInput.getSavingsId(), commandSourceInput.getTransactionId(),commandSourceInput.getCreditBureauId(),
+                commandSourceInput.getOrganisationCreditBureauId(), commandSourceInput.getCreditScoreId(), commandSourceInput.getFormulaId());
+        final JsonElement parsedCommand = this.fromApiJsonHelper.parse(commandSourceInput.json());
+        final CS_JsonCommand command = CS_JsonCommand.fromExistingCommand(makerCheckerId, commandSourceInput.json(), parsedCommand, this.fromApiJsonHelper,
+                commandSourceInput.getEntityName(), commandSourceInput.resourceId(), commandSourceInput.subresourceId(), commandSourceInput.getGroupId(),
+                commandSourceInput.getClientId(), commandSourceInput.getLoanId(), commandSourceInput.getSavingsId(), commandSourceInput.getTransactionId(),
+                commandSourceInput.getResourceGetUrl(), commandSourceInput.getProductId(),commandSourceInput.getCreditBureauId(),
+                commandSourceInput.getOrganisationCreditBureauId(), commandSourceInput.getCreditScoreId(), commandSourceInput.getFormulaId());
+
+        final boolean makerCheckerApproval = true;
+        return this.processAndLogCommandService.processAndLogCommand(wrapper, command, makerCheckerApproval);
+    }
+
+    @Transactional
+    @Override
+    public Long deleteEntry(final Long makerCheckerId) {
+
+        validateMakerCheckerTransaction(makerCheckerId);
+        validateIsUpdateAllowed();
+
+        this.commandSourceRepository.delete(makerCheckerId);
+
+        return makerCheckerId;
+    }
+
+    private CS_CommandSource validateMakerCheckerTransaction(final Long makerCheckerId) {
+
+        final CS_CommandSource commandSourceInput = this.commandSourceRepository.findOne(makerCheckerId);
+        if (commandSourceInput == null) { throw new CommandNotFoundException(makerCheckerId); }
+        if (!(commandSourceInput.isMarkedAsAwaitingApproval())) { throw new CommandNotAwaitingApprovalException(makerCheckerId); }
+
+        this.context.authenticatedUser().validateHasCheckerPermissionTo(commandSourceInput.getPermissionCode());
+
+        return commandSourceInput;
+    }
+
+    private boolean validateIsUpdateAllowed() {
+        return this.schedulerJobRunnerReadService.isUpdatesAllowed();
+
+    }
+
+    @Override
+    public Long rejectEntry(final Long makerCheckerId) {
+        final CS_CommandSource commandSourceInput = validateMakerCheckerTransaction(makerCheckerId);
+        validateIsUpdateAllowed();
+        final AppUser maker = this.context.authenticatedUser();
+        commandSourceInput.markAsRejected(maker, DateTime.now());
+        this.commandSourceRepository.save(commandSourceInput);
+        return makerCheckerId;
+    }
+}

@@ -1,0 +1,76 @@
+<div class="content-container" ng-controller="LoanTransferController">
+    <div class="card">
+        <div class="content">
+            <form class="form-horizontal" novalidate="" name="scorecard">
+                <fieldset>
+                    <legend>{{ 'label.heading.loantransfer' | translate }}</legend>
+                    <h3 class="page-header">{{ 'label.heading.loanApplication' | translate }}</h3>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="accnum">{{ 'label.heading.loanaccount' | translate }}</label>
+
+                                <div class="col-sm-3">
+                                    <p id="accnum" name="accnum">{{loanAccount}}</p>
+                                </div>
+                                <label class="control-label col-sm-2" for="name">{{ 'label.heading.currentBalance' | translate }}</label>
+
+                                <div class="col-sm-3">
+                                    <p id="name" name="name">{{balance}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="accnum">{{ 'label.heading.currentaccnum' | translate }}</label>
+
+                                <div class="col-sm-3">
+                                    <p id="accnum" name="accnum">{{currentaccno}}</p>
+                                </div>
+                                <label class="control-label col-sm-2" for="name">{{ 'label.heading.currentclient' | translate }}</label>
+
+                                <div class="col-sm-3">
+                                    <p id="name" name="name">{{currentClient}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="page-header">{{ 'label.heading.transferto' | translate }}</h3>
+                    <div class="row" ng-if="clients.length > 0">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="clients">{{ 'label.heading.client' | translate }}</label>
+
+                            <div class="col-sm-3">
+                                <div class="col-sm-3">
+                                    <select chosen id="clients" ng-model="client" class="form-control" ng-change="changeClient(client)"
+                                    ng-options="client as client.displayName for client in clients track by client.id">
+                                        <option value="" class="hidden"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="clients.length > 0">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="accnum">{{ 'label.heading.accnum' | translate }}</label>
+
+                            <div class="col-sm-3">
+                                <p id="accnum" name="accnum">{{client.accountNo}}</p>
+                            </div>
+                            <label class="control-label col-sm-2" for="name">{{ 'label.heading.name' | translate }}</label>
+
+                            <div class="col-sm-3">
+                                <p id="name" name="name">{{client.displayName}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-5">
+                        <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
+                        </button>
+                        <button id="save" type="submit" ng-click="submit()" has-permission='{{taskPermissionName}}' class="btn btn-primary">{{'label.button.save' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>    
+        </div>
+    </div>
+</div>
