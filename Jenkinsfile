@@ -3,13 +3,14 @@ pipeline {
     stages {
         stage('Build BackEnd') {
             steps {
-                sh 'cd BackEnd'
+                Echo (sh 'pwd')
+                sh 'cd ./BackEnd'
                 sh './gradlew clean war'
             }
         }
         stage('Build FrontEnd'){
         	steps {
-        		sh 'cd FrontEnd'
+        		sh 'cd ./FrontEnd'
         		sh 'npm install -g grunt-cli'
     				sh 'npm install -g bower'
     				sh 'bundle install'
