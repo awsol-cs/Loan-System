@@ -10,10 +10,10 @@ pipeline {
         	steps {
         		sh 'cd FrontEnd'
         		sh 'npm install -g grunt-cli'
-  				sh 'npm install -g bower'
-  				sh 'bundle install'
-  				sh 'bower install'
-  				sh 'grunt prod'
+    				sh 'npm install -g bower'
+    				sh 'bundle install'
+    				sh 'bower install'
+    				sh 'grunt prod'
         	}
         }
     }
