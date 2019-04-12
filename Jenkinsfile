@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build BackEnd') {
             steps {
-                dir("BackEnd\fineract-provider"){
+                dir("BackEnd\\fineract-provider"){
                     bat '..\\gradlew clean war'
                 }
             }
