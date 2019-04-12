@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build BackEnd') {
             steps {
-                Echo (sh 'pwd')
+                echo (sh 'pwd')
                 sh 'cd ./BackEnd'
                 sh './gradlew clean war'
             }
