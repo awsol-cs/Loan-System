@@ -4,7 +4,7 @@ pipeline {
         stage('Build BackEnd') {
             agent {
                 node {
-                    label 'my-defined-label'
+                    label 'master'
                     customWorkspace '/BackEnd/fineract-provider'
                 }
             }
