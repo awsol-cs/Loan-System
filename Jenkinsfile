@@ -5,7 +5,7 @@ pipeline {
             steps {
                 sh 'cd BackEnd'
                 sh './gradlew clean war'
-            }cd
+            }
         }
         stage('Build FrontEnd'){
         	steps {
