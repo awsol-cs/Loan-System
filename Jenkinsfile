@@ -4,7 +4,8 @@ pipeline {
         stage('Build BackEnd') {
             steps {
                 bat 'cd BackEnd'
-                bat 'gradlew clean war'
+                bat 'cd fineract-provider'
+                bat '..\\gradlew clean war'
             }
         }
         stage('Build FrontEnd'){
