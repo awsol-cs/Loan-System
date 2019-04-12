@@ -3,7 +3,10 @@ pipeline {
     stages {
         stage('Build BackEnd') {
             agent {
-                customWorkspace '/BackEnd/fineract-provider'
+                node {
+                    label 'backend-label'
+                    customWorkspace '/BackEnd/fineract-provider'
+                }
             }
             steps {
                 bat '..\\gradlew clean war'
@@ -11,7 +14,10 @@ pipeline {
         }
         stage('Build FrontEnd'){
           agent {
-              customWorkspace '/FrontEnd'
+              node {
+                  label 'frontend-label'
+                  customWorkspace '/FrontEnd'
+              }
           }
         	steps {
         		bat 'npm install -g grunt-cli'
