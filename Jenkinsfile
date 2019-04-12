@@ -1,9 +1,15 @@
 pipeline {
-    agent any
+    agent none
     stages {
         stage('Build BackEnd') {
+            agent {
+                node {
+                    label 'my-defined-label'
+                    customWorkspace '/BackEnd/fineract-provider'
+                }
+            }
             steps {
-                bat 'BackEnd\\gradlew clean war'
+                bat '..\\gradlew clean war'
             }
         }
         stage('Build FrontEnd'){
