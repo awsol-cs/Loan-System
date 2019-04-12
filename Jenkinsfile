@@ -4,10 +4,9 @@ pipeline {
         stage('Build FrontEnd'){
             steps {
                 dir("FrontEnd"){
-                    bat 'gem install bundler'
-                    bat 'bower install'
-                    bat 'bundle install'
-                    bat 'grunt prod'
+                    bat 'sh bower install'
+                    bat 'ah bundle install'
+                    bat 'sh grunt prod'
                 }
             }
         }
