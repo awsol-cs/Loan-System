@@ -1,16 +1,19 @@
 pipeline {
-    agent any
+    agent none
     stages {
         stage('Build BackEnd') {
+            agent {
+                customWorkspace '/BackEnd/fineract-provider'
+            }
             steps {
-                bat 'cd BackEnd'
-                bat 'cd fineract-provider'
                 bat '..\\gradlew clean war'
             }
         }
         stage('Build FrontEnd'){
+          agent {
+              customWorkspace '/FrontEnd'
+          }
         	steps {
-        		bat 'cd FrontEnd'
         		bat 'npm install -g grunt-cli'
     				bat 'npm install -g bower'
     				bat 'bundle install'
