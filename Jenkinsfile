@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Build BackEnd') {
             steps {
-                dir(‘BackEnd’) {bat ‘gradlew.bat clean build’}
+                sh 'cd ‘BackEnd’'
+                sh '.\gradlew clean war'
             }
         }
         stage('Build FrontEnd'){
