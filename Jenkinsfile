@@ -6,9 +6,10 @@ pipeline {
                 dir("FrontEnd"){
                     bat 'npm install -g grunt-cli'
                     bat 'npm install -g bower'
-                    sh 'bundle install'
-                    sh 'bower install'
-                    sh 'grunt prod'
+                    bat 'gem install bundler'
+                    bat 'bower install'
+                    bat 'bundle install'
+                    bat 'grunt prod'
                 }
             }
         }
