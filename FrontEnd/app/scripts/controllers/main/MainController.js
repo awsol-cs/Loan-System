@@ -253,7 +253,7 @@
                     }
                 }
                 else if (route == 'rep') {
-                    var temp2 = ['/reports/all', '/reports/clients', '/reports/loans', '/reports/funds', '/reports/accounting', 'reports/savings'];
+                    var temp2 = ['/reports/all', '/reports/clients', '/reports/loans', '/reports/funds', '/reports/accounting', 'reports/savings', '/reports/aml'];
                     for (var i in temp2) {
                         if (temp2[i] == location.path()) {
                             return true;
