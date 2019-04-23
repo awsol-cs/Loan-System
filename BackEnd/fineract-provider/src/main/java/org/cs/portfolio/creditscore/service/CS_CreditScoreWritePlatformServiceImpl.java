@@ -19,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.nexmo.quickstart.sms.SendMessage;
-
 @Service
 public class CS_CreditScoreWritePlatformServiceImpl implements CS_CreditScoreWritePlatformService {
     
@@ -66,14 +64,5 @@ public class CS_CreditScoreWritePlatformServiceImpl implements CS_CreditScoreWri
         this.repository.saveAndFlush(creditScoreToUpdate);
 
         return new CommandProcessingResultBuilder().withCommandId(command.commandId()).withEntityId(creditScoreToUpdate.getId()).build();
-    }
-
-    private void sendMessage(){
-        try{
-            SendMessage sms = new SendMessage();
-            sms.sendApprovalMessage();
-        }catch(Exception e){
-
-        }
     }
 }
