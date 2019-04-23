@@ -756,6 +756,12 @@
                     formulaResource: defineResource(apiVer+"/scoreformula/:formulaId", {}, {
                         getScoreFormula: {method: 'GET', params: {}},
                         editScoreFormula: {method: 'PUT', params:{}}
+                    }),
+                    approveMessageResource: defineResource(apiVer+"/message/approved", {}, {
+                        post: {method: 'POST', params:{}}
+                    }),
+                    rejectMessageResource: defineResource(apiVer+"/message/rejected", {}, {
+                        post: {method: 'POST', params:{}}
                     })
                 };
             }];
