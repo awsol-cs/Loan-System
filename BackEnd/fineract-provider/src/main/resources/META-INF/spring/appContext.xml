@@ -68,6 +68,7 @@
 										  org.cs.portfolio.loanaccount.*,
 										  org.cs.portfolio.creditscore.*,
 										  org.cs.portfolio.*,
+										  org.cs.message.*,
 										  org.apache.fineract.infrastructure.campaigns.**,
 										  org.mifosplatform.infrastructure.report.service.*">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller"
@@ -100,6 +101,7 @@
 	<jpa:repositories base-package="org.cs.commands.domain" />
 	<jpa:repositories base-package="org.cs.infrastructure.*.domain" />
 	<jpa:repositories base-package="org.cs.portfolio.*" />
+	<jpa:repositories base-package="org.cs.message.*" />
 	
 	
 	<import resource="infrastructure.xml" />

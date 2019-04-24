@@ -172,4 +172,22 @@ public class CS_CommandWrapperBuilder {
         this.href = "/creditBureauConfiguration/createCreditBureau/template";
         return this;
     }
+
+    public CS_CommandWrapperBuilder rejectLoanApplication(final Long loanId) {
+        this.actionName = "REJECT";
+        this.entityName = "LOAN_APP";
+        this.entityId = loanId;
+        this.loanId = loanId;
+        this.href = "/loans/" + loanId;
+        return this;
+    }
+
+    public CS_CommandWrapperBuilder approveLoanApplication(final Long loanId) {
+        this.actionName = "APPROVE";
+        this.entityName = "LOAN_APP";
+        this.entityId = loanId;
+        this.loanId = loanId;
+        this.href = "/loans/" + loanId;
+        return this;
+    }
 }
