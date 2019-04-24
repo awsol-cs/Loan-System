@@ -179,7 +179,15 @@
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 scope.getCreditBureau();
-				scope.negativeEvents = scope.creditBureau.negativeEvents;
+                var tempNegEvent = [];
+                if (typeof scope.currentSession.negEvent[scope.creditBureau.lastName] === 'undefined') {
+                    // undefined
+                } else {
+                    tempNegEvent = scope.currentSession.negEvent[scope.creditBureau.lastName];
+                }                
+                scope.currentSession.negEvent[scope.creditBureau.lastName] = scope.creditBureau.negativeEvents.concat(tempNegEvent);
+                scope.creditBureau.negativeEvents = scope.currentSession.negEvent[scope.creditBureau.lastName]
+                scope.negativeEvents = scope.creditBureau.negativeEvents;
 				scope.showNegativeEvent = false;
                 if (data.imagePresent) {
                     http({
