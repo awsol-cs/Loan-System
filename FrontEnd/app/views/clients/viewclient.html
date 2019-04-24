@@ -1255,6 +1255,7 @@
 						</div>
 					</div>
 				</uib-tab>
+				
 				<uib-tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables"
 						 select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}'>
 					<api-validate></api-validate>

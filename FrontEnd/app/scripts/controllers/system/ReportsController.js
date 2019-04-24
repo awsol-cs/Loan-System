@@ -22,6 +22,7 @@
             resourceFactory.reportsResource.getReport(function (data) {
                 scope.reports = data;
             });
+            
         }
     });
     mifosX.ng.application.controller('ReportsController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.ReportsController]).run(function ($log) {
