@@ -24,6 +24,9 @@
             scope.reportId = routeParams.reportId;
             scope.pentahoReportParameters = [];
             scope.type = "pie";
+            scope.hideCTRDetails = true;
+            scope.totalCTRAmount = 0;
+            scope.currentDate = new Date();
 
             scope.highlight = function (id) {
                 var i = document.getElementById(id);
@@ -307,6 +310,7 @@
                         case "Table":
                         case "SMS":
                             scope.hideTable = false;
+                            scope.hideCTRDetails = false;
                             scope.hidePentahoReport = true;
                             scope.hideChart = true;
                             scope.formData.reportSource = scope.reportName;
@@ -318,9 +322,19 @@
                                 for (var i in data.columnHeaders) {
                                     scope.row.push(data.columnHeaders[i].columnName);
                                 }
+
                                 scope.csvData.push(scope.row);
                                 for (var k in data.data) {
                                     scope.csvData.push(data.data[k].row);
+                                }
+
+                                if(scope.reportName == "CTR") {
+                                    var amountColumn = scope.findWithAttr(scope.reportData.columnHeaders, 'columnName', 'Amount');
+                                    for(var i in scope.reportData.data) {
+                                      scope.totalCTRAmount += parseFloat(scope.reportData.data[i].row[amountColumn],6);
+                                    }
+
+                                    scope.csvData.push(['T',scope.totalCTRAmount,scope.reportData.data.length]);
                                 }
                             });
                             break;
@@ -388,6 +402,15 @@
                     }
                 }
             };
+
+            scope.findWithAttr = function(array, attr, value) {
+                for(var i = 0; i < array.length; i += 1) {
+                    if(array[i][attr] === value) {
+                        return i;
+                    }
+                }
+            }
+
         }
     });
     mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.RunReportsController]).run(function ($log) {

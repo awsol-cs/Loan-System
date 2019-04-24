@@ -130,12 +130,59 @@
 	        </div>
 	    </div>
 
+
 	    <div data-ng-hide="hideTable">
 	        <div class="pull-right" ng-show="reportType == 'Table'">
 	            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="fa fa-file "></i>{{'label.button.exportcsv'
 	                | translate }}
 	            </button>
 	        </div>
+
+	        <div class="row" data-ng-hide="hideCTRDetails">
+	    	<div ng-show="reportName == 'CTR'">
+	    		<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="agency">Supervising Agency</label>
+					<div class="col-sm-6">
+						<p id="agency" name="agency">BSP</p>
+					</div>
+				</div>
+				<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="instiCode">Institution Code</label>
+					<div class="col-sm-6">
+						<p id="instiCode" name="instiCode">99999901001</p>
+					</div>
+				</div>
+				<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="currentDate">Report Date</label>
+					<div class="col-sm-6">
+						<p id="currentDate" name="currentDate">{{currentDate | date : "yyyy/MM/dd" }}</p>
+					</div>
+				</div>
+	    	</div>
+	    </div><br>
+	    <div class="row" data-ng-hide="hideCTRDetails">
+	    	<div ng-show="reportName == 'CTR'">
+	    		<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="type">Report Type</label>
+					<div class="col-sm-6">
+						<p id="type" name="type">{{reportName}}</p>
+					</div>
+				</div>
+				<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="formCode">Format Code</label>
+					<div class="col-sm-6">
+						<p id="formCode" name="formCode">1</p>
+					</div>
+				</div>
+				<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="submissionType">Submission Type</label>
+					<div class="col-sm-6">
+						<p id="submissionType" name="submissionType">A</p>
+					</div>
+				</div>
+	    	</div>
+	    </div>
+	    
 	        <div scroll>
 	            <table style="width: 1200px;white-space:nowrap" class="table table-bordered" data-anchor>
 	                <thead>
@@ -155,6 +202,24 @@
 	            </table>
 	        </div>
 	    </div>
+
+	    <div class="row" data-ng-hide="hideCTRDetails">
+	    	<div ng-show="reportName == 'CTR'">
+	    		<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="totalAmount">Total Amount</label>
+					<div class="col-sm-6">
+						<p id="totalAmount" name="totalAmount">{{totalCTRAmount | FormatNumber:decimalsChoice}}</p>
+					</div>
+				</div>
+				<div class="col-sm-3">
+			        <label class="control-label col-sm-6" for="totalCTR">Total CTR</label>
+					<div class="col-sm-6">
+						<p id="totalCTR" name="totalCTR">{{reportData.data.length}}</p>
+					</div>
+				</div>
+	    	</div>
+		</div>
+
 	    <div uib-collapse="hidePentahoReport" class="row alert-block span tab-content">
 	        <br>
 	        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>

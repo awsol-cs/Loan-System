@@ -64,6 +64,10 @@
                     scope.reports = scope.getReports(data);
                     scope.addReports();
                 });
+            } else if (routeParams.type == 'aml') {
+                resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'AML', parameterType: true, genericResultSet: false}, function (data) {
+                    scope.reports = scope.getReports(data);
+                });
             }
 
             scope.addReports = function(){

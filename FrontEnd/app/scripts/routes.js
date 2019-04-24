@@ -455,6 +455,7 @@
             .when('/reports', {
                 templateUrl: 'views/system/reports.html'
             })
+
             .when('/system/viewreport/:id', {
                 templateUrl: 'views/system/viewreport.html'
             })
