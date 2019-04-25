@@ -160,6 +160,7 @@
                 if (sessionManager.get(data)) {
                     scope.currentSession = sessionManager.get(data);
                     scope.start(scope.currentSession);
+                    scope.currentSession.prevDate = {};
                     if (scope.currentSession.user && scope.currentSession.user.userPermissions) {
                         $rootScope.setPermissions(scope.currentSession.user.userPermissions);
                     }
@@ -253,7 +254,7 @@
                     }
                 }
                 else if (route == 'rep') {
-                    var temp2 = ['/reports/all', '/reports/clients', '/reports/loans', '/reports/funds', '/reports/accounting', 'reports/savings'];
+                    var temp2 = ['/reports/all', '/reports/clients', '/reports/loans', '/reports/funds', '/reports/accounting', 'reports/savings', '/reports/aml'];
                     for (var i in temp2) {
                         if (temp2[i] == location.path()) {
                             return true;
@@ -387,7 +388,7 @@
 
             // string after '#' is compared with model
             var addrfound = false;
-            if(whereweare == '/reports/all' || whereweare == '/reports/clients' || whereweare == '/reports/loans' || whereweare == '/reports/savings' || whereweare == '/reports/funds' || whereweare == '/reports/accounting' || whereweare == '/xbrl'  )
+            if(whereweare == '/reports/all' || whereweare == '/reports/clients' || whereweare == '/reports/loans' || whereweare == '/reports/savings' || whereweare == '/reports/funds' || whereweare == '/reports/accounting' || whereweare == '/xbrl' || whereweare == '/reports/aml'  )
                      {
                         window.open(addresses[5]);
                         addrfound = true;

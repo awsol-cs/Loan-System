@@ -178,7 +178,9 @@
                 scope.client = data;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
-                scope.getCreditBureau();
+                getCreditBureau();
+                scope.negativeEvents = scope.creditBureau.negativeEvents;
+				scope.showNegativeEvent = false;
                 if (data.imagePresent) {
                     http({
                         method: 'GET',
@@ -199,6 +201,28 @@
                         }
                     }
                 });
+				
+				var getTimeStamp = function(){
+					var today = new Date().toLocaleString();
+					return today;
+				}
+				
+				scope.showNegaEvent = function (request) {
+					scope.reqCB = request;
+					scope.showNegativeEvent = true;
+					scope.currentSession.prevDate[scope.creditBureau.lastName] = getTimeStamp();
+					if (request == "ALL") {
+						scope.negativeEvents = scope.creditBureau.negativeEvents;
+					} else {
+						scope.negativeEvents = [];
+						angular.forEach(scope.creditBureau.negativeEvents, function(data){
+							if (data.provider == request) {
+								scope.negativeEvents.push(data);
+							}
+						});
+						
+					}
+				}
 
                 scope.navigateToSavingsOrDepositAccount = function (eventName, accountId, savingProductType) {
                     switch(eventName) {
@@ -933,13 +957,13 @@
                 };
             };
 
-            scope.getCreditBureau = function(){
+            var getCreditBureau = function(){
                 resourceFactory.creditBureauSummary.get( function (data) {
                     scope.creditBureauName = data[0].creditBureauName;
                 });
                 if(!scope.creditBureau){
                     scope.creditBureau = {};
-                    scope.creditBureau = creditBureauServices.createCreditBureauData();
+                    scope.creditBureau = creditBureauServices.createCreditBureauData(scope.client.lastname, scope.client.firstname);
                 }
                 scope.creditBureau.firstName = scope.client.firstname;
                 scope.creditBureau.middleName = !scope.client.middlename ? "" : scope.client.middlename;

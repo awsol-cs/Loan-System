@@ -1137,7 +1137,34 @@
 				  </div>
 				</uib-tab>
 				<uib-tab heading="{{'label.heading.creditbureau' | translate}}" select="getCreditBureau()" has-permission='READ_DOCUMENT'>
-					<h1 class="page-header">{{creditBureauName}}</h1>
+				
+					<div class="row">
+						<div class="col-sm-3">
+							<span uib-dropdown ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
+									<a uib-dropdown-toggle class="btn btn-primary">
+										Request CB data
+										<span class="caret"></span>
+									</a>
+                                    <ul class="dropdown dropdown-menu dropdown-menu-right">
+										<li>
+											<a data-ng-click="showNegaEvent('ALL')">All</a>
+										</li>
+										<li>
+											<a data-ng-click="showNegaEvent('CIBI')">CIBI</a>
+										</li>
+										<li>
+											<a data-ng-click="showNegaEvent('CRIF')">CRIF</a>
+										</li>
+										<li>
+											<a data-ng-click="showNegaEvent('CIC')">CIC</a>
+										</li>
+									</ul>
+								</span>
+							<p> previous request date: {{currentSession.prevDate[creditBureau.lastName]}}</p>
+						</div>
+					</div>
+					
+				
 					<br>
 					<div class="container-fluid">
 						<div class="row">
@@ -1187,10 +1214,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<h3 class="page-header">{{'label.heading.negativeevent' | translate}}</h3>
+						<div class="row" ng-if="showNegativeEvent">
+							<h3 class="page-header">{{reqCB}} {{'label.heading.negativeevent' | translate}}</h3>
 							<ul class="list-group">
-								<li class="list-group-item" ng-repeat="negativeEvent in creditBureau.negativeEvents">
+								<p ng-if="negativeEvents == ''"> No Negative Event Record<p>
+								<li class="list-group-item" ng-repeat="negativeEvent in negativeEvents">
 									<div class="row">
 				                   		<label class="control-label col-sm-2" for="provider">{{ 'label.input.provider' | translate }}</label>
 										<div class="col-sm-2">
@@ -1227,6 +1255,7 @@
 						</div>
 					</div>
 				</uib-tab>
+				
 				<uib-tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables"
 						 select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}'>
 					<api-validate></api-validate>
