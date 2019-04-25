@@ -178,8 +178,8 @@
                 scope.client = data;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
-                scope.getCreditBureau();
-				scope.negativeEvents = scope.creditBureau.negativeEvents;
+                getCreditBureau();
+                scope.negativeEvents = scope.creditBureau.negativeEvents;
 				scope.showNegativeEvent = false;
                 if (data.imagePresent) {
                     http({
@@ -957,13 +957,13 @@
                 };
             };
 
-            scope.getCreditBureau = function(){
+            var getCreditBureau = function(){
                 resourceFactory.creditBureauSummary.get( function (data) {
                     scope.creditBureauName = data[0].creditBureauName;
                 });
                 if(!scope.creditBureau){
                     scope.creditBureau = {};
-                    scope.creditBureau = creditBureauServices.createCreditBureauData();
+                    scope.creditBureau = creditBureauServices.createCreditBureauData(scope.client.lastname, scope.client.firstname);
                 }
                 scope.creditBureau.firstName = scope.client.firstname;
                 scope.creditBureau.middleName = !scope.client.middlename ? "" : scope.client.middlename;
