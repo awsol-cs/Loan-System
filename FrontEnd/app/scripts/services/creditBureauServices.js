@@ -35,9 +35,7 @@
 
             var tempNegEvent = [];
             var fullName = lastname + '.' + firstname;
-            if (typeof negEvents[fullName] === 'undefined') {
-                // undefined
-            } else {
+            if (typeof negEvents[fullName] !== 'undefined') {
                 tempNegEvent = negEvents[fullName];
             }                
             negEvents[fullName] = data.negativeEvents.concat(tempNegEvent);
