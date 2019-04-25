@@ -323,19 +323,29 @@
                                     scope.row.push(data.columnHeaders[i].columnName);
                                 }
 
-                                scope.csvData.push(scope.row);
-                                for (var k in data.data) {
-                                    scope.csvData.push(data.data[k].row);
-                                }
-
                                 if(scope.reportName == "CTR") {
                                     var amountColumn = scope.findWithAttr(scope.reportData.columnHeaders, 'columnName', 'Amount');
                                     for(var i in scope.reportData.data) {
                                       scope.totalCTRAmount += parseFloat(scope.reportData.data[i].row[amountColumn],6);
                                     }
 
+                                    //header data
+                                    scope.csvData.push(['H', '1', '99999901001', dateFilter(scope.currentDate, 'yyyy-MM-dd'), scope.reportName, '1', 'A']);
+                                    
+                                    //detail record
+                                    for (var k in data.data) {
+                                        scope.csvData.push(["D"].concat(data.data[k].row));                          
+                                    }
+
+                                    //trailer record
                                     scope.csvData.push(['T',scope.totalCTRAmount,scope.reportData.data.length]);
+                                } else {
+                                    scope.csvData.push(scope.row);
+                                    for (var k in data.data) {
+                                        scope.csvData.push(data.data[k].row);                      
+                                    }
                                 }
+                                
                             });
                             break;
 
