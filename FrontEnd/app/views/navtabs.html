@@ -1,0 +1,10 @@
+<div ng-controller="NavTabsController">
+    <ul class="nav nav-tabs">
+        <li class="" ng-class="{active:dashboardClass}"><a data-toggle="tab" href="#/richdashboard">{{'label.heading.dashboard' | translate}}</a></li>
+        <li class="" ng-class="{active:clientClass}"><a data-toggle="tab" href="#/clients">{{'label.anchor.client' | translate}}</a></li>
+        <li class="" ng-class="{active:loanProductClass}"><a data-toggle="tab" href="#/loanproducts">{{'label.heading.loanproduct' | translate}}</a></li>
+        <li class="" ng-class="{active:reportClass}"><a data-toggle="tab" href="#/reports">{{'label.heading.reports' | translate}}</a></li>
+        <li class="" ng-class="{active:otherClass}" ng-show="show"><a data-toggle="tab" href="{{otherHref}}">{{otherName}}</a></li>
+    </ul>   
+    <!-- <div class="" ng-view></div> -->
+</div>
