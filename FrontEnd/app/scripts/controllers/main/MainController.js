@@ -161,7 +161,6 @@
                     scope.currentSession = sessionManager.get(data);
                     scope.start(scope.currentSession);
                     scope.currentSession.prevDate = {};
-                    scope.currentSession.negEvent = {};
                     if (scope.currentSession.user && scope.currentSession.user.userPermissions) {
                         $rootScope.setPermissions(scope.currentSession.user.userPermissions);
                     }

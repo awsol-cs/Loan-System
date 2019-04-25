@@ -2,7 +2,8 @@
     mifosX.services = _.extend(module, {
 
         creditBureauServices: function () {
-          var createCreditBureauData = function(){
+          var negEvents = {};
+          var createCreditBureauData = function(lastname, firstname){
             var data = {};
             data.firstName = "";
             data.middleName = "";
@@ -31,6 +32,17 @@
               negativeEvent.statusdate = date;
               data.negativeEvents.push(negativeEvent);
             }
+
+            var tempNegEvent = [];
+            var fullName = lastname + '.' + firstname;
+            if (typeof negEvents[fullName] === 'undefined') {
+                // undefined
+            } else {
+                tempNegEvent = negEvents[fullName];
+            }                
+            negEvents[fullName] = data.negativeEvents.concat(tempNegEvent);
+            data.negativeEvents = negEvents[fullName]
+
             return data;
           }
 		  
