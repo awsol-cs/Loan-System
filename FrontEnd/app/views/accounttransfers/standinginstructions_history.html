@@ -1,10 +1,10 @@
 <div class="content-container" ng-controller="StandingInstructionsHistoryController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li class="active">{{'label.anchor.standinginstruction.history' | translate}}</li>
-    </ul>
     <api-validate></api-validate>
     <div class="card">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li class="active">{{'label.anchor.standinginstruction.history' | translate}}</li>
+        </ul>
         <div class="content">
             <div class="form-inline" ng-show="isCollapsed">
                 <div class="form-group">

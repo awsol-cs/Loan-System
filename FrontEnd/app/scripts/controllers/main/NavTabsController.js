@@ -28,7 +28,7 @@
                     scope.otherClass = false;
                 }else if(location.path().includes("client")
                     || location.path().includes("familymember")
-                    || location.path().includes("creditscoring")){
+                    || location.path().includes("creditscore")){
                     scope.dashboardClass = false;
                     scope.clientClass = true;
                     scope.loanProductClass = false;

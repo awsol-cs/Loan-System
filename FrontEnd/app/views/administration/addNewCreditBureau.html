@@ -1,11 +1,4 @@
 <div ng-controller="AddNewCreditBureauController">
-    <div>
-        <ul class="breadcrumb">
-            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
-            <li class="active">{{'label.anchor.addnewcb' | translate}}</li>
-        </ul>
-    </div>
 
 
 
@@ -19,6 +12,13 @@
             <legend> {{ 'label.anchor.addnewcb' | translate }}</legend>
 
             <div class="card">
+                <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+                        <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+                        <li class="active">{{'label.anchor.addnewcb' | translate}}</li>
+                    </ul>
+                </div>
 
                 <form name="addNewCreditBureauConfiguration" novalidate="" class="form-horizontal well" ng-submit="submit()">
 

@@ -1,5 +1,10 @@
-<div class="content-container" ng-controller="ScoreCardController">
+<div class="content-container" ng-controller="CreditScoreController">
 	<div class="card">
+		<ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{'label.anchor.editclient' | translate}}</li>
+        </ul>
         <div class="content">
             <form class="form-horizontal" novalidate="" name="scorecard">
                 <fieldset>
