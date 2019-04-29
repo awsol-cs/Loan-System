@@ -1,17 +1,17 @@
 <div class="content-container" ng-controller="CreateFixedDepositAccountController">
-    <ul class="breadcrumb">
-        <li ng-show="centerEntity">
-            <a href="#/viewcenter/{{groupId}}">{{groupName}}</a>
-        </li>
-        <li ng-show="groupName&&!centerEntity">
-            <a href="#/viewgroup/{{groupId}}">{{groupName}}</a>
-        </li>
-        <li ng-show="clientName">
-            <a href="#/viewclient/{{clientId}}">{{clientName}}</a>
-        </li>
-        <li class="active">{{'label.anchor.recurringdepositapplication' | translate}}</li>
-    </ul>
     <form name="newsavingccountform" novalidate="" class="well form-inline card" rc-submit="submit()">
+        <ul class="breadcrumb">
+            <li ng-show="centerEntity">
+                <a href="#/viewcenter/{{groupId}}">{{groupName}}</a>
+            </li>
+            <li ng-show="groupName&&!centerEntity">
+                <a href="#/viewgroup/{{groupId}}">{{groupName}}</a>
+            </li>
+            <li ng-show="clientName">
+                <a href="#/viewclient/{{clientId}}">{{clientName}}</a>
+            </li>
+            <li class="active">{{'label.anchor.recurringdepositapplication' | translate}}</li>
+        </ul>
         <api-validate></api-validate>
         <fieldset>
             <h3>{{ 'label.heading.details' | translate }}</h3>

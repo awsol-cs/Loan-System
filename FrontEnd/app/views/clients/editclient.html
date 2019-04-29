@@ -1,12 +1,12 @@
 <form name="editclientform" novalidate="" class="content-container form-horizontal" ng-controller="EditClientController"
       rc-submit="submit()">
+    <api-validate></api-validate>
+    <div class="card well">
         <ul class="breadcrumb">
             <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
             <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{'label.anchor.editclient' | translate}}</li>
         </ul>
-    <api-validate></api-validate>
-    <div class="card well">
 	    <fieldset>
 	        <legend>{{'label.heading.editclient' | translate}}</legend>
 

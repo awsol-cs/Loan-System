@@ -1,11 +1,11 @@
 <div class="content-container" ng-controller="EditTemplateController">
+    <api-validate></api-validate>
+    <div class="card well">
         <ul class="breadcrumb">
             <li><a href="#/templates">{{'label.anchor.templates' | translate}}</a></li>
             <li><a href="#/viewtemplate/{{templateId}}">{{template.template.name}}</a></li>
             <li class="active">{{'label.anchor.edittemplate' | translate}}</li>
         </ul>
-    <api-validate></api-validate>
-    <div class="card">
         <div class="content">
             <form class="">
                 <fieldset>

@@ -165,9 +165,9 @@
                 }else if(location.path().includes("sheet")){
                     scope.otherName = "Collection";
                 }else if(location.path().includes("profile")){
-                    scope.otherName = "profile";
+                    scope.otherName = "Profile";
                 }else if(location.path().includes("help")){
-                    scope.otherName = "help";
+                    scope.otherName = "Help";
                 }else if(location.path().includes("shareaccount")){
                     scope.otherName = "Share Account";
                 }else if(location.path().includes("address")){
@@ -177,7 +177,7 @@
                 }else if(location.path().includes("notification")){
                     scope.otherName = "Notification";
                 }else if(location.path().includes("adhocquery")){
-                    scope.otherName = "adhocquery";
+                    scope.otherName = "Ad Hoc Query";
                 }
             }
         }

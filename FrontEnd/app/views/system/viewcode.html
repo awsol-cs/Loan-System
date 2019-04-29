@@ -1,11 +1,11 @@
 <div class="content-container" ng-controller="ViewCodeController">
+    <api-validate></api-validate>
+    <div class="card well">
     <ul class="breadcrumb">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li><a href="#/codes">{{'label.anchor.managecodes' | translate}}</a></li>
         <li class="active">{{code.name | translate}}</li>
     </ul>
-    <api-validate></api-validate>
-    <div class="card">
         <div class="content">
             <div class="toolbar">
                 <h4>{{code.name | translate}}</h4>

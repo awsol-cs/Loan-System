@@ -1,11 +1,4 @@
 <div class="content-container" ng-controller="ViewSavingsTransactionController">
-    <div class="paddedbottom10">
-        <ul class="breadcrumb">
-            <li><a href="#/viewsavingaccount/{{transaction.accountId}}">{{'label.anchor.viewsavingaccount' |
-                translate}}</a></li>
-            <li class="active">{{ 'label.anchor.viewtransaction' | translate}}</li>
-        </ul>
-    </div>
 
     <script type="text/ng-template" id="undotransaction.html">
         <div class="modal-header silver">
@@ -19,6 +12,13 @@
         </div>
     </script>
 <div class="card well">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/viewsavingaccount/{{transaction.accountId}}">{{'label.anchor.viewsavingaccount' |
+                translate}}</a></li>
+            <li class="active">{{ 'label.anchor.viewtransaction' | translate}}</li>
+        </ul>
+    </div>
     <api-validate></api-validate>
     <br>
     <h3>{{ 'label.heading.transactiondetails' | translate}}</h3>

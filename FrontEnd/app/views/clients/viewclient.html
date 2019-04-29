@@ -1,8 +1,4 @@
 <div class="content-container" ng-controller="ViewClientController">
-	<ul class="breadcrumb">
-		<li>{{client.officeName}}</li>
-		<li>{{client.staffName}}</li>
-	</ul>
 	<script type="text/ng-template" id="deleteClient.html">
 		<div class="modal-header silver">
 			<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -162,7 +158,11 @@
 			</span>
 		</div>
 	</script>
-	<div class="card">
+	<div class="card well">
+	<ul class="breadcrumb">
+        <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewclient' | translate}}</a></li>
+	</ul>
 		<div class="content">
 			<div class="toolbar">
 				<h3 class="client-title">
