@@ -167,6 +167,7 @@ rat {
 
     '**/src/main/java/org/cs/**',
     '**/src/main/java/org/mifosplatform/**',
+    '**/src/main/pentahoReports/**',
     ]
 }
 
