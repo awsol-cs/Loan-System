@@ -1,11 +1,4 @@
 <div  ng-controller="ViewCreditBureauSummaryController">
-    <div >
-        <ul class="breadcrumb">
-            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
-            <li class="active">{{'label.anchor.viewCreditBureauSummary' | translate}}</li>
-        </ul>
-    </div>
     <fieldset>
 
         <legend>{{ 'label.anchor.cbconfigured' | translate}}</legend>
@@ -15,7 +8,14 @@
         <a href="#/externalservicesCB/CreditBureau/configurecb" class="btn btn-primary pull-right" ><i class="icon-plus icon-white"></i>{{'label.button.configcb' | translate}}</a>
 
 
-        <div class="card">
+        <div class="card well">
+            <div >
+                <ul class="breadcrumb">
+                    <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+                    <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+                    <li class="active">{{'label.anchor.viewCreditBureauSummary' | translate}}</li>
+                </ul>
+            </div>
             <table class="table">
                 <thead>
                 <tr class="graybg">
@@ -69,7 +69,7 @@
         <legend>{{ 'label.anchor.cblpmapping' | translate}}</legend>
 
         <a href="#/externalservicesCB/CreditBureau/mapcblp" class="btn btn-primary pull-right" ><i class="icon-plus icon-white"></i>{{'label.button.mapcblp' | translate}}</a>
-        <div class="card">
+        <div class="card well">
             <table class="table">
                 <thead>
                 <tr class="graybg">

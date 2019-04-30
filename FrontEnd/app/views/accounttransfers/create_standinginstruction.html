@@ -1,10 +1,11 @@
 <div class="content-container" ng-controller="CreateStandingInstructionController">
+        
+    <api-validate></api-validate>
+    <div class="card well">
         <ul class="breadcrumb">
             <li><a href="#/viewclient/{{standinginstruction.fromClient.id}}">{{standinginstruction.fromClient.displayName}}</a></li>
             <li class="active">{{'label.anchor.standinginstruction' | translate}}</li>
         </ul>
-    <api-validate></api-validate>
-    <div class="card">
         <div class="content">
                 <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
                     <fieldset>

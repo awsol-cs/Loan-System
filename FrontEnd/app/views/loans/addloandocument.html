@@ -1,10 +1,10 @@
 <div class="content-container" ng-controller="LoanDocumentController">
+    <api-validate></api-validate>
+    <div class="card well">
     <ul class="breadcrumb">
         <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
         <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
-    </ul>
-    <api-validate></api-validate>
-    <div class="card">
+    </ul>     
         <div class="content">
         <div class="toolbar">
             <h4>{{'label.heading.uploaddocument' | translate}}</h4>

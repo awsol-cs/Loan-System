@@ -1,11 +1,11 @@
 <div class="content-container" ng-controller="EditCenterController">
-    <ul class="breadcrumb">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
-        <li><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate }}</a></li>
-        <li class="active">{{'label.anchor.editcenter' | translate}}</li>
-    </ul>
     <api-validate></api-validate>
-    <div class="card">
+    <div class="card well">
+        <ul class="breadcrumb">
+            <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+            <li><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate }}</a></li>
+            <li class="active">{{'label.anchor.editcenter' | translate}}</li>
+        </ul>
         <div class="content">
             <div class="toolbar">
                 <h4>{{'label.heading.editcenter' | translate}}</h4>

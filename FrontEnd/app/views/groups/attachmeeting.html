@@ -1,4 +1,6 @@
 <div class="content-container" ng-controller="AttachMeetingController">
+    <api-validate></api-validate>
+    <div class="card well">
     <ul class="breadcrumb" ng-show="entityType=='groups'">
         <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
         <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
@@ -9,8 +11,6 @@
         <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li class="active">{{'label.anchor.attachmeeting' | translate }}</li>
     </ul>
-    <api-validate></api-validate>
-    <div class="card">
         <div class="content">
             <form ng-submit="submit()">
                 <div class="form-group">

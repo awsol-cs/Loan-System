@@ -1,8 +1,4 @@
 <div class="content-container" ng-controller="ViewHookController">
-    <ul class="breadcrumb">
-        <li><a href="#/hooks">{{'label.anchor.managehooks' | translate}}</a></li>
-        <li class="active">{{hook.displayName}}</li>
-    </ul>
 
     <script type="text/ng-template" id="deletehook.html">
         <div class="modal-header silver">
@@ -15,7 +11,11 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
+    <div class="card well">
+    <ul class="breadcrumb">
+        <li><a href="#/hooks">{{'label.anchor.managehooks' | translate}}</a></li>
+        <li class="active">{{hook.displayName}}</li>
+    </ul>
         <div class="content">
             <div class="toolbar">
                 <h4>{{hook.displayName}}</h4>

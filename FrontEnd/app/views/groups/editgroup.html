@@ -1,11 +1,11 @@
 <div class="content-container" ng-controller="EditGroupController">
 <div class="content-container" data-ng-controller="MemberManageController">
-    <ul class="breadcrumb">
-        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
-        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
-    </ul>
     <wizard current-step="step" on-finish="submitDatatable()">
         <div class="card well">
+        <ul class="breadcrumb">
+            <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+            <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        </ul>
          <wz-step wz-title="{{'label.heading.details' | translate}}">
                 <div ng-show="managecode == 1">
                
