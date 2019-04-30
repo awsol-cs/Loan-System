@@ -69,8 +69,8 @@
 										  org.cs.portfolio.creditscore.*,
 										  org.cs.portfolio.*,
 										  org.cs.message.*,
-										  org.apache.fineract.infrastructure.campaigns.**,
-										  org.mifosplatform.infrastructure.report.service.*">
+										  org.apache.fineract.infrastructure.campaigns.**
+										  org.mifosplatform.infrastructure.report.service">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller"
 			type="annotation" />
 
