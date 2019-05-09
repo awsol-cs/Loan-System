@@ -540,7 +540,7 @@
 	   		<div class="form-group info" style="width: 90%">
 	   			<p style="margin-left: 1%;font-size:15px;">The issuer hereby undertakes to file periodic reports as required by the Commission.</p>
 	   			<br>
-	   			<p style="margin-left: 1%;font-size:15px;">{{pagraph_1}}<input style="width: 100px;"type="text" placeholder="SEC"></p>
+	   			<p style="margin-left: 1%;font-size:15px;">{{pagraph_1}}<input style="width: 100px;"type="text" ng-model="UnsignedOfficerLoc"></p>
 				<br><br>
 		   		<div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2" >
@@ -562,7 +562,7 @@
 	    	  	<strong style="text-align: left;">REPUBLIC OF THE PHILIPPINES</strong><br>
 	    	  	<strong>MAKATI CITY</strong><br><br>
 
-		    	<p style="text-indent: 5%;">We _________________________________, President and ________________________, Treasurer of the above exempt issuer, do solemnly swear that all matters set forth in the information statement are true and correct to our own knowledge. </p>
+		    	<p style="text-indent: 5%;">We <input type="text" ng-model="PresidentName" />, President and <input type="text" ng-model="TreasureName" />, Treasurer of the above exempt issuer, do solemnly swear that all matters set forth in the information statement are true and correct to our own knowledge. </p>
 
 	    	  	<p style="text-indent: 5%;">SUBSCRIBED AND SWORN to before me this {{AISDay}} day of {{AISMonth}}, {{AISYear}}, the affiants exhibiting to me their valid identification documents as follows:</p>
 
@@ -628,6 +628,10 @@
 					</div>
 				</div>
 	    	</div>
+	    
+	    <br><br>
+	    <button type="button" class="btn btn-primary" ng-click="generateAISForm();"><i class="fa fa-play"></i>&nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</button>
+
 	    </div>
 	</div>
 </div>
