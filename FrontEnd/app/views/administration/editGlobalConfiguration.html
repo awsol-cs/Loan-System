@@ -1,9 +1,9 @@
 <div class="content-container" ng-controller="EditConfigurationController">
+    <form name="editconfigurationform" novalidate="" class="card form-horizontal well" ng-submit="submit()">
         <ul class="breadcrumb">
             <li><a href="#/global">{{'label.anchor.globalconfigurations' | translate}}</a></li>
             <li class="active">{{'label.anchor.editconfiguration' | translate}}</li>
         </ul>
-    <form name="editconfigurationform" novalidate="" class="card form-horizontal well" ng-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{ 'label.anchor.editconfiguration' | translate }}</legend>

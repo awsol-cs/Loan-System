@@ -1,10 +1,10 @@
-<div class="content-container" ng-controller="CreateSavingProductController">
+<div class="content-container card well" ng-controller="CreateSavingProductController">
     <ul class="breadcrumb">
         <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
         <li><a href="#/savingproducts">{{'label.anchor.savingproducts' | translate}}</a></li>
         <li class="active">{{'label.anchor.createsavingproduct' | translate}}</li>
     </ul>
-    <wizard current-step="step" on-finish='submit()' class="card well">
+    <wizard current-step="step" on-finish='submit()' class="">
         <wz-step wz-title="{{ 'label.heading.details' | translate }}">
             <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-horizontal">
                 <api-validate></api-validate>

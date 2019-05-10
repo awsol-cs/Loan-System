@@ -1,4 +1,4 @@
-<div class="content-container" ng-controller="CreateShareAccountController">
+<div class="content-container card well" ng-controller="CreateShareAccountController">
     <ul class="breadcrumb">
         <li ng-show="groupName">
             <a href="#/viewgroup/{{groupId}}">
@@ -12,7 +12,7 @@
         </li>
         <li class="active">{{'label.anchor.sharesapplication' | translate}}</li>
     </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
+    <wizard current-step="step" on-finish="submit()" class="">
         <wz-step wz-title="{{'label.heading.details'| translate}}">
             <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-inline">
                 <fieldset>

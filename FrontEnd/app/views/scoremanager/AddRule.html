@@ -1,5 +1,10 @@
 <div class="content-container" ng-controller="AddRuleController">
-	<div>
+
+    <fieldset>
+        <legend> {{'label.heading.addrule' | translate}}</legend>
+
+        <div class="card well">
+    <div>
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
             <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
@@ -7,11 +12,6 @@
             <li class="active">{{'label.anchor.addrule' | translate}}</li>
         </ul>
     </div>
-
-    <fieldset>
-        <legend> {{'label.heading.addrule' | translate}}</legend>
-
-        <div class="card">
 
             <form name="addRule" novalidate="" class="form-horizontal well">
 

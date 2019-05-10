@@ -1,9 +1,4 @@
 <div class="content-container" data-ng-controller="MemberManageController">
-    <ul class="breadcrumb">
-        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
-        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
-        <li class="active">{{'label.anchor.managemembers' | translate}}</li>
-    </ul>
 
     <script type="text/ng-template" id="delete.html">
             <div class="modal-header silver">
@@ -17,7 +12,12 @@
             </div>
     </script>
     <api-validate></api-validate>
-    <div class="card">
+    <div class="card well">
+    <ul class="breadcrumb">
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managemembers' | translate}}</li>
+    </ul>
         <div class="content">
             <div class="toolbar">
                 <h4>{{'label.heading.associatenewmembers' | translate}}</h4>

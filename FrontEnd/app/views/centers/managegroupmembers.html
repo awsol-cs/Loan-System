@@ -1,9 +1,4 @@
 <div class="content-container" data-ng-controller="ManageGroupMembersController">
-    <ul class="breadcrumb">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
-        <li><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
-        <li class="active">{{'label.anchor.managegroups' | translate}}</li>
-    </ul>
     <api-validate></api-validate>
     <script type="text/ng-template" id="delete.html">
             <div class="modal-header silver">
@@ -16,7 +11,12 @@
                 <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
             </div>
     </script>
-    <div class="card">
+    <div class="card well">
+        <ul class="breadcrumb">
+            <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+            <li><a href="#/viewcenter/{{centerId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+            <li class="active">{{'label.anchor.managegroups' | translate}}</li>
+        </ul>
     	<div class="content">
     		    <form name="managegroupmembers" class="form-horizontal">
     			    <fieldset>

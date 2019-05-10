@@ -1,9 +1,9 @@
 <div class="content-container" ng-controller="ViewTwoFactorConfigController">
-        <ul class="breadcrumb">
-            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li class="active">{{'label.anchor.viewtwofactorconfig' | translate}}</li>
-        </ul>
-<div class="card">
+<div class="card well">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewtwofactorconfig' | translate}}</li>
+    </ul>
     <div class="content" ng-hide="disabledTwoFactor">
         <uib-tabset tabset-name="configTabset">
             <uib-tab heading="{{'label.heading.' + tabName | translate}}" ng-repeat="(tabName, configs) in tabs">

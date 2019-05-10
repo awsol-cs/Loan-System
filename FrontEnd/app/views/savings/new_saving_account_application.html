@@ -1,4 +1,4 @@
-<div class="content-container" ng-controller="CreateSavingAccountController">
+<div class="content-container card well" ng-controller="CreateSavingAccountController">
     <ul class="breadcrumb">
         <li ng-show="centerEntity">
             <a href="#/viewcenter/{{groupId}}">
@@ -17,7 +17,7 @@
         </li>
         <li class="active">{{'label.anchor.savingapplication' | translate}}</li>
     </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
+    <wizard current-step="step" on-finish="submit()" class="">
         <wz-step wz-title="{{'label.heading.details' | translate}}">
             <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-horizontal">
                 <fieldset>

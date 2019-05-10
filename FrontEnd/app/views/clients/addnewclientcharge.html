@@ -1,11 +1,11 @@
 <div class="content-container" ng-controller="AddNewClientChargeController">
+
+<form name="clientchargeform" novalidate="" class="card form-horizontal"
+      rc-submit="submit()">
     <ul class="breadcrumb">
         <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
         <li class="active">{{ 'label.button.addcharge' | translate }}</li>
     </ul>
-
-<form name="clientchargeform" novalidate="" class="card form-horizontal"
-      rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset class="content">
         <div class="form-group">

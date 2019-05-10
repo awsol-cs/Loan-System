@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ScoreCardController: function (scope, routeParams, resourceFactory, location) {
+        CreditScoreController: function (scope, routeParams, resourceFactory, location) {
             scope.creditScoreData = {};
             scope.rules = [];
             scope.formulas = [];
@@ -28,13 +28,10 @@
                         return formula.status != "Disabled";
                     });
                 });
-                resourceFactory.creditScoreResource.getCreditScore({clientId: routeParams.clientId}, function (data) {
+                resourceFactory.creditScoreResource.getCreditScore({clientId: scope.clientId}, function (data) {
                     scope.creditScoreData = data;
                     scope.originalCreditScore = data.creditscore;
                     scope.creditScore = scope.originalCreditScore;
-                    console.log(scope.creditScoreData);
-                    console.log(scope.originalCreditScore);
-
                 });
             };
 
@@ -107,7 +104,7 @@
             scope.init();
         }
     });
-    mifosX.ng.application.controller('ScoreCardController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ScoreCardController]).run(function ($log) {
-        $log.info("ScoreCardController initialized");
+    mifosX.ng.application.controller('CreditScoreController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.CreditScoreController]).run(function ($log) {
+        $log.info("CreditScoreController initialized");
     });
 }(mifosX.controllers || {}));

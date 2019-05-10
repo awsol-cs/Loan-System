@@ -1,11 +1,11 @@
 <div class="content-container" ng-controller="CreateClientController">
-    <ul class="breadcrumb">
-        <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
-        <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
-        <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
-    </ul>
     <form name="clientdocumentform" novalidate="" class="card form-horizontal well" ng-controller="ClientDocumentController"
     rc-submit="submit()">
+        <ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
+        </ul>
     <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
