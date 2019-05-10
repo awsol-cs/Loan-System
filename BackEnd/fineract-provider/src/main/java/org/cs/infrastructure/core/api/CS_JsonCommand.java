@@ -42,6 +42,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.fineract.infrastructure.core.api.JsonCommand;
+
 /**
  * Immutable representation of a command.
  * 
@@ -633,4 +635,10 @@ public final class CS_JsonCommand {
         this.fromApiJsonHelper.checkForUnsupportedParameters(typeOfMap, json, requestDataParameters);
     }
 
+    public JsonCommand thisToJsonCommand(){
+        return new JsonCommand(this.commandId, this.jsonCommand, this.parsedCommand, this.fromApiJsonHelper,
+            this.entityName, this.resourceId, this.subresourceId, this.groupId, this.clientId,
+            this.loanId, this.savingsId, this.transactionId, this.url, this.productId, this.creditBureauId,
+            this.organisationCreditBureauId);
+    }
 }
