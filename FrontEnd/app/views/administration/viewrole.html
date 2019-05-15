@@ -1,19 +1,4 @@
 <div class="content-container" data-ng-controller="ViewRoleController">
-    <div ng-show="isDisabled">
-        <ul class="breadcrumb">
-            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
-            <li class="active">{{'label.anchor.viewrole' | translate}}</li>
-        </ul>
-    </div>
-    <div ng-hide="isDisabled">
-        <ul class="breadcrumb">		
-			<li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
-            <li class="active">{{ role.name}}</li>
-            <li class="active">{{'label.anchor.editrole' | translate}}</li>
-        </ul>
-    </div>
     <script type="text/ng-template" id="deleterole.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.deleterole' | translate}}</h3>
@@ -49,6 +34,21 @@
     </script>
     <api-validate></api-validate>
     <form name="editroleform" class="card well" ng-submit="submit()">
+        <div ng-show="isDisabled">
+            <ul class="breadcrumb">
+                <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+                <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
+                <li class="active">{{'label.anchor.viewrole' | translate}}</li>
+            </ul>
+        </div>
+        <div ng-hide="isDisabled">
+            <ul class="breadcrumb">     
+                <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+                <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
+                <li class="active">{{ role.name}}</li>
+                <li class="active">{{'label.anchor.editrole' | translate}}</li>
+            </ul>
+        </div>
         <div>
             <table width="100%">
                 <tr>

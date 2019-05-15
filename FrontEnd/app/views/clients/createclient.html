@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<div class="content-container" ng-controller="CreateClientController">
+<div class="content-container card well" ng-controller="CreateClientController">
    <ul class="breadcrumb">
       <li ng-if="!groupid"><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
       <li ng-if="groupid"><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
       <li ng-if="groupid"><a href="#/viewgroup/{{groupid}}">{{'label.anchor.viewgroup' | translate}}</a></li>
       <li class="active">{{'label.anchor.createclient' | translate}}</li>
    </ul>
-   <wizard current-step="step" class="card well">
+   <wizard current-step="step" class="">
     <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.createclient' | translate}}">
         <div class="card-content">
             <form name="createclientform" novalidate="" class="form-horizontal" rc-submit="submit()">

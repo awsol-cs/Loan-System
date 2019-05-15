@@ -1,10 +1,10 @@
 <div class="content-container" ng-controller="EditShareAccountController">
+<api-validate></api-validate>
+<div class="card well">
     <ul class="breadcrumb">
         <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a></li>
         <li class="active">{{'label.anchor.sharesapplication' | translate}}</li>
     </ul>
-<api-validate></api-validate>
-<div class="card">
     <div class="content">
         <div class="toolbar">
             <h4>{{ 'label.heading.sharesapplication' | translate }}</h4>

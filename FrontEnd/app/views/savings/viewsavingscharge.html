@@ -1,8 +1,4 @@
 <div class="content-container" ng-controller="ViewSavingChargeController">
-        <ul class="breadcrumb">
-            <li><a href="#/viewsavingaccount/{{savingId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
-            <li class="active">{{ 'label.anchor.viewcharge' | translate}}({{charge.name}})</li>
-        </ul>
     <script type="text/ng-template" id="deletecharge.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -14,7 +10,11 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
+    <div class="card well">
+        <ul class="breadcrumb">
+            <li><a href="#/viewsavingaccount/{{savingId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.viewcharge' | translate}}({{charge.name}})</li>
+        </ul>
         <div class="content">
         <form class="form-horizontal">
             <div class="pull-right">

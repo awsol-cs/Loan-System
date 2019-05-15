@@ -1,11 +1,11 @@
 <div class="content-container" ng-controller="AddNewFixedDepositChargeController">
-	<ul class="breadcrumb">
-		<li><a href="#/viewfixeddepositaccount/{{cancelRoute}}">{{'label.anchor.viewfixeddepositaccount' |
-                translate}}</a></li>
-	    <li class="active">{{ 'label.anchor.add.fixed.deposit.charges' | translate }}</li>
-	</ul>
 	<div class="content-container">
-		<div class="card">
+		<div class="card well">
+			<ul class="breadcrumb">
+				<li><a href="#/viewfixeddepositaccount/{{cancelRoute}}">{{'label.anchor.viewfixeddepositaccount' |
+		                translate}}</a></li>
+			    <li class="active">{{ 'label.anchor.add.fixed.deposit.charges' | translate }}</li>
+			</ul>
 			<div class="content">
 				<form name="savingccountchargeform" novalidate="" class="form-horizontal" rc-submit="submit()">
 				    <api-validate></api-validate>
