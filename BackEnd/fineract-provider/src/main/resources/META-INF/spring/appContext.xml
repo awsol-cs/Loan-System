@@ -70,7 +70,8 @@
 										  org.cs.portfolio.*,
 										  org.cs.message.*,
 										  org.apache.fineract.infrastructure.campaigns.**,
-										  org.mifosplatform.infrastructure.report.service.*">
+										  org.mifosplatform.infrastructure.report.service.*,
+										  org.cs.portfolio.reports.*">
 		<context:exclude-filter expression="org.springframework.stereotype.Controller"
 			type="annotation" />
 
