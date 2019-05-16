@@ -1,9 +1,9 @@
-<div class="content-container" ng-controller="SavingAccountActionsController">
+<div class="content-container card well" ng-controller="SavingAccountActionsController">
     <ul class="breadcrumb">
         <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
         <li class="active">{{action}}</li>
     </ul>
-    <wizard current-step="step" on-finish="submitDatatable()" class="card well">
+    <wizard current-step="step" on-finish="submitDatatable()" class="">
         <wz-step wz-title="{{title | translate}}">
     <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
         <fieldset>

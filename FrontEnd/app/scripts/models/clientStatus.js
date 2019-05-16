@@ -91,7 +91,7 @@
                     },
                     {
                         name: "label.button.creditscore",
-                        href: "#/scorecard",
+                        href: "#/creditscore",
                         icon: "fa fa-list-alt",
                         taskPermissionName: 'CREATE_LOANCHARGE'
                     },

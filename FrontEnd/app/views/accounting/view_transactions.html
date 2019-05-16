@@ -1,14 +1,4 @@
 <div class="content-container" ng-controller="ViewTransactionController">
-        <ul class="breadcrumb" ng-if="productName == null">
-            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-            <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
-        </ul>
-        <ul class="breadcrumb" ng-if="productName != null">
-            <li ng-if="groupId != null"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a></li>
-            <li ng-if="clientId != null"><a href="#/viewclient/{{clientId}}">{{clientName}}</a></li>
-            <li class="active">{{productName}}({{accountNo}})</li>
-            <li class="active">{{'label.anchor.journalentries' | translate}}</li>
-        </ul>
          <script type="text/ng-template" id="confirmation.html">
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.transactionreverse' | translate}}</h3>
@@ -121,7 +111,17 @@
                 <button class="btn btn-primary" ng-click="reverse()">{{'label.button.reverse' | translate}}</button>
             </div>
         </script>
-        <div class="card">
+        <div class="card well">
+            <ul class="breadcrumb" ng-if="productName == null">
+                <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+                <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
+            </ul>
+            <ul class="breadcrumb" ng-if="productName != null">
+                <li ng-if="groupId != null"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a></li>
+                <li ng-if="clientId != null"><a href="#/viewclient/{{clientId}}">{{clientName}}</a></li>
+                <li class="active">{{productName}}({{accountNo}})</li>
+                <li class="active">{{'label.anchor.journalentries' | translate}}</li>
+            </ul>
             <div class="content">
                 <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
                 <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>

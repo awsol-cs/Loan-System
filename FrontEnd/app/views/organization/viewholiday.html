@@ -1,9 +1,4 @@
 <div class="content-container" ng-controller="ViewHolController">
-    <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-        <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
-        <li class="active">{{holiday.name}}</li>
-    </ul>
     <script type="text/ng-template" id="activateHoliday.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.activateholiday' | translate}}</h3>
@@ -26,7 +21,12 @@
             <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
+    <div class="card well">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
+        <li class="active">{{holiday.name}}</li>
+    </ul>
         <div class="content">
                 <div class="">
                     <div class="pull-right">

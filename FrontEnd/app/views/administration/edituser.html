@@ -1,10 +1,10 @@
 <div class="content-container" ng-controller="EditUserController">
+    <form name="edituserform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
         <ul class="breadcrumb">
             <li><a href="#/users">{{'label.anchor.users' | translate}}</a></li>
             <li><a href="#/viewuser/{{userId}}">{{formData.firstname}}{{formData.lastname}}</a></li>
             <li class="active">{{'label.anchor.edituser' | translate}}</li>
         </ul>
-    <form name="edituserform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.heading.edituser' | translate}}</legend>

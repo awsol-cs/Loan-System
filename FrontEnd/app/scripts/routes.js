@@ -8,7 +8,8 @@
                 templateUrl: 'views/login.html'
             })
             .when('/home', {
-                templateUrl: 'views/home.html'
+                templateUrl: 'views/private/rich_dashboard.html'
+                // templateUrl: 'views/home.html'
             })
             .when('/richdashboard', {
                 templateUrl: 'views/private/rich_dashboard.html'
@@ -1020,9 +1021,6 @@
             .when('/externalservicesCB/CreditBureau/mapcblp', {
                 templateUrl: 'views/administration/MapCreditBureauToLP.html'
             })
-            .when('/scorecard/:clientId/', {
-                templateUrl: 'views/loans/scorecard.html'
-            })
             .when('/scoremanager/', {
                 templateUrl: 'views/scoremanager/ViewCreditScoreManager.html'
             })
@@ -1035,8 +1033,8 @@
             .when('/editrule/:id', {
                 templateUrl: 'views/scoremanager/EditRule.html'
             })
-            .when('/creditscoring/:id', {
-                templateUrl: 'views/loans/scorecard.html'
+            .when('/creditscore/:clientId', {
+                templateUrl: 'views/clients/creditscore.html'
             })
             .when('/addformula', {
                 templateUrl: 'views/scoremanager/AddFormula.html'

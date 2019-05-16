@@ -1,12 +1,4 @@
 <div class="content-container" ng-controller="ViewCenterController">
-    <ul class="breadcrumb">
-        <li>
-            <a ng-href="#/viewoffice/{{center.officeId}}">
-                {{center.officeName}}
-            </a>
-        </li>
-        <li>{{center.name}}</li>
-    </ul>
     <script type="text/ng-template" id="delete.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -29,7 +21,15 @@
             <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
+    <div class="card well">
+        <ul class="breadcrumb">
+            <li>
+                <a ng-href="#/viewoffice/{{center.officeId}}">
+                    {{center.officeName}}
+                </a>
+            </li>
+            <li>{{center.name}}</li>
+        </ul>
         <div class="content">
             <div class="toolbar">
                 <h4 class="client-title">

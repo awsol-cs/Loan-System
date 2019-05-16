@@ -1,4 +1,5 @@
 <div ng-controller="NewLoanAccAppController" class="content-container">
+    <wizard current-step="step" on-finish="submit()" class="card well">
     <ul class="breadcrumb">
         <li ng-show="groupName">
             <a href="#/viewgroup/{{groupId}}">
@@ -12,7 +13,6 @@
         </li>
         <li class="active">{{'label.anchor.loanapplication' | translate}}</li>
     </ul>
-    <wizard current-step="step" on-finish="submit()" class="card well">
         <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.details' | translate}}">
             <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-inline">
                 <fieldset>

@@ -1,12 +1,12 @@
 <div class="content-container" ng-controller="EditSchedulerJobController">
+    <api-validate></api-validate>
+    <div class="card well">
     <ul class="breadcrumb">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li><a href="#/jobs">{{'label.anchor.manageschedulerjobs' | translate}}</a></li>
         <li><a href="#/viewschedulerjob/{{job.jobId}}">{{job.displayName}}</a></li>
         <li class="active">{{'label.anchor.editschedulerjob' | translate}}</li>
     </ul>
-    <api-validate></api-validate>
-    <div class="card">
         <div class="content">
             <div class="toolbar"></div>
             <br/>
