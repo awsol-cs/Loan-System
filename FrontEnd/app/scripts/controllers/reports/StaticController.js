@@ -137,122 +137,133 @@
             scope.PageNumber = "";
             scope.BookNumber = "";
             scope.SerialNumber = "";
+            scope.hideTable = false
+            scope.hideAISReport = true; 
+            scope.hideHeader = true;
             /* END AIS scope variables */
 
-
-            // add variable for signature of president and treasurer, unsigned_officer_Loc, compute function for summation, checkbox replace of true with / ;
-
-            // function generate/call jaspersoft report generation 
-            // prepare json request.
-
-            // to update http post 
+         
             scope.generateAISForm = function(){
+                scope.hideTable = true;
+                scope.hideAISReport = false;
+                scope.hideHeader = false;
 
-                $http.post("url",{
-                    "corpName":scope.CorpName,
-                    "industryClass":scope.IndustryClass,
-                    "principalAddress":scope.principalAddress,
-                    "aisYear":scope.AISYear,
-                    "secRegNo":scope.SECRegNo,
-                    "secCoa": scope.SECCOA,
-                    "secRegDate":scope.SECRegDate,
-                    "secAnivDate":scope.SECAnivDate,
-                    "contactPerson":scope.ContactPerson,
-                    "contactInformation":scope.ContactInformation,
-                    "designation":scope.Designation,
-                    "emailAddress": scope.EmailAddr,
-                    "pnoteAtbiCurr":scope.PNoteATBICURR,
-                    "pnoteAtbiSt":scope.PNoteATBIST,
-                    "pnoteAtbiLt":scope.PNoteATBILT,
-                    "ragreeAtbiCurr":scope.RAgreeATBICURR,
-                    "ragreeAtbiSt":scope.RAgreeATBIST,
-                    "ragreeAtbiLt":scope.RAgreeATBILT,
-                    "coaAtbiCurr":scope.COAATBICURR,
-                    "coaAtbiSt":scope.COAATBIST,
-                    "coaAtbiLt":scope.COATIOALT,
-                    "copAtbiCurr":scope.COPATBICURR,
-                    "copAtbiSt":scope.COPATBIST,
-                    "copAtbiLt":scope.COPATBILT,
-                    "oth1Atbi": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBI,
-                    "oth1AtbiCurr": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBICURR,
-                    "oth1AtbiSt": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBIST,
-                    "oth1AtbiLt": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBILT,
-                    "oth2Atbi": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBI,
-                    "oth2AtbiCurr": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBICURR,
-                    "oth2AtbiSt": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBIST,
-                    "oth2AtbiLt": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBILT,
-                    "oth3Atbi": (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBI,
-                    "oth3AtbiCurr": (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBICURR,
-                    "oth3AtbiSt": (scope.OTH3ATBI == "") ? "" : scope.OTH3ABIST,
-                    "oth3AtbiLt": (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBILT,
-                    "atbiSumSt":scope.ATBISUMST, // to be computed or converted
-                    "atbiSumLt":scope.ATBISUMLT,
-                    "pnoteTiCurr":scope.PNoteTICURR,
-                    "pnoteTiMonthSt":scope.PNoteTIMonthST,
-                    "pnoteTiMonthLt":scope.PNoteTIMonthLT,
-                    "pnoteTiOaSt":scope.PNoteTIOAST,
-                    "pnoteTiOaLt":scope.PNoteTIOALT,
-                    "ragreeTiCurr":scope.RAgreeTICURR,
-                    "ragreeTiMonthSt":scope.RAgreeTIMonthST,
-                    "ragreeTiMonthLt":scope.RAgreeTIMonthLT,
-                    "ragreeTiOaSt":scope.RAgreeTIOAST,
-                    "ragreeTiOaLt":scope.RAgreeTIOALT,
-                    "coaTiCurr":scope.COATICURR,
-                    "coaTiMonthSt":scope.COATIMonthST,
-                    "coaTiMonthLt":scope.COATIMonthLT,
-                    "coaTiOaSt":scope.COATIOAST,
-                    "coaTiOaLt":scope.COATIOALT,
-                    "copTiCurr":scope.COPTICURR,
-                    "copTiMonthSt":scope.COPTIMonthST,
-                    "copTiMonthLt":scope.COPTIMonthLT,
-                    "copTiOaSt":scope.COPTIOAST,
-                    "copTiOaLt":scope.COPTIOALT,
-                    "oth1Ti": (scope.OTH1TI == "") ? "" : scope.OTH1TI,
-                    "oth1TiCurr": (scope.OTH1TI == "") ? "" : scope.OTH1TICURR,
-                    "oth1TiMonthSt": (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthST,
-                    "oth1TiMonthLt": (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthLT,
-                    "oth1TiOaSt": (scope.OTH1TI == "") ? "" : scope.OTH1TIOAST,
-                    "oth1TiOaLt": (scope.OTH1TI == "") ? "" : scope.OTH1TIOALT,
-                    "oth2Ti": (scope.OTH2TI == "") ? "" : scope.OTH2TI,
-                    "oth2TiCurr": (scope.OTH2TI == "") ? "" : scope.OTH2TICURR,
-                    "oth2TiMonthSt": (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthST,
-                    "oth2TiMonthLt": (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthLT,
-                    "oth2TiOaSt": (scope.OTH2TI == "") ? "" : scope.OTH2TIOAST,
-                    "oth2TiOaLt": (scope.OTH2TI == "") ? "" : scope.OTH2TIOALT,
-                    "oth3Ti": (scope.OTH3TI == "") ? "" : scope.OTH3TI,
-                    "oth3TiCurr": (scope.OTH3TI == "") ? "" : scope.OTH3TICURR,
-                    "oth3TiMonthSt": (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthST,
-                    "oth3TiMonthLt": (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthLT,
-                    "oth3TiOaSt": (scope.OTH3TI == "") ? "" : scope.OTH3TIOAST,
-                    "oth3TiOaLt": (scope.OTH3TI == "") ? "" : scope.OTH3TIOALT,
-                    "tiSumMonthSt":scope.TISUMMonthST,
-                    "tiSumMonthLt":scope.TISUMMonthLT,
-                    "tiSumOaSt": scope.TISUMOAST,
-                    "undersignedOfficerLoc":scope.UnsignedOfficerLoc,
-                    "presidentName": scope.PresidentName,
-                    "treasurerName": scope.TreasurerName,
-                    "aisDay": scope.AISDay,
-                    "aisMonth": scope.AISMonth,
-                    "docNo": scope.DocumentNumber,
-                    "pageNo": scope.PageNumber,
-                    "bookNo": scope.BookNumber,
-                    "serialNo": scope.SerialNumber,
-                    "presidentSignature": scope.PresidentSignature,
-                    "treasurerSignature": scope.TreasurerSignature,
-                    "srcOption1":(scope.SRCOption1) ? "/" : "",
-                    "srcOption2":(scope.SRCOption2) ? "/" : "",
-                    "srcOption3":(scope.SRCOption3) ? "/" : "",
-                    "srcOption4":(scope.SRCOption4) ? "/" : "",
-                    "srcOption5":(scope.SRCOption5) ? "/" : ""
-                    
+                var data = {
+                    corpName:scope.CorpName,
+                    industryClass:scope.IndustryClass,
+                    principalAddress:scope.principalAddress,
+                    aisYear:scope.AISYear,
+                    secRegNo:scope.SECRegNo,
+                    secCoa: scope.SECCOA,
+                    secRegDate:scope.SECRegDate,
+                    secAnivDate:scope.SECAnivDate,
+                    contactPerson:scope.ContactPerson,
+                    contactInformation:scope.ContactInformation,
+                    designation:scope.Designation,
+                    emailAddress: scope.EmailAddr,
+                    pnoteAtbiCurr:scope.PNoteATBICURR,
+                    pnoteAtbiSt:scope.PNoteATBIST,
+                    pnoteAtbiLt:scope.PNoteATBILT,
+                    ragreeAtbiCurr:scope.RAgreeATBICURR,
+                    ragreeAtbiSt:scope.RAgreeATBIST,
+                    ragreeAtbiLt:scope.RAgreeATBILT,
+                    coaAtbiCurr:scope.COAATBICURR,
+                    coaAtbiSt:scope.COAATBIST,
+                    coaAtbiLt:scope.COATIOALT,
+                    copAtbiCurr:scope.COPATBICURR,
+                    copAtbiSt:scope.COPATBIST,
+                    copAtbiLt:scope.COPATBILT,
+                    oth1Atbi: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBI,
+                    oth1AtbiCurr: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBICURR,
+                    oth1AtbiSt: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBIST,
+                    oth1AtbiLt: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBILT,
+                    oth2Atbi: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBI,
+                    oth2AtbiCurr: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBICURR,
+                    oth2AtbiSt: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBIST,
+                    oth2AtbiLt: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBILT,
+                    oth3Atbi: (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBI,
+                    oth3AtbiCurr: (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBICURR,
+                    oth3AtbiSt: (scope.OTH3ATBI == "") ? "" : scope.OTH3ABIST,
+                    oth3AtbiLt: (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBILT,
+                    atbiSumSt:scope.ATBISUMST, // to be computed or converted
+                    atbiSumLt:scope.ATBISUMLT,
+                    pnoteTiCurr:scope.PNoteTICURR,
+                    pnoteTiMonthSt:scope.PNoteTIMonthST,
+                    pnoteTiMonthLt:scope.PNoteTIMonthLT,
+                    pnoteTiOaSt:scope.PNoteTIOAST,
+                    pnoteTiOaLt:scope.PNoteTIOALT,
+                    ragreeTiCurr:scope.RAgreeTICURR,
+                    ragreeTiMonthSt:scope.RAgreeTIMonthST,
+                    ragreeTiMonthLt:scope.RAgreeTIMonthLT,
+                    ragreeTiOaSt:scope.RAgreeTIOAST,
+                    ragreeTiOaLt:scope.RAgreeTIOALT,
+                    coaTiCurr:scope.COATICURR,
+                    coaTiMonthSt:scope.COATIMonthST,
+                    coaTiMonthLt:scope.COATIMonthLT,
+                    coaTiOaSt:scope.COATIOAST,
+                    coaTiOaLt:scope.COATIOALT,
+                    copTiCurr:scope.COPTICURR,
+                    copTiMonthSt:scope.COPTIMonthST,
+                    copTiMonthLt:scope.COPTIMonthLT,
+                    copTiOaSt:scope.COPTIOAST,
+                    copTiOaLt:scope.COPTIOALT,
+                    oth1Ti: (scope.OTH1TI == "") ? "" : scope.OTH1TI,
+                    oth1TiCurr: (scope.OTH1TI == "") ? "" : scope.OTH1TICURR,
+                    oth1TiMonthSt: (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthST,
+                    oth1TiMonthLt: (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthLT,
+                    oth1TiOaSt: (scope.OTH1TI == "") ? "" : scope.OTH1TIOAST,
+                    oth1TiOaLt: (scope.OTH1TI == "") ? "" : scope.OTH1TIOALT,
+                    oth2Ti: (scope.OTH2TI == "") ? "" : scope.OTH2TI,
+                    oth2TiCurr: (scope.OTH2TI == "") ? "" : scope.OTH2TICURR,
+                    oth2TiMonthSt: (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthST,
+                    oth2TiMonthLt: (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthLT,
+                    oth2TiOaSt: (scope.OTH2TI == "") ? "" : scope.OTH2TIOAST,
+                    oth2TiOaLt: (scope.OTH2TI == "") ? "" : scope.OTH2TIOALT,
+                    oth3Ti: (scope.OTH3TI == "") ? "" : scope.OTH3TI,
+                    oth3TiCurr: (scope.OTH3TI == "") ? "" : scope.OTH3TICURR,
+                    oth3TiMonthSt: (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthST,
+                    oth3TiMonthLt: (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthLT,
+                    oth3TiOaSt: (scope.OTH3TI == "") ? "" : scope.OTH3TIOAST,
+                    oth3TiOaLt: (scope.OTH3TI == "") ? "" : scope.OTH3TIOALT,
+                    tiSumMonthSt:scope.TISUMMonthST,
+                    tiSumMonthLt:scope.TISUMMonthLT,
+                    tiSumOaSt: scope.TISUMOAST,
+                    undersignedOfficerLoc:scope.UnsignedOfficerLoc,
+                    presidentName: scope.PresidentName,
+                    treasurerName: scope.TreasurerName,
+                    aisDay: scope.AISDay,
+                    aisMonth: scope.AISMonth,
+                    docNo: scope.DocumentNumber,
+                    pageNo: scope.PageNumber,
+                    bookNo: scope.BookNumber,
+                    serialNo: scope.SerialNumber,
+                    presidentSignature: scope.PresidentSignature,
+                    treasurerSignature: scope.TreasurerSignature,
+                    srcOption1:(scope.SRCOption1) ? "/" : "",
+                    srcOption2:(scope.SRCOption2) ? "/" : "",
+                    srcOption3:(scope.SRCOption3) ? "/" : "",
+                    srcOption4:(scope.SRCOption4) ? "/" : "",
+                    srcOption5:(scope.SRCOption5) ? "/" : ""
+                }
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/generataReports/"+ "?output-type=" + encodeURIComponent('PDF') 
+
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+                reportURL = $sce.valueOf(reportURL);
+                http.get(reportURL, {responseType: 'arraybuffer'}).
+                    success(function(data, status, headers, config) {
+                    var contentType = headers('Content-Type');
+                    var file = new Blob([data], {type: contentType});
+                    var fileContent = URL.createObjectURL(file);
+
+                    // Pass the form data to the iframe as a data url.
+                    scope.baseURL = $sce.trustAsResourceUrl(fileContent);
                 });
-
-
             }
             
         }
     });
-    mifosX.ng.application.controller('StaticController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.StaticController]).run(function ($log) {
+    mifosX.ng.application.controller('StaticController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http',  '$rootScope', 'API_VERSION', mifosX.controllers.StaticController]).run(function ($log) {
         $log.info("StaticController initialized");
     });
 }(mifosX.controllers || {}));

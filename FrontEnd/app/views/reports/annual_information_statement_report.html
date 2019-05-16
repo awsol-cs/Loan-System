@@ -5,7 +5,11 @@
     </ul>
 	<div class="card well">
     	<api-validate></api-validate>
-	    <div>
+    	<div data-ng-hide="hideHeader" class="span gray-head" style="margin-left:0%;height:30px;">
+	        <span style="margin-left: 10px;font-size:20px;">
+	        <strong>{{AIS}}</strong>
+	    </div>
+	    <div data-ng-hide="hideTable">
 		    <div class="span gray-head" style="height:auto; text-align: center;">
 		    	<span style="font-size:20px;">
 		          <strong>{{SEC}}</strong><br><br>
@@ -632,6 +636,11 @@
 	    <br><br>
 	    <button type="button" class="btn btn-primary" ng-click="generateAISForm();"><i class="fa fa-play"></i>&nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</button>
 
+	    </div>
+
+	    <div uib-collapse="hideAISReport" class="row alert-block span tab-content">
+	        <br>
+	        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
 	    </div>
 	</div>
 </div>
