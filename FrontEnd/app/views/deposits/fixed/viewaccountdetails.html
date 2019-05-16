@@ -1,12 +1,12 @@
 <div class="content-container" ng-controller="ViewFixedDepositAccountDetailsController">
-    <ul class="breadcrumb">
-        <li ng-if="savingaccountdetails.groupName"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-        </li>
-        <li ng-if="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
-        </li>
-        <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
-    </ul>
     <div class="card well">
+        <ul class="breadcrumb">
+            <li ng-if="savingaccountdetails.groupName"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+            </li>
+            <li ng-if="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
+            </li>
+            <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
+        </ul>
         <div>
             <div class="span gray-head">
             <span style="margin-left: 10px;font-size:24px">

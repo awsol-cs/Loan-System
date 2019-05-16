@@ -1,9 +1,9 @@
 <div class="content-container" ng-controller="AddLoanChargeController">
+    <div class="card well">
     <ul class="breadcrumb">
         <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
         <li class="active">{{'label.anchor.addloancharge' | translate}}</li>
     </ul>
-    <div class="card">
         <div class="content">
             <form class="form-horizontal" novalidate="" name="loanchargeform" ng-submit="submit()">
                 <api-validate></api-validate>

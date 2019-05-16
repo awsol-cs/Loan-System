@@ -1,9 +1,4 @@
 <div ng-controller="ViewGroupController" class="content-container">
-	<ul class="breadcrumb">
-	    <li><a ng-href="#/viewoffice/{{group.officeId}}">{{group.officeName}}</a></li>
-	    <li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
-	    <li>{{group.name}}</li>
-	</ul>
 	<script type="text/ng-template" id="deletegroup.html">
     	<div class="modal-header silver">
     	    <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -26,7 +21,12 @@
     	    <button class="btn btn-primary" ng-click="unassign()">	{{'label.button.confirm' | translate}}</button>
     	</div>
 	</script>
-	<div class="card">
+	<div class="card well">
+	<ul class="breadcrumb">
+	    <li><a ng-href="#/viewoffice/{{group.officeId}}">{{group.officeName}}</a></li>
+	    <li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
+	    <li>{{group.name}}</li>
+	</ul>
 		<div class="content">
 			<div class="toolbar">
 			    <h4 class="">

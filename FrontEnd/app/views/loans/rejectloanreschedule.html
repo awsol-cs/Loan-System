@@ -1,9 +1,9 @@
 <div class="content-container" ng-controller="RejectLoanRescheduleRequestController">
+    <div class="card well">
         <ul class="breadcrumb">
             <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
             <li><a href="#/loans/{{loanId}}/viewreschedulerequest/" class="active">{{'label.anchor.reschedulerequest' | translate}}</a></li>
         </ul>
-    <div class="card">
         <div class="content">
             <form name="rejectloanrescheduleform" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <api-validate></api-validate>

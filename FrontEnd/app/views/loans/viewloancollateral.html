@@ -1,8 +1,4 @@
 <div class="content-container" ng-controller="ViewLoanCollateralController">
-        <ul class="breadcrumb">
-            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
-            <li class="active">{{ 'label.anchor.viewcollateral' | translate}}({{collateral.type.name}})</li>
-        </ul>
     <script type="text/ng-template" id="deletecollateral.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -14,7 +10,11 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
+    <div class="card well">
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.viewcollateral' | translate}}({{collateral.type.name}})</li>
+        </ul>
         <div class="content">
             <div class="toolbar">
                 <h4>{{'label.heading.viewcollateral' | translate}}</h4>

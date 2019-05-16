@@ -1,4 +1,6 @@
 <div ng-controller="ViewSmsCampaignController" class="content-container">
+    <api-validate></api-validate>
+    <div class="card well">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
@@ -6,8 +8,6 @@
             <li class="active">{{campaignData.campaignName}}</li>
         </ul>
     </div>
-    <api-validate></api-validate>
-    <div class="card">
         <div class="content" >
             <div class="toolbar">
                 <h3>{{'label.heading.viewsmscampaign' | translate}}</h3>
