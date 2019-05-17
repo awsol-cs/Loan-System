@@ -4,66 +4,644 @@
         <li><a href="#/reports/all">{{'label.anchor.reports' | translate}}</a></li>
         <li class="active">{{'label.anchor.runreport' | translate}}</li>
     </ul>
-    <api-validate></api-validate>
-	    <div class="span gray-head" style="margin-left:0%;height:30px;">
-	          <span style="margin-left: 10px;font-size:20px;">
-	                <strong>Annual Information Statement</strong>
-	          </span>
+	<div class="card well">
+    	<api-validate></api-validate>
+    	<div data-ng-hide="hideHeader" class="span gray-head" style="margin-left:0%;height:30px;">
+	        <span style="margin-left: 10px;font-size:20px;">
+	        <strong>{{AIS}}</strong>
 	    </div>
-	    <div ng-hide="isCollapsed" class="alert-block form-horizontal">
-	        <br>
-
+	    <div data-ng-hide="hideTable">
+		    <div class="span gray-head" style="height:auto; text-align: center;">
+		    	<span style="font-size:20px;">
+		          <strong>{{SEC}}</strong><br><br>
+		          <strong>{{AIS}}</strong><br>
+		          <strong>SEC FORM 85-18-1 / 2013-IS-ECP</strong><br>
+		          <strong style="font-size:15px;">Issuer of Exempt Commercial Papers-</strong><br>
+		          <strong style="font-size:15px;">filed pursuant to SRC Rule 9.2 and 17.1 (2)(C)-</strong ><br>
+		          <strong style="font-size:15px;">For the year: <input ng-model="AISYear" type="text"style="width:50px"></strong><br>
+		      </span>
+		    </div>
+		    <br>
 	        <div class="form-group info">
-	            <label class="control-label col-sm-2 ng-binding">Office</label>
+		        <div style="margin-left: 2%;font-size:15px;">
+		       		<span><label style="width:20%">{{'label.input.corpName' | translate}}</label><input ng-model="CorpName"type="text" style="width:70%"></span>
+		       		<br>
+		    		<span><label style="width:20%">{{'label.input.industryClass' | translate}}</label><input ng-model="IndustryClass" type="text" style="width:70%"></span>
+		    		<br>
+		    		<span><label style="width:20%">{{'label.input.secRegistrationNumber' | translate}}</label><input ng-model="PrincipalAddr"type="text" style="width:70%"></span>
+		    		<br>
+		    	</div>
+		    	<br>
+		    	<div class="row" style="margin-left: 1%;font-size:15px;">
+		    		<div class="col-xs-6 col-sm-6 col-lg-6">
+		    			<span><label style="width:40%">{{'label.input.secRegistrationNumber' | translate}}</label><input ng-model="SECRegNo" type="text" style="width:50%"></span>
+		       			<br>
+		       			<span><label style="width:40%">{{'label.input.certOfAuthourityNumber' | translate}}</label><input ng-model="SECCOA" type="text" style="width:50%"></span>
+		       			<br>	
+		    		</div>
+		    		<div class="col-xs-6 col-sm-6 col-lg-6">
+		    			<span><label style="width:29%">{{'label.input.registrationDate' | translate}}</label><input ng-model="SECRegDate"type="text" style="width:50%"></span>
+		       			<br>
+		       			<span><label style="width:29%">{{'label.input.anniversaryDate' | translate}}</label><input ng-model="SECAnivDate"type="text" style="width:50%"></span>
+		       			<br>	
+		    		</div>
+		    	</div>
+		    	<br>
+		    	<div class="row" style="margin-left: 1%;font-size:15px;">
+		    		<div class="col-xs-6 col-sm-6 col-lg-6">
+		    			<span><label style="width:40%">{{'label.input.contactPerson' | translate}}</label><input ng-model="ContactPerson" type="text" style="width:50%"></span>
+		       			<br>
+		       			<span><label style="width:40%">{{'label.input.contactInformation' | translate}}</label><input ng-model="ContactInformation" type="text" style="width:50%"></span>
+		       			<br>	
+		    		</div>
+		    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    	<span><label style="width:29%">{{'label.input.designation' | translate}}</label><input ng-model="Designation" type="text" style="width:50%"></span>
+				       	<br>
+				       	<span><label style="width:29%">{{'label.input.emailAddress' | translate}}</label><input ng-model="EmailAddr" type="text" style="width:50%"></span>
+				       	<br>	
+		    		</div>
+		    	</div>
+	       	</div>
+			<div class="form-group info" style="width: 90%">
+				<div style="margin-left: 2%;font-size:15px;">
+			    	<strong style="font-style: italic;text-decoration: underline;">Instruction</strong><br>
+			    	<div style="border-style: double;">
+			    		<p>{{Instruction_1}}</p>
+		    			<p>{{Instruction_2}}</p>
+		    		</div>
+		   		</div>
+	   		</div>
+			<div class="span gray-head" style="height:auto; text-align: center;">
+		    	<span style="font-size:20px;"><strong>{{SEC}}</strong><br></span><br>
+		    </div>
+	   		<div class="form-group info" style="width: 90%">
+		    	<div style="margin-left: 2%;font-size:15px;">
+					<strong>A) BASIS OF EXEMPTION</strong><br>
+	    			<div style="margin-left: 10%;height:auto; text-align: center;">SRC Rule 9.2 - Exempt Securities (Amended IRR of the SRC) </div>
+	    			<hr style="border: 2px solid black; width: 90%; text-align: center; "><br>
+	    			<strong>B) PURCHASERS</strong><br>
+	    			<div class="row" style="margin-left: 1%;font-size:15px;">
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<div style="margin-left: 1%">
+		    					<p>Check applicable category/ies:</p>
+		    				</div>
+		    			</div>
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<div style="margin-left: 1%">
+		    					<p style="font-style: italic;font-weight: 15px;">Description of Exemption (please refer to Annex A for reference)</p>
+		    				</div>
+		    			</div>
+		    		</div>
+		    		<div class="row" style="margin-left: 1%;font-size:15px;">
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<input ng-model="SRCOption1" type="checkbox" name="SRC1" value="SRC 9.2 (1)">SRC 9.2 (1)<br>
+		    			</div>
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<p>---------------------------------------------------------</p>
+		    			</div>
+		    		</div>
+		    		<div class="row" style="margin-left: 1%;font-size:15px;">
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<input ng-model="SRCOption2" type="checkbox" name="SRC2" value="SRC 9.2 (1)(A)">SRC 9.2 (1)(A)<br>
+		    			</div>
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<p>---------------------------------------------------------</p>
+		    			</div>
+		    		</div>	
+		    		<div class="row" style="margin-left: 1%;font-size:15px;">
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<input ng-model="SRCOption3" type="checkbox" name="SRC2" value="SRC 9.2 (1)(B)">SRC 9.2 (1)(B)<br>
+		    			</div>
+		    			<div class="col-xs-6 col-sm-6 col-lg-6">
+		    				<p>---------------------------------------------------------</p>
+		    			</div>
+		    		</div>	
+				    <div class="row" style="margin-left: 1%;font-size:15px;">
+				    	<div class="col-xs-6 col-sm-6 col-lg-6">
+				    		<input ng-model="SRCOption4" type="checkbox" name="SRC2" value="SRC 9.2 (1)(C)">SRC 9.2 (1)(C)<br>
+				    	</div>
+				    	<div class="col-xs-6 col-sm-6 col-lg-6">
+				    		<p>---------------------------------------------------------</p>
+				    	</div>
+				    </div>	
+				    <div class="row" style="margin-left: 1%;font-size:15px;">
+				    	<div class="col-xs-6 col-sm-6 col-lg-6">
+				    		<input ng-model="SRCOption5" type="checkbox" name="SRC2" value="SRC 9.2 (1)(D)">SRC 9.2 (1)(D)<br>
+				    	</div>
+				    	<div class="col-xs-6 col-sm-6 col-lg-6">
+				    		<p>---------------------------------------------------------</p>
+				    	</div>
+				    </div>	
+		   		</div>
+		   		<strong>C) AMOUNT TO BE ISSUED</strong><br>
+	    		<div style="margin-left: 10%;height:auto; text-align: center;">Approximate amount of SHORT-TERM/LONG-TERM(ST/LT)commecial papers to be issued during the year.
+	    		</div>
+	    		<hr style="border: 2px solid black; width: 90%; text-align: center; "><br>
+		    	<div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<div style="margin-left: 1%">
+			    			<p>Check applicable category/ies:</p>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<p>CURR*</p>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<p>SHORT-TERM</p>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<p>LONG-TERM</p>
+			    	</div>
+			    </div>
+		    	<hr style="border: 2px solid black; width: 90%; text-align: center; ">
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>1) Promissory Note</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="PNoteATBICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="PNoteATBIST" type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="PNoteATBILT" type="text">
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>2) Repurchase Agreement</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="RAgreeATBICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="RAgreeATBIST" type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="RAgreeATBILT" type="text">
+			    	</div>
+		    	</div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>3) Certificate of Assignment (with Recourse)</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="COAATBICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="COAATBIST" type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="COAATBILT" type="text">
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>4) Certificate of Participation (with Recourse)</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="COPATBICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="COPATBIST" type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="COPATBILT" type="text">
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<p>5) Others: Please specify</p>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<input ng-model="OTH1ATBI" type="text" placeholder="Others">
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="OTH1ATBICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="OTH1ATBIST" type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="OTH1ATBILT" type="text">
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<input ng-model="OTH2ATBI" type="text" placeholder="Others">
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="OTH2ATBICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="OTH2ATBIST" type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="OTH2ATBILT" type="text">
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<input ng-model="OTH3ATBI" type="text" placeholder="Others">
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="OTH3ATBICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="OTH3ATBIST" type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="OTH3ATBILT" type="text">
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>TOTAL</p>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2" >
+			    		<input ng-model="ATBISUMST" type="text" placeholder="0.00">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<input ng-model="ATBISUMLT" type="text" placeholder="0.00">
+			    	</div>
+			    </div>
+		    	<strong>D) TOTAL ISSUANCE OF ST/LT COMMERCIAL PAPERS MADE DURING THE IMMEDIATELY PRECEDING YEAR AND OUTSTANDING BALANCE AS OF THE END OF IMMEDIATELY PRECEDING MONTH.</strong><br>
+	    		<hr style="border: 2px solid black; width: 90%; text-align: center; "><br>
+		    	<div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<div style="margin-left: 1%">
+			    			<p>Type of Commercial Paper</p>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<p>CURR*</p>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<p>January-December:<input style="width: 50px;" type="text" ng-model="AISYear"></p>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<p>Amount outstanding as of the immediately preceding month</p>
+			    	</div>
+			    </div>
+			    <hr style="border: 2px solid black; width: 90%; text-align: center; ">
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-6 col-sm-offset-6 col-lg-offset-6">
+			    		<p style="text-align: center;">Amount Issued</p>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-6 col-sm-offset-6 col-lg-offset-6">
+			    		<div class="row">
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<p style="text-align: center;">ST</p>
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<p style="text-align: center;">LT</p>
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<p style="text-align: center;">ST</p>
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<p style="text-align: center;">LT</p>
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>1) Promissory Note</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="PNoteTICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="PNoteTIMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="PNoteTIMonthLT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="PNoteTIOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="PNoteTIOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>2) Repurchase Agreement</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="RAgreeTICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="RAgreeTIMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="RAgreeTIMonthLT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="RAgreeTIOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="RAgreeTIOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>3) Certificate of Assignment (with Recourse)</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="COATICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="COATIMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="COATIMonthLT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="COATIOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="COATIOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>4) Certificate of Participation (with Recourse)</p>
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="COPTICURR"  style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="COPTIMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="COPTIMonthLT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="COPTIOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="COPTIOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<p>5) Others: Please specify</p>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<input ng-model="OTH1TI" type="text">
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="OTH1TICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="OTH1TIMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="OTH1TIMonthLT" style="width: 80px;"type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="OTH1TIOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="OTH1TIOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<input ng-model="OTH2TI" type="text">
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="OTH2TICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="OTH2TIMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="OTH2TIMonthLT" style="width: 80px;"type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="OTH2TIOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="OTH2TIOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<input ng-model="OTH3TI" type="text">
+			    	</div>
+			    	<div class="col-xs-2 col-sm-2 col-lg-2">
+			    		<input ng-model="OTH3TICURR" style="width: 40px;"type="text">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="OTH3TIMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="OTH3TIMonthLT" style="width: 80px;"type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="OTH3TIOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="OTH3TIOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-4 col-sm-4 col-lg-4">
+			    		<p>TOTAL</p>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2" >
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="TISUMMonthST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="TISUMMonthLT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3">
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-lg-6">
+			    				<input ng-model="TISUMOAST" style="width: 80px;" type="text">
+				    		</div>
+				    		<div class="col-xs-6 col-sm-6 col-lg-6">
+				    			<input ng-model="TISUMOALT" style="width: 80px;" type="text">
+				    		</div>
+			    		</div>
+			    	</div>
+			    </div>
+	        </div>
 
-                <div class="col-sm-3">
-				    <select value="" class="form-control input-xlarge ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
-				        <option value="" class="ng-binding" selected="selected">--Select One--</option>
-				        <option label="Head Office" value="string:1">Head Office</option>
-				        <option label="....Makati Office" value="string:2">....Makati Office</option>
-				        <option label="....Cebu Office" value="string:3">....Cebu Office</option>
-				        <option label="....Davao Office" value="string:4">....Davao Office</option>
-				    </select>
+			<div class="span gray-head" style="height:auto; text-align: center;">
+			    <span style="font-size:20px;"><strong>{{SEC}}</strong><br></span>
+			</div>
+		    <br><br>
+	   		<div class="form-group info" style="width: 90%">
+	   			<p style="margin-left: 1%;font-size:15px;">The issuer hereby undertakes to file periodic reports as required by the Commission.</p>
+	   			<br>
+	   			<p style="margin-left: 1%;font-size:15px;">{{pagraph_1}}<input style="width: 100px;"type="text" ng-model="UnsignedOfficerLoc"></p>
+				<br><br>
+		   		<div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2" >
+			    		<hr style="width: 150px; border: 2px solid black">
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2">
+			    		<hr style="width: 150px; border: 2px solid black">
+			    	</div>
+			    </div>
+			    <div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2" >
+			    		<p style="text-align: center;">President</p>
+			    	</div>
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2">
+			    		<p style="text-align: center;">Treasurer</p>
+			    	</div>
+			    </div>
+				<br><br>
+	    	  	<strong style="text-align: left;">REPUBLIC OF THE PHILIPPINES</strong><br>
+	    	  	<strong>MAKATI CITY</strong><br><br>
 
-				    <!--div class="chosen-container chosen-container-single" style="width: 249px;" title="">
-				        <a class="chosen-single" tabindex="-1">
-				            <span>--Select One--</span>
-				            <div>
-				                <b></b>
-				            </div>
-				        </a>
+		    	<p style="text-indent: 5%;">We <input type="text" ng-model="PresidentName" />, President and <input type="text" ng-model="TreasureName" />, Treasurer of the above exempt issuer, do solemnly swear that all matters set forth in the information statement are true and correct to our own knowledge. </p>
 
-				        <div class="chosen-drop">
-				            <div class="chosen-search">
-				                <input type="text" autocomplete="off">
-				            </div>
-				            <ul class="chosen-results">
-				                <li class="active-result result-selected ng-binding" style="" data-option-array-index="0">--Select One--</li>
-				                <li class="active-result" style="" data-option-array-index="1">Head Office</li>
-				                <li class="active-result" style="" data-option-array-index="2">....Makati Office</li>
-				                <li class="active-result" style="" data-option-array-index="3">....Cebu Office</li>
-				                <li class="active-result" style="" data-option-array-index="4">....Davao Office</li>
-				            </ul>
-				        </div>
-				    </div-->
+	    	  	<p style="text-indent: 5%;">SUBSCRIBED AND SWORN to before me this {{AISDay}} day of {{AISMonth}}, {{AISYear}}, the affiants exhibiting to me their valid identification documents as follows:</p>
+
+	    	  	<br><br><br>
+
+	    		<div class="row" style="margin-left: 1%;font-size:15px;">
+			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-7 col-sm-offset-7 col-lg-offset-7" >
+			    			<p style="text-align: center;">Notary Public</p>
+			    	</div>
+		    	</div>
+	   		  			
+		 		<br><br>
+
+		    	<span><label style="width:10%">{{'label.input.docNumber' | translate}}</label><input ng-model="SECDocNo" type="text" style="width:30%"></span><br>
+		    	<span><label style="width:10%">{{'label.input.pageNumber' | translate}}</label><input ng-model="SECPageNo" type="text" style="width:30%"></span><br>
+				<span><label style="width:10%">{{'label.input.bookNumber' | translate}}</label><input ng-model="SECBookNo" type="text" style="width:30%"></span><br>
+				<span><label style="width:10%">{{'label.input.seriesNumber' | translate}}</label><input ng-model="SECSerialNo" type="text" style="width:30%"></span><br>
+	    	</div>
+
+	    	<div class="span gray-head" style="height:auto; text-align: center;">
+		    	<span style="font-size:20px;">
+		          <strong>Annex A</strong><br>
+		      	</span>
+			</div>
+			<br><br>
+			<div class="form-group info" style="width: 90%">
+				<strong style="text-align: left; font-size: 18px;">SRC Rule 9.2 Exempt Securities</strong><br>
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-lg-1">1</div>
+					<div class="col-xs-3 col-sm-3 col-lg-3">SCR 9.2(1)</div>
+					<div class="col-xs-8 col-sm-8 col-lg-8"><p style="text-indent: 5%;">{{pagraph_Annex_1}}</p></div>
 				</div>
-	        </div>
-	        <div class="form-group info">
-	            <label class="control-label col-sm-2">Start Date</label>
-	            <div class="col-sm-3">
-	                <input style="width: 257px" type="text" datepicker-pop="yyyy-MM-dd" ng-model='one' is-open="" min=""
-	                       max="'2020-06-22'" date-disabled="disabled(date, mode)"  class="form-control" required/>
-	            </div>
-	        </div>
-	        <div class="form-group info">
-	            <label class="control-label col-sm-2">End Date</label>
-	            <div class="col-sm-3">
-	                <input style="width: 257px" type="text" datepicker-pop="yyyy-MM-dd" ng-model='two' is-open="" min=""
-	                       max="'2020-06-22'" date-disabled="disabled(date, mode)"  class="form-control" required/>
-	            </div>
-	        </div>
-	        <span class="col-md-offset-3 paddedleft120"><a href="/static/" download="AIS-SEC-Form-85-18-1.xlsx" id="run" class="btn btn-primary">
-	        <i class="fa fa-play"></i>&nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-lg-1">2</div>
+					<div class="col-xs-3 col-sm-3 col-lg-3">SCR 9.2(2)(A) </div>
+					<div class="col-xs-8 col-sm-8 col-lg-8">
+						<p style="text-indent: 5%;">Evidence of indebtedness issued to the Bangko Sentral ng Pilipinas (BSP) under its open market and/or rediscounting operations;</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-lg-1">3</div>
+					<div class="col-xs-3 col-sm-3 col-lg-3">SCR 9.2(2)(B) </div>
+					<div class="col-xs-8 col-sm-8 col-lg-8"><p style="text-indent: 5%;">{{pagraph_Annex_3}}</p></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-lg-1">4</div>
+					<div class="col-xs-3 col-sm-3 col-lg-3">SCR 9.2(2)(C) </div>
+					<div class="col-xs-8 col-sm-8 col-lg-8">
+						<p style="text-indent: 5%;">Bills of exchange arising from a bona fide sale of goods and services which are distributed and/or traded by banks or investment houses duly licensed by SEC and BSP through an organized market properly conventioned and governed by rules approved by the appropriate regulatory body;</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-lg-1">5</div>
+					<div class="col-xs-3 col-sm-3 col-lg-3">SCR 9.2(2)(D) </div>
+					<div class="col-xs-8 col-sm-8 col-lg-8">
+						<p style="text-indent: 5%;">Evidence of indebtedness e.g. short or long-term commercial papers, meeting the following conditions:</p>
+						<ol style="list-style-type: lower-roman;">
+							<li>Issued to not more than nineteen (19) non-institutional lenders including directors, officers, stockholders and related interests (DOSRI);</li>
+							<li>Payable to a specific person;</li>
+							<li> Neither negotiable nor assignable and shall be held on to maturity; and</li>
+							<li>In an amount not exceeding Fifty Million Pesos (P50,000,000.00); provided, that if the amount exceeds Fifty Million Pesos (P50,000,000.00), the issuance shall be considered as an exempt transaction requiring prior approval by the Commission.</li>
+						</ol>
+					</div>
+				</div>
+	    	</div>
+	    
+	    <br><br>
+	    <button type="button" class="btn btn-primary" ng-click="generateAISForm();"><i class="fa fa-play"></i>&nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</button>
+
+	    </div>
+
+	    <div uib-collapse="hideAISReport" class="row alert-block span tab-content">
+	        <br>
+	        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
 	    </div>
 	</div>
 </div>
