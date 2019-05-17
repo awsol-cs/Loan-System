@@ -64,11 +64,6 @@ import javax.annotation.Resource;
 
 import org.apache.fineract.infrastructure.core.service.TomcatJdbcDataSourcePerTenantService;
 
-/**
- * @author michael.delacruz
- *
- */
-
 @Service
 public class ReportService {
 
@@ -77,16 +72,6 @@ public class ReportService {
     private static final String imagePath = MIFOS_BASE_DIR + File.separator + "images" + File.separator;
 
     Connection conn = null;
-
-//    @Resource(name = "jdbc/mifostenant-default")
-//    private DataSource dataSource;
-
-//    private TomcatJdbcDataSourcePerTenantService dataSource = null;
-//
-//    @Autowired
-//    public ReportService(final TomcatJdbcDataSourcePerTenantService dataSource) {
-//        this.dataSource = dataSource;
-//    }
 
     public ReportService() {
         try {
@@ -98,34 +83,23 @@ public class ReportService {
         }
     }
 
-    /**
-     * Method for generating simple report
-     *
-     * @param report - provided data object
-     * @return byte array resource ()
-     */
     public Response generateSimpleReport(Object report, String fileName, ExportReportType exportReportType) {
         InputStream stream = null;
         Response response = null;
 
         try {
-            LOGGER.info("Entering ReportService....");
             HashMap<String, Object> map = (HashMap<String, Object>)report;
             map.put("imagePath", imagePath);
 
-            // get jasper template
-            //ClassPathResource reportResource = new ClassPathResource("reportFilePath/" + fileName + ".jasper");
             File reportLocation = new File(MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + fileName + ".jasper");
             if(reportLocation.exists()) {
                 stream = FileUtils.openInputStream(reportLocation);
             }
 
-            // generate parameters
             Map<String, Object> reportParameters = new HashMap<>();
             generateReportParameters(reportParameters, map);
 
 
-            // generate reports based on export type.
             switch (exportReportType)
             {
                 case PDF:
@@ -146,22 +120,14 @@ public class ReportService {
 
             stream.close();
         } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
             return Response.status(Response.Status.NOT_FOUND).entity("Error in generating report: " + e.getMessage()).build();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             return Response.status(Response.Status.NOT_FOUND).entity("Error in generating report: " + e.getMessage()).build();
         }
         return response;
 
     }
 
-    /**
-     * Method for generating report parameters.
-     *
-     * @param reportParameters - reference to report parameters (passed by reference).
-     * @param reportData - report data object
-     */
     private void generateReportParameters(Map<String, Object> reportParameters, HashMap<String, Object> map) {
         map.forEach((key, value) -> {
             reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key), Converter.convert(value));
@@ -177,13 +143,6 @@ public class ReportService {
         });
     }
 
-    /**
-     * Method for exporting report to PDF.
-     *
-     * @param targetStream - target report stream
-     * @param parameters - generated parameters
-     * @return byte array resource (file content)
-     */
     private Response exportReportToPDF(InputStream targetStream, Map<String, Object> parameters, String filename)
     {
         try
@@ -205,13 +164,6 @@ public class ReportService {
         }
     }
 
-    /**
-     * Method for exporting report to XLS.
-     *
-     * @param targetStream - target report stream
-     * @param parameters - generated parameters
-     * @return byte array resource (file content)
-     */
     private Response exportReportToXLSX(InputStream targetStream, Map<String, Object> parameters, String filename)
     {
         try
@@ -242,13 +194,6 @@ public class ReportService {
         }
     }
 
-    /**
-     * Method for exporting report to DOCx format
-     *
-     * @param targetStream - target report stream
-     * @param parameters - generated parameters
-     * @return byte array resource (generated report file).
-     */
     private Response exportReportToDOCx(InputStream targetStream, Map<String, Object> parameters, String filename)
     {
         try
@@ -277,13 +222,6 @@ public class ReportService {
         }
     }
 
-    /**
-     * Method for exporting report to PNG format
-     *
-     * @param targetStream - target report stream
-     * @param parameters - generated parameters
-     * @return byte array resource (generated report file).
-     */
     private Response exportReportToJPG(InputStream targetStream, Map<String, Object> parameters, String filename)
     {
         try

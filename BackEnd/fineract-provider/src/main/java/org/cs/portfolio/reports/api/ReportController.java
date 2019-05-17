@@ -28,10 +28,6 @@ import org.cs.portfolio.reports.service.ReportService;
 
 import io.swagger.annotations.Api;
 
-/**
- * @author michael.delacruz
- *
- */
 @Path("/cs_reports")
 @Component
 @Scope("singleton")

@@ -6,10 +6,6 @@ package org.cs.portfolio.reports.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-/**
- * @author michael.delacruz
- *
- */
 public class DateHelper {
 
     public static boolean isValidDate(String inDate) {

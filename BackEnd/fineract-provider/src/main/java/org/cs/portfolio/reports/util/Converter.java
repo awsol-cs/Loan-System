@@ -7,10 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @author michael.delacruz
- *
- */
 public class Converter {
 
     public static Object convert(Object value) {
