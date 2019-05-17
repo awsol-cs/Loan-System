@@ -110,7 +110,10 @@ dependencies {
                 [group: 'io.swagger', name: 'swagger-jersey-jaxrs', version: '1.5.15'],
                 [group: 'org.springframework', name:'spring-jms'],
                 [group: 'org.apache.activemq', name: 'activemq-broker'],
-                [group: 'com.nexmo', name: 'client', version:'latest.release']
+                [group: 'com.nexmo', name: 'client', version:'latest.release'],
+                [group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.0.3'],
+                [group: 'commons-io', name: 'commons-io', version: '2.6'],
+                [group: 'org.olap4j', name: 'olap4j', version: '1.2.0']
     )
 
      testCompile 'junit:junit:4.11',
