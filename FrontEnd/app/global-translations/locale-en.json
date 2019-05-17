@@ -4354,5 +4354,20 @@
   "label.heading.currentclient": "Current Client",
   "label.heading.workflowmanagement": "Workflow Management",
   "label.anchor.workflowmanagement": "Workflow Management",
-  "label.workflowmanagement": "Manage Workflow of Loans"
+  "label.workflowmanagement": "Manage Workflow of Loans",
+  "label.input.corpName":"Corporate Name:",
+  "label.input.industryClass":"Industry Classification:",
+  "label.input.principalAddress":"Principal Address:",
+  "label.input.secRegistrationNumber": "SEC Registration No.:",
+  "label.input.certOfAuthourityNumber":"ertificate of Authority No.:",
+  "label.input.registrationDate": "Registration Date:",
+  "label.input.anniversaryDate":  "Anniversary Date:",
+  "label.input.contactPerson":"Contact Person:",
+  "label.input.contactInformation":"Contact Information:",
+  "label.input.designation": "Designation:",
+  "label.input.emailAddress":"Email Address:",
+  "label.input.docNumber":"Doc No.:",
+  "label.input.pageNumber":"Page No.:",
+  "label.input.seriesNumber":"Series No.:",
+  "label.input.bookNumber":"Book No.:"
 }
