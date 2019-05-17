@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 
 import org.apache.commons.io.IOUtils;
 
@@ -123,6 +124,7 @@ public class ReportService {
             Map<String, Object> reportParameters = new HashMap<>();
             generateReportParameters(reportParameters, map);
 
+
             // generate reports based on export type.
             switch (exportReportType)
             {
@@ -163,6 +165,15 @@ public class ReportService {
     private void generateReportParameters(Map<String, Object> reportParameters, HashMap<String, Object> map) {
         map.forEach((key, value) -> {
             reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key), Converter.convert(value));
+            if(value instanceof Iterable) {
+                Iterator iter = ((Iterable) value).iterator();
+                int ctr = 0;
+                while(iter.hasNext()) {
+                    ctr++;
+                    reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key + ctr),
+                            MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + iter.next().toString() + ".jasper");
+                }
+            }
         });
     }
 

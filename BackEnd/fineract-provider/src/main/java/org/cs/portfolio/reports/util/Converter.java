@@ -15,18 +15,7 @@ public class Converter {
 
     public static Object convert(Object value) {
         if (value instanceof String)
-            if(DateHelper.isValidDate((String)value)) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = null;
-                try {
-                    date = formatter.parse((String)value);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return date;
-            } else {
-                return (String) value;
-            }
+            return (String) value;
         else if (value instanceof Integer)
             return (Integer) value;
         else if (value instanceof Long)
@@ -35,6 +24,8 @@ public class Converter {
             return (Double) value;
         else if (value instanceof Boolean)
             return (Boolean) value;
+        else if(value instanceof Iterable)
+            return (Iterable) value;
         return null;
     }
 
