@@ -29,10 +29,14 @@
 
 			/* START AIS scope variables */
 
+			const monthNames = ["January", "February", "March", "April", "May", "June",
+			  "July", "August", "September", "October", "November", "December"
+			];
+
 		   	scope.SEC = "SECURITIES AND EXCHANGE COMMISSION";
             scope.AIS ="ANNUAL INFORMATION STATEMENT";
-            scope.AISDay = new Date().getDay();
-            scope.AISMonth = new Date().getMonth();
+            scope.AISDay = new Date().getDate();
+            scope.AISMonth = monthNames[new Date().getMonth()];
             scope.AISYear = new Date().getFullYear();
             scope.CorpName;
             scope.IndustryClass;
@@ -51,73 +55,73 @@
             scope.SRCOption4 = false;
             scope.SRCOption5 = false;
             scope.PNoteATBICURR = "PHP";
-            scope.PNoteATBIST = "0.00";
-            scope.PNoteATBILT = "0.00";
+            scope.PNoteATBIST = "";
+            scope.PNoteATBILT = "";
             scope.RAgreeATBICURR = "PHP";
-            scope.RAgreeATBIST = "0.00";
-            scope.RAgreeATBILT = "0.00";
+            scope.RAgreeATBIST = "";
+            scope.RAgreeATBILT = "";
             scope.COAATBICURR = "PHP";
-            scope.COAATBIST = "0.00";
-            scope.COAATBILT = "0.00";
+            scope.COAATBIST = "";
+            scope.COAATBILT = "";
             scope.COPATBICURR = "PHP";
-            scope.COPATBIST = "0.00";
-            scope.COPATBILT = "0.00";
-            scope.OTH1ATBI = "Others";
-            scope.OTH1ATBICURR = "PHP";
-            scope.OTH1ATBIST = "0.00";
-            scope.OTH1ATBILT = "0.00";
-            scope.OTH2ATBI = "Others";
-            scope.OTH2ATBICURR = "PHP";
-            scope.OTH2ATBIST = "0.00";
-            scope.OTH2ATBILT = "0.00";
-            scope.OTH3ATBI = "Others";
-            scope.OTH3ATBICURR = "PHP";
-            scope.OTH3ATBIST = "0.00";
-            scope.OTH3ATBILT = "0.00";
-            scope.ATBISUMST = "0.00";
-            scope.ATBISUMLT = "0.00";
+            scope.COPATBIST = "";
+            scope.COPATBILT = "";
+            scope.OTH1ATBI = "";
+            scope.OTH1ATBICURR = "";
+            scope.OTH1ATBIST = "";
+            scope.OTH1ATBILT = "";
+            scope.OTH2ATBI = "";
+            scope.OTH2ATBICURR = "";
+            scope.OTH2ATBIST = "";
+            scope.OTH2ATBILT = "";
+            scope.OTH3ATBI = "";
+            scope.OTH3ATBICURR = "";
+            scope.OTH3ATBIST = "";
+            scope.OTH3ATBILT = "";
+            scope.ATBISUMST = "";
+            scope.ATBISUMLT = "";
             scope.PNoteTICURR="PHP";
-            scope.PNoteTIMonthST = "0.00";
-            scope.PNoteTIMonthLT = "0.00";
-            scope.PNoteTIOAST = "0.00";
-            scope.PNoteTIOALT = "0.00";
+            scope.PNoteTIMonthST = "";
+            scope.PNoteTIMonthLT = "";
+            scope.PNoteTIOAST = "";
+            scope.PNoteTIOALT = "";
             scope.RAgreeTICURR="PHP";
-            scope.RAgreeTIMonthST = "0.00";
-            scope.RAgreeTIMonthLT = "0.00";
-            scope.RAgreeTIOAST = "0.00";
-            scope.RAgreeTIOALT = "0.00";
+            scope.RAgreeTIMonthST = "";
+            scope.RAgreeTIMonthLT = "";
+            scope.RAgreeTIOAST = "";
+            scope.RAgreeTIOALT = "";
             scope.COATICURR="PHP";
-            scope.COATIMonthST = "0.00";
-            scope.COATIMonthLT = "0.00";
-            scope.COATIOAST = "0.00";
-            scope.COATIOALT = "0.00";
+            scope.COATIMonthST = "";
+            scope.COATIMonthLT = "";
+            scope.COATIOAST = "";
+            scope.COATIOALT = "";
             scope.COPTICURR="PHP";
-            scope.COPTIMonthST = "0.00";
-            scope.COPTIMonthLT = "0.00";
-            scope.COPTIOAST = "0.00";
-            scope.COPTIOALT = "0.00";
-            scope.OTH1TI = "Others";
-            scope.OTH1TICURR="PHP";
-            scope.OTH1TIMonthST = "0.00";
-            scope.OTH1TIMonthLT = "0.00";
-            scope.OTH1TIOAST = "0.00";
-            scope.OTH1TIOALT = "0.00";
-            scope.OTH2TI = "Others";
-            scope.OTH2TICURR="PHP";
-            scope.OTH2TIMonthST = "0.00";
-            scope.OTH2TIMonthLT = "0.00";
-            scope.OTH2TIOAST = "0.00";
-            scope.OTH2TIOALT = "0.00";
-            scope.OTH3TI = "Others";
-            scope.OTH3TICURR="PHP";
-            scope.OTH3TIMonthST = "0.00";
-            scope.OTH3TIMonthLT = "0.00";
-            scope.OTH3TIOAST = "0.00";
-            scope.OTH3TIOALT = "0.00";
-            scope.TISUMMonthST = "0.00";
-            scope.TISUMMonthLT = "0.00";
-            scope.TISUMOAST = "0.00";
-            scope.TISUMOALT = "0.00";
+            scope.COPTIMonthST = "";
+            scope.COPTIMonthLT = "";
+            scope.COPTIOAST = "";
+            scope.COPTIOALT = "";
+            scope.OTH1TI = "";
+            scope.OTH1TICURR="";
+            scope.OTH1TIMonthST = "";
+            scope.OTH1TIMonthLT = "";
+            scope.OTH1TIOAST = "";
+            scope.OTH1TIOALT = "";
+            scope.OTH2TI = "";
+            scope.OTH2TICURR="";
+            scope.OTH2TIMonthST = "";
+            scope.OTH2TIMonthLT = "";
+            scope.OTH2TIOAST = "";
+            scope.OTH2TIOALT = "";
+            scope.OTH3TI = "";
+            scope.OTH3TICURR="";
+            scope.OTH3TIMonthST = "";
+            scope.OTH3TIMonthLT = "";
+            scope.OTH3TIOAST = "";
+            scope.OTH3TIOALT = "";
+            scope.TISUMMonthST = "";
+            scope.TISUMMonthLT = "";
+            scope.TISUMOAST = "";
+            scope.TISUMOALT = "";
             scope.SECDocNo;
             scope.SECPageNo;
             scope.SECBookNo;
@@ -141,6 +145,91 @@
             scope.hideHeader = true;
             /* END AIS scope variables */
 
+            scope.SumOfAtbiSt = function(){
+            	var arrayATBIST = [];
+				isNaN(parseFloat(scope.PNoteATBIST)) ? arrayATBIST.push(0) : arrayATBIST.push(parseFloat(scope.PNoteATBIST));
+				isNaN(parseFloat(scope.RAgreeATBIST)) ? arrayATBIST.push(0) : arrayATBIST.push(parseFloat(scope.RAgreeATBIST));
+				isNaN(parseFloat(scope.COAATBIST)) ? arrayATBIST.push(0) : arrayATBIST.push(parseFloat(scope.COAATBIST));
+				isNaN(parseFloat(scope.COPATBIST)) ? arrayATBIST.push(0) : arrayATBIST.push(parseFloat(scope.COPATBIST));
+				isNaN(parseFloat(scope.OTH1ATBIST)) ? arrayATBIST.push(0) : arrayATBIST.push(parseFloat(scope.OTH1ATBIST));
+				isNaN(parseFloat(scope.OTH2ATBIST)) ? arrayATBIST.push(0) : arrayATBIST.push(parseFloat(scope.OTH2ATBIST));
+				isNaN(parseFloat(scope.OTH3ATBIST)) ? arrayATBIST.push(0) : arrayATBIST.push(parseFloat(scope.OTH3ATBIST));
+
+				scope.ATBISUMST = scope.sum(arrayATBIST).toString();
+            }
+
+            scope.SumOfAtbiLt = function(){
+            	var arrayATBILT = [];
+				isNaN(parseFloat(scope.PNoteATBILT)) ? arrayATBILT.push(0) : arrayATBILT.push(parseFloat(scope.PNoteATBILT));
+				isNaN(parseFloat(scope.RAgreeATBILT)) ? arrayATBILT.push(0) : arrayATBILT.push(parseFloat(scope.RAgreeATBILT));
+				isNaN(parseFloat(scope.COAATBILT)) ? arrayATBILT.push(0) : arrayATBILT.push(parseFloat(scope.COAATBILT));
+				isNaN(parseFloat(scope.COPATBILT)) ? arrayATBILT.push(0) : arrayATBILT.push(parseFloat(scope.COPATBILT));
+				isNaN(parseFloat(scope.OTH1ATBILT)) ? arrayATBILT.push(0) : arrayATBILT.push(parseFloat(scope.OTH1ATBILT));
+				isNaN(parseFloat(scope.OTH2ATBILT)) ? arrayATBILT.push(0) : arrayATBILT.push(parseFloat(scope.OTH2ATBILT));
+				isNaN(parseFloat(scope.OTH3ATBILT)) ? arrayATBILT.push(0) : arrayATBILT.push(parseFloat(scope.OTH3ATBILT));
+
+				scope.ATBISUMLT = scope.sum(arrayATBILT).toString();
+            }
+
+            scope.SumOfTiMonthSt = function(){
+            	var arrayTiMonthSt = [];
+            	isNaN(parseFloat(scope.PNoteTIMonthST)) ? arrayTiMonthSt.push(0) : arrayTiMonthSt.push(parseFloat(scope.PNoteTIMonthST));
+            	isNaN(parseFloat(scope.RAgreeTIMonthST)) ? arrayTiMonthSt.push(0) : arrayTiMonthSt.push(parseFloat(scope.RAgreeTIMonthST));
+            	isNaN(parseFloat(scope.COATIMonthST)) ? arrayTiMonthSt.push(0) : arrayTiMonthSt.push(parseFloat(scope.COATIMonthST));
+            	isNaN(parseFloat(scope.COPTIMonthST)) ? arrayTiMonthSt.push(0) : arrayTiMonthSt.push(parseFloat(scope.COPTIMonthST));
+            	isNaN(parseFloat(scope.OTH1TIMonthST)) ? arrayTiMonthSt.push(0) : arrayTiMonthSt.push(parseFloat(scope.OTH1TIMonthST));
+            	isNaN(parseFloat(scope.OTH2TIMonthST)) ? arrayTiMonthSt.push(0) : arrayTiMonthSt.push(parseFloat(scope.OTH2TIMonthST));
+            	isNaN(parseFloat(scope.OTH3TIMonthST)) ? arrayTiMonthSt.push(0) : arrayTiMonthSt.push(parseFloat(scope.OTH3TIMonthST));
+
+            	scope.TISUMMonthST = scope.sum(arrayTiMonthSt).toString();
+            	
+            }
+
+            scope.SumOfTiMonthLt = function(){
+            	var arrayTiMonthLt = [];
+            	isNaN(parseFloat(scope.PNoteTIMonthLT)) ? arrayTiMonthLt.push(0) : arrayTiMonthLt.push(parseFloat(scope.PNoteTIMonthLT));
+            	isNaN(parseFloat(scope.RAgreeTIMonthLT)) ? arrayTiMonthLt.push(0) : arrayTiMonthLt.push(parseFloat(scope.RAgreeTIMonthLT));
+            	isNaN(parseFloat(scope.COATIMonthLT)) ? arrayTiMonthLt.push(0) : arrayTiMonthLt.push(parseFloat(scope.COATIMonthLT));
+            	isNaN(parseFloat(scope.COPTIMonthLT)) ? arrayTiMonthLt.push(0) : arrayTiMonthLt.push(parseFloat(scope.COPTIMonthLT));
+            	isNaN(parseFloat(scope.OTH1TIMonthLT)) ? arrayTiMonthLt.push(0) : arrayTiMonthLt.push(parseFloat(scope.OTH1TIMonthLT));
+            	isNaN(parseFloat(scope.OTH2TIMonthLT)) ? arrayTiMonthLt.push(0) : arrayTiMonthLt.push(parseFloat(scope.OTH2TIMonthLT));
+            	isNaN(parseFloat(scope.OTH3TIMonthLT)) ? arrayTiMonthLt.push(0) : arrayTiMonthLt.push(parseFloat(scope.OTH3TIMonthLT));
+
+            	scope.TISUMMonthLT = scope.sum(arrayTiMonthLt).toString();
+            	
+            }
+
+            scope.SumOfTiOaSt = function(){
+            	var arrayTiOaSt = [];
+            	isNaN(parseFloat(scope.PNoteTIOAST)) ? arrayTiOaSt.push(0) : arrayTiOaSt.push(parseFloat(scope.PNoteTIOAST));
+            	isNaN(parseFloat(scope.RAgreeTIOAST)) ? arrayTiOaSt.push(0) : arrayTiOaSt.push(parseFloat(scope.RAgreeTIOAST));
+            	isNaN(parseFloat(scope.COATIOAST)) ? arrayTiOaSt.push(0) : arrayTiOaSt.push(parseFloat(scope.COATIOAST));
+            	isNaN(parseFloat(scope.COPTIOAST)) ? arrayTiOaSt.push(0) : arrayTiOaSt.push(parseFloat(scope.COPTIOAST));
+            	isNaN(parseFloat(scope.OTH1TIOAST)) ? arrayTiOaSt.push(0) : arrayTiOaSt.push(parseFloat(scope.OTH1TIOAST));
+            	isNaN(parseFloat(scope.OTH2TIOAST)) ? arrayTiOaSt.push(0) : arrayTiOaSt.push(parseFloat(scope.OTH2TIOAST));
+            	isNaN(parseFloat(scope.OTH3TIOAST)) ? arrayTiOaSt.push(0) : arrayTiOaSt.push(parseFloat(scope.OTH3TIOAST));
+
+            	scope.TISUMOAST = scope.sum(arrayTiOaSt).toString();
+            	
+            }
+
+            scope.SumOfTiOaLt = function(){
+            	var arrayTiOaLt = [];
+            	isNaN(parseFloat(scope.PNoteTIOALT)) ? arrayTiOaLt.push(0) : arrayTiOaLt.push(parseFloat(scope.PNoteTIOALT));
+            	isNaN(parseFloat(scope.RAgreeTIOALT)) ? arrayTiOaLt.push(0) : arrayTiOaLt.push(parseFloat(scope.RAgreeTIOALT));
+            	isNaN(parseFloat(scope.COATIOALT)) ? arrayTiOaLt.push(0) : arrayTiOaLt.push(parseFloat(scope.COATIOALT));
+            	isNaN(parseFloat(scope.COPTIOALT)) ? arrayTiOaLt.push(0) : arrayTiOaLt.push(parseFloat(scope.COPTIOALT));
+            	isNaN(parseFloat(scope.OTH1TIOALT)) ? arrayTiOaLt.push(0) : arrayTiOaLt.push(parseFloat(scope.OTH1TIOALT));
+            	isNaN(parseFloat(scope.OTH2TIOALT)) ? arrayTiOaLt.push(0) : arrayTiOaLt.push(parseFloat(scope.OTH2TIOALT));
+            	isNaN(parseFloat(scope.OTH3TIOALT)) ? arrayTiOaLt.push(0) : arrayTiOaLt.push(parseFloat(scope.OTH3TIOALT));
+
+            	scope.TISUMOALT = scope.sum(arrayTiOaLt).toString();
+            }
+
+            scope.sum = function(array){
+            	return (array.reduce((a,b) => a+b, 0)).toFixed(2);
+            }
+
          
             scope.generateAISForm = function(){
                 scope.hideTable = true;
@@ -148,6 +237,12 @@
                 scope.hideHeader = false;
 
                 var data = {
+                	fileName:"SEC_AIS_FORM",
+                    subReports:["SEC_AIS_FORM_PAGE_1",
+                                "SEC_AIS_FORM_PAGE_2_1",
+                                "SEC_AIS_FORM_PAGE_2_2",
+                                "SEC_AIS_FORM_PAGE_3",
+                                "SEC_AIS_FORM_ANNEX"],
                     corpName:scope.CorpName,
                     industryClass:scope.IndustryClass,
                     principalAddress:scope.principalAddress,
@@ -227,11 +322,12 @@
                     tiSumMonthSt:scope.TISUMMonthST,
                     tiSumMonthLt:scope.TISUMMonthLT,
                     tiSumOaSt: scope.TISUMOAST,
+                    tiSumOaLt: scope.TISUMOALT,
                     undersignedOfficerLoc:scope.UnsignedOfficerLoc,
                     presidentName: scope.PresidentName,
                     treasurerName: scope.TreasurerName,
                     aisDay: scope.AISDay,
-                    aisMonth: scope.AISMonth,
+                    aisMonth: new Date.getMonth() + 1,
                     docNo: scope.DocumentNumber,
                     pageNo: scope.PageNumber,
                     bookNo: scope.BookNumber,
@@ -245,7 +341,7 @@
                     srcOption5:(scope.SRCOption5) ? "/" : ""
                 }
 
-                var reportURL = $rootScope.hostUrl + API_VERSION + "/generataReports/"+ "?output-type=" + encodeURIComponent('PDF') 
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/generataReports/"+ "?output-type=" + encodeURIComponent('PDF'); 
 
                 reportURL = $sce.trustAsResourceUrl(reportURL);
                 reportURL = $sce.valueOf(reportURL);
@@ -258,9 +354,9 @@
                     // Pass the form data to the iframe as a data url.
                     scope.baseURL = $sce.trustAsResourceUrl(fileContent);
                 });
-
-        }
-    });
+		    }
+    	}
+	});
     mifosX.ng.application.controller('StaticController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.StaticController]).run(function ($log) {
         $log.info("StaticController initialized");
     });
