@@ -18,10 +18,8 @@
  */
 package org.cs.portfolio.client.api;
 
-import java.util.Collection;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -49,6 +47,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 
 @Path("/cs_clients")
 @Component
@@ -72,6 +71,23 @@ public class CS_ClientsApiResource {
 		this.toApiJsonSerializer = toApiJsonSerializer;
         this.apiRequestParameterHelper = apiRequestParameterHelper;
         this.commandsSourceWritePlatformService = commandsSourceWritePlatformService;
+    }
+
+    @GET
+    @Path("template")
+    @Consumes({ MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_JSON })
+    public String retrieveTemplate(@Context final UriInfo uriInfo, @ApiParam(value = "officeId") @QueryParam("officeId") final Long officeId, @QueryParam("commandParam") @ApiParam(value = "commandParam") final String commandParam,
+            @DefaultValue("false")  @QueryParam("staffInSelectedOfficeOnly") @ApiParam(value = "staffInSelectedOfficeOnly")final boolean staffInSelectedOfficeOnly) {
+
+        this.context.authenticatedUser().validateHasReadPermission(CS_ClientApiConstants.CLIENT_RESOURCE_NAME);
+
+        CS_ClientData clientData = null;
+        this.context.authenticatedUser().validateHasReadPermission(CS_ClientApiConstants.CLIENT_RESOURCE_NAME);
+            clientData = this.clientReadPlatformService.retrieveTemplate(officeId, staffInSelectedOfficeOnly);
+
+        final ApiRequestJsonSerializationSettings settings = this.apiRequestParameterHelper.process(uriInfo.getQueryParameters());
+        return this.toApiJsonSerializer.serialize(settings, clientData, CS_ClientApiConstants.CLIENT_RESPONSE_DATA_PARAMETERS);
     }
 
     @GET

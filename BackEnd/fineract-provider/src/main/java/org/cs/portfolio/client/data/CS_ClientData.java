@@ -38,7 +38,7 @@ import org.joda.time.LocalDate;
 import org.apache.fineract.portfolio.client.data.ClientNonPersonData;
 import org.apache.fineract.portfolio.client.data.ClientFamilyMembersData;
 import org.apache.fineract.portfolio.client.data.ClientTimelineData;
-import org.cs.portfolio.client.domain.CS_KycInfoData;
+import org.cs.portfolio.client.data.CS_KycInfoData;
 
 
 /**
@@ -102,6 +102,14 @@ final public class CS_ClientData implements Comparable<CS_ClientData> {
     private final Collection<CodeValueData> clientNonPersonConstitutionOptions;
     private final Collection<CodeValueData> clientNonPersonMainBusinessLineOptions;
     private final List<EnumOptionData> clientLegalFormOptions;
+    private final Collection<CodeValueData> clientEducationalAttainmentOptions;
+    private final Collection<CodeValueData> clientResidenceOwnershipOptions;
+    private final Collection<CodeValueData> clientEmploymentOptions;
+    private final Collection<CodeValueData> clientSelfEmployedOptions;
+    private final Collection<CodeValueData> clientRankOptions;
+    private final Collection<CodeValueData> clientRelationshipOfOfficerOptions;
+    private final Collection<CodeValueData> clientMaritalStatusOptions;
+    private final Collection<CodeValueData> clientRelatedToOfficerOptions;
     private final ClientFamilyMembersData familyMemberOptions;
 
     private final ClientNonPersonData clientNonPersonDetails;
@@ -209,6 +217,14 @@ final public class CS_ClientData implements Comparable<CS_ClientData> {
         this.datatables = null;
         this.familyMemberOptions=null;
         this.emailAddress = null;
+        this.clientEducationalAttainmentOptions = null;
+        this.clientResidenceOwnershipOptions = null;
+        this.clientEmploymentOptions = null;
+        this.clientSelfEmployedOptions = null;
+        this.clientRankOptions = null;
+        this.clientRelationshipOfOfficerOptions = null;
+        this.clientMaritalStatusOptions = null;
+        this.clientRelatedToOfficerOptions = null;
     }
 
 
@@ -273,6 +289,57 @@ final public class CS_ClientData implements Comparable<CS_ClientData> {
 
     }
 
+    public static CS_ClientData template(final Long officeId, final LocalDate joinedDate, final Collection<OfficeData> officeOptions,
+            final Collection<StaffData> staffOptions, final Collection<CodeValueData> narrations,
+            final Collection<CodeValueData> genderOptions, final Collection<SavingsProductData> savingProductOptions,
+            final Collection<CodeValueData> clientTypeOptions, final Collection<CodeValueData> clientClassificationOptions, final Collection<CodeValueData> clientNonPersonConstitutionOptions,
+            final Collection<CodeValueData> clientNonPersonMainBusinessLineOptions, final List<EnumOptionData> clientLegalFormOptions,final ClientFamilyMembersData familyMemberOptions, final Collection<AddressData> address,
+            final Boolean isAddressEnabled, final List<DatatableData> datatables, final Collection<CodeValueData> clientEducationalAttainmentOptions, final Collection<CodeValueData> clientResidenceOwnershipOptions,
+            final Collection<CodeValueData> clientEmploymentOptions, final Collection<CodeValueData> clientSelfEmployedOptions, final Collection<CodeValueData> clientRankOptions, 
+            final Collection<CodeValueData> clientRelationshipOfOfficerOptions, final Collection<CodeValueData> clientMaritalStatusOptions, final Collection<CodeValueData> clientRelatedToOfficerOptions) {
+        final String accountNo = null;
+        final EnumOptionData status = null;
+        final CodeValueData subStatus = null;
+        final String officeName = null;
+        final Long transferToOfficeId = null;
+        final String transferToOfficeName = null;
+        final Long id = null;
+        final String firstname = null;
+        final String middlename = null;
+        final String lastname = null;
+        final String fullname = null;
+        final String displayName = null;
+        final String externalId = null;
+        final String mobileNo = null;
+		final String emailAddress = null;
+        final LocalDate dateOfBirth = null;
+        final CodeValueData gender = null;
+        final Long imageId = null;
+        final Long staffId = null;
+        final String staffName = null;
+        final Collection<GroupGeneralData> groups = null;
+        final ClientTimelineData timeline = null;
+        final Long savingsProductId = null;
+        final String savingsProductName = null;
+        final Long savingsAccountId = null;
+        final Collection<SavingsAccountData> savingAccountOptions = null;
+        final CodeValueData clientType = null;
+        final CodeValueData clientClassification = null;
+        final EnumOptionData legalForm = null;
+		final Boolean isStaff = false;
+        final ClientNonPersonData clientNonPersonDetails = null;
+        final CS_KycInfoData kycInfo = null;
+        return new CS_ClientData(accountNo, status, subStatus, officeId, officeName, transferToOfficeId, transferToOfficeName, id, firstname,
+                middlename, lastname, fullname, displayName, externalId, mobileNo, emailAddress, dateOfBirth, gender, joinedDate, imageId, staffId,
+                staffName, officeOptions, groups, staffOptions, narrations, genderOptions, timeline, savingProductOptions,
+                savingsProductId, savingsProductName, savingsAccountId, savingAccountOptions, clientType, clientClassification,
+                clientTypeOptions, clientClassificationOptions, clientNonPersonConstitutionOptions, clientNonPersonMainBusinessLineOptions,
+                clientNonPersonDetails, clientLegalFormOptions,familyMemberOptions, legalForm,address, isAddressEnabled, datatables, isStaff, 
+                clientEducationalAttainmentOptions, clientResidenceOwnershipOptions, clientEmploymentOptions, clientSelfEmployedOptions, 
+                clientRankOptions, clientRelationshipOfOfficerOptions, clientMaritalStatusOptions, clientRelatedToOfficerOptions, kycInfo);
+
+    }
+
     public static CS_ClientData templateOnTop(final CS_ClientData clientData, final CS_ClientData templateData) {
 
         return new CS_ClientData(clientData.accountNo, clientData.status, clientData.subStatus, clientData.officeId, clientData.officeName,
@@ -284,7 +351,10 @@ final public class CS_ClientData implements Comparable<CS_ClientData> {
                 clientData.savingsProductName, clientData.savingsAccountId, clientData.savingAccountOptions, clientData.clientType,
                 clientData.clientClassification, templateData.clientTypeOptions, templateData.clientClassificationOptions,
                 templateData.clientNonPersonConstitutionOptions, templateData.clientNonPersonMainBusinessLineOptions, clientData.clientNonPersonDetails,
-                templateData.clientLegalFormOptions,templateData.familyMemberOptions, clientData.legalForm, clientData.address,clientData.isAddressEnabled, null, clientData.isStaff);
+                templateData.clientLegalFormOptions,templateData.familyMemberOptions, clientData.legalForm, clientData.address,clientData.isAddressEnabled, null, clientData.isStaff,  
+                templateData.clientEducationalAttainmentOptions, templateData.clientResidenceOwnershipOptions, templateData.clientEmploymentOptions, 
+                templateData.clientSelfEmployedOptions, templateData.clientRankOptions, templateData.clientRelationshipOfOfficerOptions, 
+                templateData.clientMaritalStatusOptions, templateData.clientRelatedToOfficerOptions, clientData.kycInfo);
 
     }
 
@@ -529,8 +599,110 @@ final public class CS_ClientData implements Comparable<CS_ClientData> {
       	this.address = address;
 		this.isAddressEnabled = isAddressEnabled;
         this.datatables = datatables;
+        this.clientEducationalAttainmentOptions = null;
+        this.clientResidenceOwnershipOptions = null;
+        this.clientEmploymentOptions = null;
+        this.clientSelfEmployedOptions = null;
+        this.clientRankOptions = null;
+        this.clientRelationshipOfOfficerOptions = null;
+        this.clientMaritalStatusOptions = null;
+        this.clientRelatedToOfficerOptions = null;
 
     }
+    private CS_ClientData(final String accountNo, final EnumOptionData status, final CodeValueData subStatus, final Long officeId,
+            final String officeName, final Long transferToOfficeId, final String transferToOfficeName, final Long id,
+            final String firstname, final String middlename, final String lastname, final String fullname, final String displayName,
+            final String externalId, final String mobileNo, final String emailAddress, final LocalDate dateOfBirth, final CodeValueData gender,
+            final LocalDate activationDate, final Long imageId, final Long staffId, final String staffName,
+            final Collection<OfficeData> allowedOffices, final Collection<GroupGeneralData> groups,
+            final Collection<StaffData> staffOptions, final Collection<CodeValueData> narrations,
+            final Collection<CodeValueData> genderOptions, final ClientTimelineData timeline,
+            final Collection<SavingsProductData> savingProductOptions, final Long savingsProductId, final String savingsProductName,
+            final Long savingsAccountId, final Collection<SavingsAccountData> savingAccountOptions, final CodeValueData clientType,
+            final CodeValueData clientClassification, final Collection<CodeValueData> clientTypeOptions,
+            final Collection<CodeValueData> clientClassificationOptions, final Collection<CodeValueData> clientNonPersonConstitutionOptions,
+            final Collection<CodeValueData> clientNonPersonMainBusinessLineOptions, final ClientNonPersonData clientNonPerson,
+            final List<EnumOptionData> clientLegalFormOptions,final ClientFamilyMembersData familyMemberOptions, final EnumOptionData legalForm, final Collection<AddressData> address,
+            final Boolean isAddressEnabled, final List<DatatableData> datatables, final Boolean isStaff, final Collection<CodeValueData> clientEducationalAttainmentOptions, final Collection<CodeValueData> clientResidenceOwnershipOptions,
+            final Collection<CodeValueData> clientEmploymentOptions, final Collection<CodeValueData> clientSelfEmployedOptions, final Collection<CodeValueData> clientRankOptions, 
+            final Collection<CodeValueData> clientRelationshipOfOfficerOptions, final Collection<CodeValueData> clientMaritalStatusOptions, final Collection<CodeValueData> clientRelatedToOfficerOptions,
+            final CS_KycInfoData kycInfo) {
+        this.accountNo = accountNo;
+        this.status = status;
+        if (status != null) {
+            this.active = status.getId().equals(300L);
+        } else {
+            this.active = null;
+        }
+        this.subStatus = subStatus;
+        this.officeId = officeId;
+        this.officeName = officeName;
+        this.transferToOfficeId = transferToOfficeId;
+        this.transferToOfficeName = transferToOfficeName;
+        this.id = id;
+        this.firstname = StringUtils.defaultIfEmpty(firstname, null);
+        this.middlename = StringUtils.defaultIfEmpty(middlename, null);
+        this.lastname = StringUtils.defaultIfEmpty(lastname, null);
+        this.fullname = StringUtils.defaultIfEmpty(fullname, null);
+        this.displayName = StringUtils.defaultIfEmpty(displayName, null);
+        this.externalId = StringUtils.defaultIfEmpty(externalId, null);
+        this.mobileNo = StringUtils.defaultIfEmpty(mobileNo, null);
+		this.emailAddress = StringUtils.defaultIfEmpty(emailAddress, null);
+        this.activationDate = activationDate;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.clientClassification = clientClassification;
+        this.clientType = clientType;
+        this.imageId = imageId;
+        if (imageId != null) {
+            this.imagePresent = Boolean.TRUE;
+        } else {
+            this.imagePresent = null;
+        }
+        this.staffId = staffId;
+        this.staffName = staffName;
+
+        // associations
+        this.groups = groups;
+
+        // template
+        this.officeOptions = allowedOffices;
+        this.staffOptions = staffOptions;
+        this.narrations = narrations;
+
+        this.genderOptions = genderOptions;
+        this.clientClassificationOptions = clientClassificationOptions;
+        this.clientTypeOptions = clientTypeOptions;
+
+        this.clientNonPersonConstitutionOptions = clientNonPersonConstitutionOptions;
+        this.clientNonPersonMainBusinessLineOptions = clientNonPersonMainBusinessLineOptions;
+        this.clientLegalFormOptions = clientLegalFormOptions;
+        this.familyMemberOptions=familyMemberOptions;
+
+        this.timeline = timeline;
+        this.savingProductOptions = savingProductOptions;
+        this.savingsProductId = savingsProductId;
+        this.savingsProductName = savingsProductName;
+        this.savingsAccountId = savingsAccountId;
+        this.savingAccountOptions = savingAccountOptions;
+        this.legalForm = legalForm;
+		this.isStaff = isStaff;
+        this.clientNonPersonDetails = clientNonPerson;
+
+      	this.address = address;
+		this.isAddressEnabled = isAddressEnabled;
+        this.datatables = datatables;
+        this.clientEducationalAttainmentOptions = clientEducationalAttainmentOptions;
+        this.clientResidenceOwnershipOptions = clientResidenceOwnershipOptions;
+        this.clientEmploymentOptions = clientEmploymentOptions;
+        this.clientSelfEmployedOptions = clientSelfEmployedOptions;
+        this.clientRankOptions = clientRankOptions;
+        this.clientRelationshipOfOfficerOptions = clientRelationshipOfOfficerOptions;
+        this.clientMaritalStatusOptions = clientMaritalStatusOptions;
+        this.clientRelatedToOfficerOptions = clientRelatedToOfficerOptions;
+        this.kycInfo = kycInfo; 
+    }
+
 
     public Long id() {
         return this.id;

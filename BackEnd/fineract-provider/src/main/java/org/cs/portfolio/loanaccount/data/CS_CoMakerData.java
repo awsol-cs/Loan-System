@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cs.portfolio.loanaccount.domain;
+package org.cs.portfolio.loanaccount.data;
 
-import org.cs.portfolio.client.domain.CS_KycInfoData;
+import org.cs.portfolio.client.data.CS_KycInfoData;
 
 @SuppressWarnings("unused")
 final public class CS_CoMakerData implements Comparable<CS_CoMakerData> {

@@ -67,7 +67,7 @@ public class CS_KYCWritePlatformServiceJpaRepositoryImpl implements CS_KYCWriteP
             CodeValue maritalStatus = null;
             final Long maritalStatusId = command.longValueOfParameterNamed("maritalStatusId");
             if (maritalStatusId != null) {
-                maritalStatus = this.codeValueRepository.findOneByCodeNameAndIdWithNotFoundDetection("maritalStatus", maritalStatusId);
+                maritalStatus = this.codeValueRepository.findOneByCodeNameAndIdWithNotFoundDetection("MARITAL STATUS", maritalStatusId);
             }
             CodeValue educationalAttainment = null;
             final Long educationalAttainmentId = command.longValueOfParameterNamed("educationalAttainmentId");
@@ -97,7 +97,7 @@ public class CS_KYCWritePlatformServiceJpaRepositoryImpl implements CS_KYCWriteP
             CodeValue relatedToOfficer = null;
             final Long relatedToOfficerId = command.longValueOfParameterNamed("relatedToOfficerId");
             if (relatedToOfficerId != null) {
-                relatedToOfficer = this.codeValueRepository.findOneByCodeNameAndIdWithNotFoundDetection("relatedToOfficer", relatedToOfficerId);
+                relatedToOfficer = this.codeValueRepository.findOneByCodeNameAndIdWithNotFoundDetection("YesNo", relatedToOfficerId);
             }
             CodeValue relationshipOfOfficer = null;
             final Long relationshipOfOfficerId = command.longValueOfParameterNamed("relationshipOfOfficerId");

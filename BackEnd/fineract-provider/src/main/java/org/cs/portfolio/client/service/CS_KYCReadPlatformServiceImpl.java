@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import org.apache.fineract.infrastructure.core.service.RoutingDataSource;
 import org.cs.infrastructure.security.service.CS_PlatformSecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.cs.portfolio.client.domain.CS_KycInfoData;
+import org.cs.portfolio.client.data.CS_KycInfoData;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;

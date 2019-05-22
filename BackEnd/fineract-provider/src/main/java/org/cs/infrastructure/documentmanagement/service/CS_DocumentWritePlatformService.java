@@ -16,19 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cs.portfolio.client.service;
+package org.cs.infrastructure.documentmanagement.service;
 
-import java.util.Collection;
-import java.util.Date;
 
-import org.apache.fineract.infrastructure.core.service.Page;
-import org.apache.fineract.infrastructure.core.service.SearchParameters;
-import org.cs.portfolio.client.data.CS_ClientData;
-import org.cs.portfolio.client.data.CS_KycInfoData;
+import org.apache.fineract.infrastructure.core.domain.Base64EncodedImage;
+import org.apache.fineract.infrastructure.documentmanagement.command.DocumentCommand;
+import org.springframework.security.access.prepost.PreAuthorize;
 
-public interface CS_ClientReadPlatformService {
+public interface CS_DocumentWritePlatformService {
 
-    CS_ClientData retrieveTemplate(Long officeId, boolean staffInSelectedOfficeOnly);
-
-    CS_ClientData retrieveOne(Long clientId);
+    @PreAuthorize(value = "hasAnyRole('ALL_FUNCTIONS', 'CREATE_DOCUMENT')")
+    Long createDocument(DocumentCommand documentCommand, Base64EncodedImage inputStream);
 }

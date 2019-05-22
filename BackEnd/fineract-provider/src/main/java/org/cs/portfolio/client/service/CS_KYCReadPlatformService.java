@@ -1,6 +1,6 @@
 package org.cs.portfolio.client.service;
 
-import org.cs.portfolio.client.domain.CS_KycInfoData;
+import org.cs.portfolio.client.data.CS_KycInfoData;
 
 public interface CS_KYCReadPlatformService {
     

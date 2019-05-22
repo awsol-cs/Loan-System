@@ -77,7 +77,7 @@ import org.springframework.util.CollectionUtils;
 
 import org.apache.fineract.portfolio.client.service.ClientFamilyMembersReadPlatformService;
 
-import org.cs.portfolio.client.domain.CS_KycInfoData;
+import org.cs.portfolio.client.data.CS_KycInfoData;
 
 @Service
 public class CS_ClientReadPlatformServiceImpl implements CS_ClientReadPlatformService {
@@ -173,6 +173,30 @@ public class CS_ClientReadPlatformServiceImpl implements CS_ClientReadPlatformSe
                 this.codeValueReadPlatformService.retrieveCodeValuesByCode(ClientApiConstants.CLIENT_NON_PERSON_MAIN_BUSINESS_LINE));
 
         final List<EnumOptionData> clientLegalFormOptions = ClientEnumerations.legalForm(LegalForm.values());
+        
+        final List<CodeValueData> clientEducationalAttainmentOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("educationalAttainment"));
+        
+        final List<CodeValueData> clientResidenceOwnershipOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("residenceOwnership"));
+        
+        final List<CodeValueData> clientEmploymentOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("employment"));
+        
+        final List<CodeValueData> clientSelfEmployedOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("selfEmployed"));
+        
+        final List<CodeValueData> clientRankOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("rank"));
+        
+        final List<CodeValueData> clientRelationshipOfOfficerOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("relationshipOfOfficer"));
+
+        final List<CodeValueData> clientMaritalStatusOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("MARITAL STATUS"));
+
+        final List<CodeValueData> clientRelatedToOfficerOptions = new ArrayList<>(
+                this.codeValueReadPlatformService.retrieveCodeValuesByCode("YesNo"));
 
         final List<DatatableData> datatableTemplates = this.entityDatatableChecksReadService
                 .retrieveTemplates(StatusEnum.CREATE.getCode().longValue(), EntityTables.CLIENT.getName(), null);
@@ -180,7 +204,9 @@ public class CS_ClientReadPlatformServiceImpl implements CS_ClientReadPlatformSe
         return CS_ClientData.template(defaultOfficeId, new LocalDate(), offices, staffOptions, null, genderOptions, savingsProductDatas,
                 clientTypeOptions, clientClassificationOptions, clientNonPersonConstitutionOptions, clientNonPersonMainBusinessLineOptions,
 				clientLegalFormOptions, familyMemberOptions, new ArrayList<AddressData>(Arrays.asList(address)),
-				isAddressEnabled, datatableTemplates);
+				isAddressEnabled, datatableTemplates, clientEducationalAttainmentOptions, clientResidenceOwnershipOptions, clientEmploymentOptions,
+				clientSelfEmployedOptions, clientRankOptions, clientRelationshipOfOfficerOptions, clientMaritalStatusOptions, 
+				clientRelatedToOfficerOptions);
 	}
 
     @Override

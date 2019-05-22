@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cs.portfolio.client.domain;
+package org.cs.portfolio.client.data;
 
 import org.apache.fineract.infrastructure.codes.data.CodeValueData;
 

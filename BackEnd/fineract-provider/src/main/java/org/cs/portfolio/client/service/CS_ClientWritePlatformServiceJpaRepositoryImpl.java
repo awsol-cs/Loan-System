@@ -19,9 +19,6 @@
 package org.cs.portfolio.client.service;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.persistence.PersistenceException;
@@ -30,9 +27,6 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.fineract.commands.domain.CommandWrapper;
 import org.apache.fineract.commands.service.CommandProcessingService;
 import org.apache.fineract.commands.service.CommandWrapperBuilder;
-import org.cs.commands.domain.CS_CommandWrapper;
-import org.cs.commands.service.CS_CommandProcessingService;
-import org.cs.commands.service.CS_CommandWrapperBuilder;
 import org.apache.fineract.infrastructure.accountnumberformat.domain.AccountNumberFormat;
 import org.apache.fineract.infrastructure.accountnumberformat.domain.AccountNumberFormatRepositoryWrapper;
 import org.apache.fineract.infrastructure.accountnumberformat.domain.EntityAccountType;
@@ -42,12 +36,17 @@ import org.apache.fineract.infrastructure.configuration.data.GlobalConfiguration
 import org.apache.fineract.infrastructure.configuration.service.ConfigurationReadPlatformService;
 import org.apache.fineract.infrastructure.core.api.JsonCommand;
 import org.cs.infrastructure.core.api.CS_JsonCommand;
+import org.cs.infrastructure.documentmanagement.service.CS_DocumentWritePlatformService;
 import org.apache.fineract.infrastructure.core.data.CommandProcessingResult;
 import org.apache.fineract.infrastructure.core.data.CommandProcessingResultBuilder;
+import org.apache.fineract.infrastructure.core.domain.Base64EncodedImage;
 import org.apache.fineract.infrastructure.core.exception.PlatformDataIntegrityException;
 import org.apache.fineract.infrastructure.dataqueries.data.EntityTables;
 import org.apache.fineract.infrastructure.dataqueries.data.StatusEnum;
 import org.apache.fineract.infrastructure.dataqueries.service.EntityDatatableChecksWritePlatformService;
+import org.apache.fineract.infrastructure.documentmanagement.command.DocumentCommand;
+import org.apache.fineract.infrastructure.documentmanagement.contentrepository.ContentRepositoryUtils;
+import org.apache.fineract.infrastructure.documentmanagement.service.ImageWritePlatformService;
 import org.apache.fineract.infrastructure.security.service.PlatformSecurityContext;
 import org.apache.fineract.organisation.office.domain.Office;
 import org.apache.fineract.organisation.office.domain.OfficeRepositoryWrapper;
@@ -59,17 +58,12 @@ import org.apache.fineract.portfolio.client.data.ClientDataValidator;
 import org.apache.fineract.portfolio.client.domain.AccountNumberGenerator;
 import org.apache.fineract.portfolio.client.domain.Client;
 import org.apache.fineract.portfolio.client.domain.ClientRepositoryWrapper;
-import org.apache.fineract.portfolio.client.domain.ClientStatus;
 import org.apache.fineract.portfolio.client.domain.LegalForm;
 import org.apache.fineract.portfolio.common.BusinessEventNotificationConstants.BUSINESS_ENTITY;
 import org.apache.fineract.portfolio.common.BusinessEventNotificationConstants.BUSINESS_EVENTS;
 import org.apache.fineract.portfolio.common.service.BusinessEventNotifierService;
 import org.apache.fineract.portfolio.loanaccount.domain.Loan;
-import org.apache.fineract.portfolio.loanaccount.domain.LoanRepositoryWrapper;
 import org.apache.fineract.useradministration.domain.AppUser;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,12 +73,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.fineract.portfolio.client.service.ClientFamilyMembersWritePlatformService;
 import org.cs.portfolio.client.domain.CS_KycInfo;
-import org.cs.portfolio.client.domain.CS_KycRepository;
 import org.cs.portfolio.loanaccount.service.CS_LoanApplicationWritePlatformService;
 import org.cs.portfolio.client.service.CS_KYCWritePlatformService;
 import org.cs.portfolio.loanaccount.service.CS_CoMakerWritePlatformService;
 import org.cs.portfolio.loanaccount.domain.CS_CoMaker;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -95,7 +87,6 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
 
     private final PlatformSecurityContext context;
     private final ClientRepositoryWrapper clientRepository;
-    private final CS_KycRepository kycRepository;
     private final CS_LoanApplicationWritePlatformService loanPlatformService;
     private final OfficeRepositoryWrapper officeRepositoryWrapper;
     private final ClientDataValidator fromApiJsonDeserializer;
@@ -103,7 +94,6 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
     private final StaffRepositoryWrapper staffRepository;
     private final CodeValueRepositoryWrapper codeValueRepository;
     private final CommandProcessingService commandProcessingService;
-    private final CS_CommandProcessingService cs_CommandProcessingService;
     private final AccountNumberFormatRepositoryWrapper accountNumberFormatRepository;
     private final ConfigurationReadPlatformService configurationReadPlatformService;
     private final AddressWritePlatformService addressWritePlatformService;
@@ -112,11 +102,12 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
     private final EntityDatatableChecksWritePlatformService entityDatatableChecksWritePlatformService;
     private final CS_KYCWritePlatformService kycPlatformService;
     private final CS_CoMakerWritePlatformService coMakerPlatformService;
+    private final ImageWritePlatformService imageWritePlatformService;
+    private final CS_DocumentWritePlatformService documentWritePlatformService;
 
     @Autowired
     public CS_ClientWritePlatformServiceJpaRepositoryImpl(final PlatformSecurityContext context,
             final ClientRepositoryWrapper clientRepository, 
-            final CS_KycRepository kycRepository,
             final CS_LoanApplicationWritePlatformService loanPlatformService,
             final OfficeRepositoryWrapper officeRepositoryWrapper,
             final ClientDataValidator fromApiJsonDeserializer, 
@@ -124,7 +115,6 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
             final StaffRepositoryWrapper staffRepository,
             final CodeValueRepositoryWrapper codeValueRepository,
             final CommandProcessingService commandProcessingService, 
-            final CS_CommandProcessingService cs_CommandProcessingService, 
             final AccountNumberFormatRepositoryWrapper accountNumberFormatRepository,
             final ConfigurationReadPlatformService configurationReadPlatformService,
             final AddressWritePlatformService addressWritePlatformService, 
@@ -132,11 +122,12 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
             final BusinessEventNotifierService businessEventNotifierService,
             final EntityDatatableChecksWritePlatformService entityDatatableChecksWritePlatformService,
             final CS_KYCWritePlatformService kycPlatformService,
-            final CS_CoMakerWritePlatformService coMakerPlatformService
+            final CS_CoMakerWritePlatformService coMakerPlatformService,
+            final ImageWritePlatformService imageWritePlatformService,
+            final CS_DocumentWritePlatformService documentWritePlatformService
             ) {
         this.context = context;
         this.clientRepository = clientRepository;
-        this.kycRepository = kycRepository;
         this.loanPlatformService = loanPlatformService;
         this.officeRepositoryWrapper = officeRepositoryWrapper;
         this.fromApiJsonDeserializer = fromApiJsonDeserializer;
@@ -144,7 +135,6 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
         this.staffRepository = staffRepository;
         this.codeValueRepository = codeValueRepository;
         this.commandProcessingService = commandProcessingService;
-        this.cs_CommandProcessingService = cs_CommandProcessingService;
         this.accountNumberFormatRepository = accountNumberFormatRepository;
         this.configurationReadPlatformService = configurationReadPlatformService;
         this.addressWritePlatformService = addressWritePlatformService;
@@ -153,6 +143,8 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
         this.entityDatatableChecksWritePlatformService = entityDatatableChecksWritePlatformService;
         this.kycPlatformService = kycPlatformService;
         this.coMakerPlatformService = coMakerPlatformService;
+        this.imageWritePlatformService = imageWritePlatformService;
+        this.documentWritePlatformService = documentWritePlatformService;
     }
 
     /*
@@ -185,20 +177,43 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
     @Override
     public CommandProcessingResult createClient(final CS_JsonCommand command) {
         JsonCommand jCom = command.thisToJsonCommand();
-        JsonCommand clientCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("client"));
-        JsonCommand kycCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("kyc"));
-        JsonCommand loanCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("loan"));
-        JsonCommand coMakerCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("comaker"));
-        JsonCommand coMakerInfoCommand = JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("info"));
-        JsonCommand coMakerKycCommand = JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("kyc"));
+        JsonCommand clientCommand = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("client"));
+        JsonCommand kycCommand = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("kyc"));
+        JsonCommand loanCommand = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("loan"));
+        JsonCommand coMakerCommand = jCom.parsedJson().getAsJsonObject().has("comaker") ?
+        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("comaker")) : null;
+        JsonCommand coMakerInfoCommand = coMakerCommand != null ? 
+        		JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("info")) : null;
+        JsonCommand coMakerKycCommand = coMakerCommand != null ? 
+        		JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("kyc")) : null;
+        
+        JsonCommand image = jCom.parsedJson().getAsJsonObject().has("image") ? 
+        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("image")) :
+    			null;
+        JsonCommand documents = jCom.parsedJson().getAsJsonObject().has("documents") ? 
+        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("documents")) :
+        		null;
+        JsonCommand signature = jCom.parsedJson().getAsJsonObject().has("signature") ? 
+        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("signature")) :
+        		null;
         try {
             Client newClient = addClient(clientCommand);
             CS_KycInfo clientKYC = addKYC(kycCommand, newClient);
             loanCommand = addClientId(loanCommand, newClient.getId());
             Loan newLoan = addLoanFromClient(loanCommand);
-            CS_KycInfo coMakerKyc = addKYC(coMakerKycCommand, null);
-            CS_CoMaker coMakerInfo = addCoMaker(coMakerInfoCommand, newLoan, coMakerKyc);
-
+            if(coMakerCommand != null) {
+                CS_KycInfo coMakerKyc = addKYC(coMakerKycCommand, null);
+                CS_CoMaker coMakerInfo = addCoMaker(coMakerInfoCommand, newLoan, coMakerKyc);
+            }
+            if(image != null) {
+            	addClientImage(image, newClient.getId());
+            }
+            if(documents != null) {
+            	addClientDocuments(documents, newClient.getId());
+            }
+            if(signature != null) {
+            	
+            }
             return new CommandProcessingResultBuilder() //
                     .withCommandId(jCom.commandId()) //
                     .withOfficeId(newClient.officeId()) //
@@ -225,8 +240,6 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
                     .retrieveGlobalConfiguration("Enable-Address");
 
             final Boolean isAddressEnabled = configuration.isEnabled();
-            
-            final Boolean isStaff = command.booleanObjectValueOfParameterNamed(ClientApiConstants.isStaffParamName);
 
             final Long officeId = command.longValueOfParameterNamed(ClientApiConstants.officeIdParamName);
 
@@ -333,9 +346,25 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
         jsonObject.addProperty("clientId", clientId);
         return JsonCommand.fromExistingCommand(command, jsonObject);
     }
-    // private Comaker addComaker(final JsonCommand command){
+    
+    private void addClientImage(final JsonCommand command, final Long clientId) {
 
-    // }
+        final Base64EncodedImage base64EncodedImage = ContentRepositoryUtils.extractImageFromDataURL(command.json());
+
+        this.imageWritePlatformService.saveOrUpdateImage("clients", clientId, base64EncodedImage);
+        
+    }
+
+    private void addClientDocuments(final JsonCommand command, final Long clientId){
+    	
+        final Base64EncodedImage base64EncodedImage = ContentRepositoryUtils.extractImageFromDataURL(command.json());
+        final String documentName = command.stringValueOfParameterNamed("name");
+
+        final DocumentCommand documentCommand = new DocumentCommand(null, null, "clients", clientId, documentName, 
+        		base64EncodedImage.getFileExtension(), null, "image", null, null);
+
+        this.documentWritePlatformService.createDocument(documentCommand, base64EncodedImage);
+    }
     
     public boolean isEmpty(final JsonElement element){
     	return element.toString().trim().length()<4;
@@ -345,8 +374,8 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
     @Override
     public CommandProcessingResult updateClient(final Long clientId, final CS_JsonCommand command) {
         JsonCommand jCom = command.thisToJsonCommand();
-        JsonCommand clientCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("client"));
-        JsonCommand kycCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("kyc"));
+        JsonCommand clientCommand = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("client"));
+        JsonCommand kycCommand = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("kyc"));
         Long kycId = kycCommand.longValueOfParameterNamed("id");
 
         try {

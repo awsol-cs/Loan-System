@@ -46,7 +46,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.cs.portfolio.loanaccount.service.CS_CoMakerReadPlatformService;
 import org.apache.fineract.infrastructure.core.serialization.ApiRequestJsonSerializationSettings;
-import org.cs.portfolio.loanaccount.domain.CS_CoMakerData;
+import org.cs.portfolio.loanaccount.data.CS_CoMakerData;
 import org.apache.fineract.infrastructure.core.api.ApiRequestParameterHelper;
 
 

@@ -16,19 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cs.portfolio.client.service;
+package org.cs.infrastructure.documentmanagement.contentrepository;
 
-import java.util.Collection;
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
-import org.apache.fineract.infrastructure.core.service.Page;
-import org.apache.fineract.infrastructure.core.service.SearchParameters;
-import org.cs.portfolio.client.data.CS_ClientData;
-import org.cs.portfolio.client.data.CS_KycInfoData;
+@Component
+public class CS_ContentRepositoryFactory {
 
-public interface CS_ClientReadPlatformService {
+    public CS_ContentRepository getRepository() {
+        return new CS_FileSystemContentRepository();
+    }
 
-    CS_ClientData retrieveTemplate(Long officeId, boolean staffInSelectedOfficeOnly);
-
-    CS_ClientData retrieveOne(Long clientId);
 }

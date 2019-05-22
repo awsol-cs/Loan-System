@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cs.portfolio.loanaccount.domain;
+package org.cs.portfolio.loanaccount.data;
 
 import org.apache.fineract.infrastructure.codes.data.CodeValueData;
 import org.joda.time.LocalDate;
