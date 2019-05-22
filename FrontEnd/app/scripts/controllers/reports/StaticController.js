@@ -258,6 +258,7 @@
                     // Pass the form data to the iframe as a data url.
                     scope.baseURL = $sce.trustAsResourceUrl(fileContent);
                 });
+            }
 
         }
     });
