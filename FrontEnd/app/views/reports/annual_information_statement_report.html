@@ -162,11 +162,10 @@
 			    		<input ng-model="PNoteATBICURR" style="width: 40px;"type="text">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="PNoteATBIST" type="text">
+			    		<input ng-model="PNoteATBIST" ng-change="SumOfAtbiSt()" type="text" placeholder="0.00">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="PNoteATBILT" type="text">
-			    	</div>
+			    		<input ng-model="PNoteATBILT" ng-change="SumOfAtbiLt()" type="text" placeholder="0.00"> </div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
@@ -176,11 +175,9 @@
 			    		<input ng-model="RAgreeATBICURR" style="width: 40px;"type="text">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="RAgreeATBIST" type="text">
-			    	</div>
+			    		<input ng-model="RAgreeATBIST" ng-change="SumOfAtbiSt()" type="text" placeholder="0.00"> </div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="RAgreeATBILT" type="text">
-			    	</div>
+			    		<input ng-model="RAgreeATBILT" ng-change="SumOfAtbiLt()" type="text" placeholder="0.00"> </div>
 		    	</div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
@@ -190,11 +187,9 @@
 			    		<input ng-model="COAATBICURR" style="width: 40px;"type="text">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="COAATBIST" type="text">
-			    	</div>
+			    		<input ng-model="COAATBIST" ng-change="SumOfAtbiSt()" type="text" placeholder="0.00"> </div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="COAATBILT" type="text">
-			    	</div>
+			    		<input ng-model="COAATBILT" ng-change="SumOfAtbiLt()" type="text" placeholder="0.00"> </div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
@@ -204,11 +199,9 @@
 			    		<input ng-model="COPATBICURR" style="width: 40px;"type="text">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="COPATBIST" type="text">
-			    	</div>
+			    		<input ng-model="COPATBIST" ng-change="SumOfAtbiSt()" type="text" placeholder="0.00"> </div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="COPATBILT" type="text">
-			    	</div>
+			    		<input ng-model="COPATBILT" ng-change="SumOfAtbiLt()" type="text" placeholder="0.00"> </div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<p>5) Others: Please specify</p>
@@ -218,52 +211,46 @@
 			    		<input ng-model="OTH1ATBI" type="text" placeholder="Others">
 			    	</div>
 			    	<div class="col-xs-2 col-sm-2 col-lg-2">
-			    		<input ng-model="OTH1ATBICURR" style="width: 40px;"type="text">
+			    		<input ng-model="OTH1ATBICURR" style="width: 40px;"type="text" placeholder="PHP">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="OTH1ATBIST" type="text">
-			    	</div>
+			    		<input ng-model="OTH1ATBIST" ng-change="SumOfAtbiSt()" type="text" placeholder="0.00"> </div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="OTH1ATBILT" type="text">
-			    	</div>
+			    		<input ng-model="OTH1ATBILT" ng-change="SumOfAtbiLt()" type="text" placeholder="0.00"> </div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
 			    		<input ng-model="OTH2ATBI" type="text" placeholder="Others">
 			    	</div>
 			    	<div class="col-xs-2 col-sm-2 col-lg-2">
-			    		<input ng-model="OTH2ATBICURR" style="width: 40px;"type="text">
+			    		<input ng-model="OTH2ATBICURR" style="width: 40px;"type="text" placeholder="PHP">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="OTH2ATBIST" type="text">
-			    	</div>
+			    		<input ng-model="OTH2ATBIST" ng-change="SumOfAtbiSt()" type="text" placeholder="0.00" > </div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="OTH2ATBILT" type="text">
-			    	</div>
+			    		<input ng-model="OTH2ATBILT" ng-change="SumOfAtbiLt()" type="text" placeholder="0.00"> </div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
 			    		<input ng-model="OTH3ATBI" type="text" placeholder="Others">
 			    	</div>
 			    	<div class="col-xs-2 col-sm-2 col-lg-2">
-			    		<input ng-model="OTH3ATBICURR" style="width: 40px;"type="text">
+			    		<input ng-model="OTH3ATBICURR" style="width: 40px;"type="text" placeholder="PHP">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="OTH3ATBIST" type="text">
-			    	</div>
+			    		<input ng-model="OTH3ATBIST" ng-change="SumOfAtbiSt()" type="text" placeholder="0.00"> </div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="OTH3ATBILT" type="text">
-			    	</div>
+			    		<input ng-model="OTH3ATBILT" ng-change="SumOfAtbiLt()"  type="text" placeholder="0.00"> </div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
 			    		<p>TOTAL</p>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2" >
-			    		<input ng-model="ATBISUMST" type="text" placeholder="0.00">
+			    		<span>{{ATBISUMST}}</span>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
-			    		<input ng-model="ATBISUMLT" type="text" placeholder="0.00">
+			    		<span>{{ATBISUMLT}}</span>
 			    	</div>
 			    </div>
 		    	<strong>D) TOTAL ISSUANCE OF ST/LT COMMERCIAL PAPERS MADE DURING THE IMMEDIATELY PRECEDING YEAR AND OUTSTANDING BALANCE AS OF THE END OF IMMEDIATELY PRECEDING MONTH.</strong><br>
@@ -322,21 +309,17 @@
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="PNoteTIMonthST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="PNoteTIMonthST" style="width: 80px;" ng-change="SumOfTiMonthSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="PNoteTIMonthLT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="PNoteTIMonthLT" style="width: 80px;" ng-change="SumOfTiMonthLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="PNoteTIOAST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="PNoteTIOAST" style="width: 80px;" ng-change="SumOfTiOaSt()"  type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="PNoteTIOALT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="PNoteTIOALT" style="width: 80px;" ng-change="SumOfTiOaLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    </div>
@@ -350,21 +333,17 @@
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="RAgreeTIMonthST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="RAgreeTIMonthST" style="width: 80px;" ng-change="SumOfTiMonthSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="RAgreeTIMonthLT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="RAgreeTIMonthLT" style="width: 80px;" ng-change="SumOfTiMonthLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="RAgreeTIOAST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="RAgreeTIOAST" style="width: 80px;" ng-change="SumOfTiOaSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="RAgreeTIOALT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="RAgreeTIOALT" style="width: 80px;" ng-change="SumOfTiOaLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    </div>
@@ -378,21 +357,17 @@
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="COATIMonthST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="COATIMonthST" style="width: 80px;" ng-change="SumOfTiMonthSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="COATIMonthLT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="COATIMonthLT" style="width: 80px;" ng-change="SumOfTiMonthLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="COATIOAST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="COATIOAST" style="width: 80px;" ng-change="SumOfTiOaSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="COATIOALT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="COATIOALT" style="width: 80px;" ng-change="SumOfTiOaLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    </div>
@@ -406,21 +381,17 @@
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="COPTIMonthST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="COPTIMonthST" style="width: 80px;" ng-change="SumOfTiMonthSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="COPTIMonthLT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="COPTIMonthLT" style="width: 80px;" ng-change="SumOfTiMonthLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="COPTIOAST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="COPTIOAST" style="width: 80px;" ng-change="SumOfTiOaSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="COPTIOALT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="COPTIOALT" style="width: 80px;" ng-change="SumOfTiOaLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    </div>
@@ -429,85 +400,73 @@
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
-			    		<input ng-model="OTH1TI" type="text">
+			    		<input ng-model="OTH1TI" type="text" placeholder="Others">
 			    	</div>
 			    	<div class="col-xs-2 col-sm-2 col-lg-2">
-			    		<input ng-model="OTH1TICURR" style="width: 40px;"type="text">
+			    		<input ng-model="OTH1TICURR" style="width: 40px;"type="text" placeholder="PHP">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="OTH1TIMonthST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="OTH1TIMonthST" style="width: 80px;" ng-change="SumOfTiMonthSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="OTH1TIMonthLT" style="width: 80px;"type="text">
-				    		</div>
+				    			<input ng-model="OTH1TIMonthLT" style="width: 80px;" ng-change="SumOfTiMonthLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="OTH1TIOAST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="OTH1TIOAST" style="width: 80px;" ng-change="SumOfTiOaSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="OTH1TIOALT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="OTH1TIOALT" style="width: 80px;" ng-change="SumOfTiOaLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
-			    		<input ng-model="OTH2TI" type="text">
+			    		<input ng-model="OTH2TI" type="text" placeholder="Others">
 			    	</div>
 			    	<div class="col-xs-2 col-sm-2 col-lg-2">
-			    		<input ng-model="OTH2TICURR" style="width: 40px;"type="text">
+			    		<input ng-model="OTH2TICURR" style="width: 40px;"type="text" placeholder="PHP">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="OTH2TIMonthST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="OTH2TIMonthST" style="width: 80px;" ng-change="SumOfTiMonthSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="OTH2TIMonthLT" style="width: 80px;"type="text">
-				    		</div>
+				    			<input ng-model="OTH2TIMonthLT" style="width: 80px;" ng-change="SumOfTiMonthLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="OTH2TIOAST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="OTH2TIOAST" style="width: 80px;" ng-change="SumOfTiOaSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="OTH2TIOALT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="OTH2TIOALT" style="width: 80px;" ng-change="SumOfTiOaLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    </div>
 			    <div class="row" style="margin-left: 1%;font-size:15px;">
 			    	<div class="col-xs-4 col-sm-4 col-lg-4">
-			    		<input ng-model="OTH3TI" type="text">
+			    		<input ng-model="OTH3TI" type="text" placeholder="Others">
 			    	</div>
 			    	<div class="col-xs-2 col-sm-2 col-lg-2">
-			    		<input ng-model="OTH3TICURR" style="width: 40px;"type="text">
+			    		<input ng-model="OTH3TICURR" style="width: 40px;"type="text" placeholder="PHP">
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="OTH3TIMonthST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="OTH3TIMonthST" style="width: 80px;" ng-change="SumOfTiMonthSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="OTH3TIMonthLT" style="width: 80px;"type="text">
-				    		</div>
+				    			<input ng-model="OTH3TIMonthLT" style="width: 80px;" ng-change="SumOfTiMonthLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="OTH3TIOAST" style="width: 80px;" type="text">
-				    		</div>
+			    				<input ng-model="OTH3TIOAST" style="width: 80px;" ng-change="SumOfTiOaSt()" type="text" placeholder="0.00"> </div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="OTH3TIOALT" style="width: 80px;" type="text">
-				    		</div>
+				    			<input ng-model="OTH3TIOALT" style="width: 80px;" ng-change="SumOfTiOaLt()" type="text" placeholder="0.00"> </div>
 			    		</div>
 			    	</div>
 			    </div>
@@ -518,20 +477,20 @@
 			    	<div class="col-xs-3 col-sm-3 col-lg-3 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2" >
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="TISUMMonthST" style="width: 80px;" type="text">
+			    				<span>{{TISUMMonthST}}</span>
 				    		</div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="TISUMMonthLT" style="width: 80px;" type="text">
+				    			<span>{{TISUMMonthLT}}</span>
 				    		</div>
 			    		</div>
 			    	</div>
 			    	<div class="col-xs-3 col-sm-3 col-lg-3">
 			    		<div class="row">
 			    			<div class="col-xs-6 col-sm-6 col-lg-6">
-			    				<input ng-model="TISUMOAST" style="width: 80px;" type="text">
+			    				<span>{{TISUMOAST}}</span>
 				    		</div>
 				    		<div class="col-xs-6 col-sm-6 col-lg-6">
-				    			<input ng-model="TISUMOALT" style="width: 80px;" type="text">
+				    			<span>{{TISUMOALT}}</span>
 				    		</div>
 			    		</div>
 			    	</div>
