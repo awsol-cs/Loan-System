@@ -237,12 +237,6 @@
                 scope.hideHeader = false;
 
                 var data = {
-                	fileName:"SEC_AIS_FORM",
-                    subReports:["SEC_AIS_FORM_PAGE_1",
-                                "SEC_AIS_FORM_PAGE_2_1",
-                                "SEC_AIS_FORM_PAGE_2_2",
-                                "SEC_AIS_FORM_PAGE_3",
-                                "SEC_AIS_FORM_ANNEX"],
                     corpName:scope.CorpName,
                     industryClass:scope.IndustryClass,
                     principalAddress:scope.principalAddress,
@@ -341,7 +335,7 @@
                     srcOption5:(scope.SRCOption5) ? "/" : ""
                 }
 
-                var reportURL = $rootScope.hostUrl + API_VERSION + "/generataReports/"+ "?output-type=" + encodeURIComponent('PDF'); 
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/cs_reports/PDF?file=SEC_AIS_FORM"; 
 
                 reportURL = $sce.trustAsResourceUrl(reportURL);
                 reportURL = $sce.valueOf(reportURL);
