@@ -744,6 +744,14 @@
 
                 return true;
             };
+
+            resourceFactory.csCoMakerResource.get({loanId: routeParams.id}, {}, function (data) {
+                scope.comaker = data;
+            });
+            scope.routeToCoMaker = function(){
+                location.path('/editcomaker/' + routeParams.id);
+            }
+
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {

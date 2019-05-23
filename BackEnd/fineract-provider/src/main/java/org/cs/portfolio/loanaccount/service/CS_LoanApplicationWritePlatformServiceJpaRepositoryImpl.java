@@ -187,14 +187,19 @@ public class CS_LoanApplicationWritePlatformServiceJpaRepositoryImpl implements 
     @Override
     public CommandProcessingResult submitApplication(final CS_JsonCommand command) {
         JsonCommand jCom = command.thisToJsonCommand();
-        JsonCommand loanCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("loan"));
-        JsonCommand coMakerCommand = jCom.fromExistingCommand(jCom, jCom.jsonElement("comaker"));
-        JsonCommand coMakerInfoCommand = JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("info"));
-        JsonCommand coMakerKycCommand = JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("kyc"));
+        JsonCommand loanCommand = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("loan"));
+        JsonCommand coMakerCommand = jCom.parsedJson().getAsJsonObject().has("comaker") ?
+        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("comaker")) : null;
+        JsonCommand coMakerInfoCommand = coMakerCommand != null ? 
+        		JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("info")) : null;
+        JsonCommand coMakerKycCommand = coMakerCommand != null ? 
+        		JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("kyc")) : null;
         try {
             Loan newLoanApplication = addLoan(loanCommand);
-            CS_KycInfo coMakerKyc = addKYC(coMakerKycCommand, null);
-            CS_CoMaker coMakerInfo = addCoMaker(coMakerInfoCommand, newLoanApplication, coMakerKyc);
+            if(coMakerCommand != null) {
+                CS_KycInfo coMakerKyc = addKYC(coMakerKycCommand, null);
+                CS_CoMaker coMakerInfo = addCoMaker(coMakerInfoCommand, newLoanApplication, coMakerKyc);
+            }
 
             return new CommandProcessingResultBuilder() //
                     .withCommandId(jCom.commandId()) //

@@ -212,7 +212,7 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
             	addClientDocuments(documents, newClient.getId());
             }
             if(signature != null) {
-            	
+            	addClientDocuments(signature, newClient.getId());
             }
             return new CommandProcessingResultBuilder() //
                     .withCommandId(jCom.commandId()) //

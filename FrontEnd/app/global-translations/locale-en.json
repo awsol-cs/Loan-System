@@ -4403,5 +4403,6 @@
   "label.input.contactnumberofofficer": "Contact Number of Officer",
   "label.input.relationshipofofficer": "Relationship of Officer",
   "label.menu.relationshipofofficer": "Select Relationship of Officer",
-  "label.heading.comaker": "CoMaker"
+  "label.heading.comaker": "CoMaker",
+  "label.heading.editcomaker": "Edit CoMaker"
 }

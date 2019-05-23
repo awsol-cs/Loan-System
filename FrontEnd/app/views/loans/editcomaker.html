@@ -1,0 +1,452 @@
+<div class="content-container" ng-controller="EditComakerController">
+
+    <div class="card well" style="min-height: 550px; overflow: hidden;">
+    <ul class="breadcrumb">
+        <li ng-show="loandetails.clientName"><a
+                ng-href="#/viewclient/{{loandetails.clientId}}">{{loandetails.clientName}}</a></li>
+        <li ng-show="loandetails.group"><a ng-href="#/viewgroup/{{loandetails.group.id}}">{{loandetails.group.name}}</a></li>
+        <li><a ng-href="#/viewloanaccount/{{loandetails.id}}">{{loandetails.loanProductName}}({{loandetails.accountNo}})</a></li>
+        <li class="active">{{'label.heading.editcomaker' | translate}}</li>
+    </ul>
+
+   <wizard current-step="step" class="">
+        <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.editcomaker' | translate}}">
+           <div class="card-content">
+               <form name="createclientform" class="form-horizontal" ng-submit="submit()">
+                  <api-validate></api-validate>
+                  <fieldset>
+                           <div class="form-group">
+                              <label class="control-label col-sm-2" for="firstname">{{ 'label.input.firstname' | translate }}<span
+                                 class="required">*</span></label>
+                              <div class="col-sm-3">
+                                 <input type="text" id="firstname" name="firstname" ng-model="formData.comaker.info.firstname"  class="form-control" required
+                                   ng-pattern="/(^[A-z])[A-z.'-]*/" late-Validate/>
+                              </div>
+                              <div class="col-sm-2">
+                                  <span ng-show="createclientform.firstname.$invalid && createclientform.firstname.$dirty">
+                                      <small class="error required" ng-show="createclientform.firstname.$error.pattern">
+                                          {{'validation.msg.client.name.cannot.start.specialchar.ornumber' | translate}}
+                                      </small>
+                                  </span>
+                                 <form-validate valattributeform="createclientform" valattribute="firstname"/>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label col-sm-2" for="middlename">{{'label.input.middlename' | translate}}</label>
+                              <div class="col-sm-3">
+                                 <input type="text" id="middlename" name="middlename" ng-model="formData.comaker.info.middlename"  class="form-control" ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                              </div>
+                              <div class="col-sm-2">
+                                  <span ng-show="createclientform.middlename.$invalid && createclientform.middlename.$dirty">
+                                      <small class="error required" ng-show="createclientform.middlename.$error.pattern">
+                                          {{'validation.msg.client.name.cannot.start.specialchar.ornumber' | translate}}
+                                      </small>
+                                  </span>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label col-sm-2" for="lastname">{{'label.input.lastname' | translate}}
+                              <span class="required">*</span>
+                              </label>
+                              <div class="col-sm-3">
+                                 <input type="text" id="lastname" name="lastname" ng-model="formData.comaker.info.lastname" class="form-control"
+                                   ng-pattern="/(^[A-z])[A-z.'-]*/" required late-Validate/>
+                              </div>
+                              <div class="col-sm-2">
+                                  <span ng-show="createclientform.lastname.$invalid && createclientform.lastname.$dirty">
+                                      <small class="error required" ng-show="createclientform.lastname.$error.pattern">
+                                          {{'validation.msg.client.name.cannot.start.specialchar.ornumber' | translate}}
+                                      </small>
+                                  </span>
+                                 <form-validate valattributeform="createclientform" valattribute="lastname"/>
+                              </div>
+                           </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.comaker.info.mobileNo"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <div class="col-sm-2">
+                           <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
+                           <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
+                           {{'label.mustbenumeric' | translate}}
+                           </small>
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
+                              ng-model="comaker.dateOfBirth" is-open="opened1" min="minDate" max="restrictDate"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                              <label class="control-label col-sm-2">{{'label.input.gender' | translate}}</label>
+                              <div class="col-sm-3">
+                                 <select id="genderId" ng-model="formData.comaker.info.genderId"  class="form-control"
+                                    ng-options="gender.id as gender.name for gender in genderOptions" value="{{gender.id}}">
+                                    <option value="">--{{'label.menu.gender' | translate}}--</option>
+                                 </select>
+                              </div>
+                     </div>
+                     <div class="pull-right">
+                        <button id="save1"  class="btn btn-primary" wz-next>
+                           {{'label.button.proceed' | translate}}
+                        </button>
+                     </div>
+                  </fieldset>
+               </form>
+           </div>
+       </wz-step>
+       <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.additionalclientinformation' | translate}}">
+           <div class="card-content">
+               <form name="createclientform" class="form-horizontal" ng-submit="submit()">
+                  <api-validate></api-validate>
+                  <fieldset>
+                     
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="nationality">{{'label.input.nationality' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="nationality" name="nationality" ng-model="formData.comaker.kyc.nationality" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="noOfDependents">{{'label.input.noofdependents' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="noOfDependents" name="noOfDependents" ng-model="formData.comaker.kyc.noOfDependents"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.maritalstatus' | translate}}</label>
+                        <div class="col-sm-3">
+                           <select id="maritalStatusId" ng-model="formData.comaker.kyc.maritalStatusId"  class="form-control"
+                              ng-options="maritalStatus.id as maritalStatus.name for maritalStatus in clientMaritalStatusOptions" value="{{maritalStatus.id}}">
+                              <option value="">--{{'label.menu.maritalstatus' | translate}}--</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.educationalattainment' | translate}}</label>
+                        <div class="col-sm-3">
+                           <select id="educationalAttainmentId" ng-model="formData.comaker.kyc.educationalAttainmentId"  class="form-control"
+                              ng-options="educationalAttainment.id as educationalAttainment.name for educationalAttainment in clientEducationalAttainmentOptions" value="{{educationalAttainment.id}}" ng-change="checkDropdown(formData.comaker.kyc.educationalAttainmentId)">
+                              <option value="">--{{'label.menu.educationalattainment' | translate}}--</option>
+                           </select>
+                        </div>
+                        <div ng-show="allowOtherEducationalAttainmentComaker">
+                           <label class="control-label col-sm-2" for="othersEducationalAttainment">{{'label.input.othereducationalattainment' | translate}}<!-- <span
+                              class="required">*</span> --></label>
+                           <div class="col-sm-3">
+                              <input type="text" id="othersEducationalAttainment" name="othersEducationalAttainment" ng-model="formData.comaker.kyc.othersEducationalAttainment" class="form-control"
+                                ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="schoolLastAttended">{{'label.input.schoollastattended' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="schoolLastAttended" name="schoolLastAttended" ng-model="formData.comaker.kyc.schoolLastAttended" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="placeOfBirth">{{'label.input.placeofbirth' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="placeOfBirth" name="placeOfBirth" ng-model="formData.comaker.kyc.placeOfBirth" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="motherMaidenName">{{'label.input.mothermaidenname' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="motherMaidenName" name="motherMaidenName" ng-model="formData.comaker.kyc.motherMaidenName" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.residenceownership' | translate}}</label>
+                        <div class="col-sm-3">
+                           <select id="residenceOwnershipId" ng-model="formData.comaker.kyc.residenceOwnershipId"  class="form-control"
+                              ng-options="residenceOwnership.id as residenceOwnership.name for residenceOwnership in clientResidenceOwnershipOptions" value="{{residenceOwnership.id}}" ng-change="checkDropdown(formData.comaker.kyc.residenceOwnershipId)">
+                              <option value="">--{{'label.menu.residenceownership' | translate}}--</option>
+                           </select>
+                        </div>
+                        <div ng-show="allowMonthlyRentComaker">
+                           <label class="control-label col-sm-2" for="rentedResidenceOwnership">{{'label.input.monthlyrent' | translate}}<!-- <span
+                              class="required">*</span> --></label>
+                           <div class="col-sm-3">
+                              <input type="text" id="rentedResidenceOwnership" name="rentedResidenceOwnership" ng-model="formData.comaker.kyc.rentedResidenceOwnership"
+                                 ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="pull-right">
+                        <button id="save3"  class="btn btn-primary" wz-next>
+                        {{'label.button.proceed' | translate}}
+                        </button>
+                     </div>
+                  </fieldset>
+               </form>
+           </div>
+       </wz-step>
+       <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.clientemploymentinformation' | translate}}">
+           <div class="card-content">
+               <form name="createclientform" class="form-horizontal" ng-submit="submit()">
+                  <api-validate></api-validate>
+                  <fieldset>
+
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.employment' | translate}}</label>
+                        <div class="col-sm-3">
+                           <select id="employmentId" ng-model="formData.comaker.kyc.employmentId"  class="form-control"
+                              ng-options="employment.id as employment.name for employment in clientEmploymentOptions" value="{{employment.id}}" ng-change="checkDropdown(formData.comaker.kyc.employmentId)">
+                              <option value="">--{{'label.menu.employment' | translate}}--</option>
+                           </select>
+                        </div>
+                        <div ng-show="allowOtherEmploymentComaker">
+                           <label class="control-label col-sm-2" for="otherEmployment">{{'label.input.otheremployment' | translate}}</label>
+                           <div class="col-sm-3">
+                              <input type="text" id="otherEmployment" name="otherEmployment" ng-model="formData.comaker.kyc.otherEmployment" class="form-control"
+                                ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group" ng-show="allowSelfEmployedComaker">
+                        <label class="control-label col-sm-2">{{'label.input.selfemployed' | translate}}</label>
+                        <div class="col-sm-3">
+                           <select id="selfEmployedId" ng-model="formData.comaker.kyc.selfEmployedId"  class="form-control"
+                              ng-options="selfEmployed.id as selfEmployed.name for selfEmployed in clientSelfEmployedOptions" value="{{selfEmployed.id}}">
+                              <option value="">--{{'label.menu.selfemployed' | translate}}--</option>
+                           </select>
+                        </div>
+                        <label class="control-label col-sm-2" for="yearsInOperation">{{'label.input.yearsinoperation' | translate}}</label>
+                        <div class="col-sm-1">
+                           <input type="text" id="yearsInOperation" name="yearsInOperation" ng-model="formData.comaker.kyc.yearsInOperation"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="noOfEmployees">{{'label.input.numberofemployees' | translate}}</label>
+                        <div class="col-sm-1">
+                           <input type="text" id="noOfEmployees" name="noOfEmployees" ng-model="formData.comaker.kyc.noOfEmployees"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.nameofemployer' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="nameOfPresentEmployerBusiness" name="nameOfPresentEmployerBusiness" ng-model="formData.comaker.kyc.nameOfPresentEmployerBusiness" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="natureOfBusiness">{{'label.input.natureofbusiness' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="natureOfBusiness" name="natureOfBusiness" ng-model="formData.comaker.kyc.natureOfBusiness" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="officeAddress">{{'label.input.officeaddress' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-8">
+                           <input type="text" id="officeAddress" name="officeAddress" ng-model="formData.comaker.kyc.officeAddress" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.officephone' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="officePhone" name="officePhone" ng-model="formData.comaker.kyc.officePhone"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="officeMobilePhone">{{'label.input.mobilenumber' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="officeMobilePhone" name="officeMobilePhone" ng-model="formData.comaker.kyc.officeMobilePhone"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.localnumber' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="officeLocalNumber" name="officeLocalNumber" ng-model="formData.comaker.kyc.officeLocalNumber"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="officeFaxNumber">{{'label.input.faxnumber' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="officeFaxNumber" name="officeFaxNumber" ng-model="formData.comaker.kyc.officeFaxNumber"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="officeEmailAddress">{{'label.input.emailaddress' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="officeEmailAddress" name="officeEmailAddress" ng-model="formData.comaker.kyc.officeEmailAddress" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.rank' | translate}}</label>
+                        <div class="col-sm-3">
+                           <select id="rankId" ng-model="formData.comaker.kyc.rankId"  class="form-control"
+                              ng-options="rank.id as rank.name for rank in clientRankOptions" value="{{rank.id}}">
+                              <option value="">--{{'label.menu.rank' | translate}}--</option>
+                           </select>
+                        </div>
+                        <label class="control-label col-sm-2" for="titleOrPosition">{{'label.input.titleorposition' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="titleOrPosition" name="titleOrPosition" ng-model="formData.comaker.kyc.titleOrPosition" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.grossannualincome' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="grossAnnualIncome" name="grossAnnualIncome" ng-model="formData.comaker.kyc.grossAnnualIncome" ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="otherIncome">{{'label.input.otherincome' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="otherIncome" name="otherIncome" ng-model="formData.comaker.kyc.otherIncome" ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="nameOfPreviousEmployer">{{'label.input.nameofpreviousemployer' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="nameOfPreviousEmployer" name="nameOfPreviousEmployer" ng-model="formData.comaker.kyc.nameOfPreviousEmployer" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="officeAddressPrevious">{{'label.input.officeaddressofpreviousemployer' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-8">
+                           <input type="text" id="officeAddressPrevious" name="officeAddressPrevious" ng-model="formData.comaker.kyc.officeAddressPrevious" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.yearswithpresentemployer' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="yearsWithPresentEmployer" name="yearsWithPresentEmployer" ng-model="formData.comaker.kyc.yearsWithPresentEmployer" ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="yearsWithPreviousEmployer">{{'label.input.yearswithpreviousemployer' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="yearsWithPreviousEmployer" name="yearsWithPreviousEmployer" ng-model="formData.comaker.kyc.yearsWithPreviousEmployer" ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="pull-right">
+                        <button id="save8"  class="btn btn-primary" wz-next>
+                        {{'label.button.proceed' | translate}}
+                        </button>
+                     </div>
+                  </fieldset>
+               </form>
+           </div>
+       </wz-step>
+       <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.personalreference' | translate}}">
+           <div class="card-content">
+               <form name="createclientform" class="form-horizontal" ng-submit="submit()">
+                  <api-validate></api-validate>
+                  <fieldset>
+                     
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="nameReference">{{'label.input.name' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="nameReference" name="nameReference" ng-model="formData.comaker.kyc.nameReference" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="relationshipReference">{{'label.input.relationship' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="relationshipReference" name="relationshipReference" ng-model="formData.comaker.kyc.relationshipReference" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="employerReference">{{'label.input.nameofemployerref' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-3">
+                           <input type="text" id="employerReference" name="employerReference" ng-model="formData.comaker.kyc.employerReference" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2" for="addressReference">{{'label.input.address' | translate}}<!-- <span
+                           class="required">*</span> --></label>
+                        <div class="col-sm-8">
+                           <input type="text" id="addressReference" name="addressReference" ng-model="formData.comaker.kyc.addressReference" class="form-control"
+                             ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.contactnumber' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="contactNumberReference" name="contactNumberReference" ng-model="formData.comaker.kyc.contactNumberReference"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <label class="control-label col-sm-2" for="mobileReference">{{'label.input.mobilenumber' | translate}}</label>
+                        <div class="col-sm-3">
+                           <input type="text" id="mobileReference" name="mobileReference" ng-model="formData.comaker.kyc.mobileReference"
+                              ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.relatedtoofficer' | translate}}</label>
+                        <div class="col-sm-3">
+                           <select id="relatedToOfficerId" ng-model="formData.comaker.kyc.relatedToOfficerId"  class="form-control"
+                              ng-options="relatedToOfficer.id as relatedToOfficer.name for relatedToOfficer in clientRelatedToOfficerOptions" value="{{relatedToOfficer.id}}" ng-change="checkDropdown(formData.comaker.kyc.relatedToOfficerId)">
+                              <option value=""></option>
+                           </select>
+                        </div>
+                     </div>
+                     <div ng-show="allowRelatedToOfficerComaker">
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="nameOfOfficer">{{'label.input.nameofofficer' | translate}}<!-- <span
+                              class="required">*</span> --></label>
+                           <div class="col-sm-3">
+                              <input type="text" id="nameOfOfficer" name="nameOfOfficer" ng-model="formData.comaker.kyc.nameOfOfficer" class="form-control"
+                                ng-pattern="/(^[A-z])[A-z.'-]*/"/>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="contactNumberOfficer">{{'label.input.contactnumberofofficer' | translate}}</label>
+                           <div class="col-sm-3">
+                              <input type="text" id="contactNumberOfficer" name="contactNumberOfficer" ng-model="formData.comaker.kyc.contactNumberOfficer"
+                                 ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label class="control-label col-sm-2">{{'label.input.relationshipofofficer' | translate}}</label>
+                           <div class="col-sm-3">
+                              <select id="relationshipOfOfficerId" ng-model="formData.comaker.kyc.relationshipOfOfficerId"  class="form-control"
+                                 ng-options="relationshipOfOfficer.id as relationshipOfOfficer.name for relationshipOfOfficer in clientRelationshipOfOfficerOptions" value="{{relationshipOfOfficer.id}}">
+                                 <option value="">--{{'label.menu.relationshipofofficer' | translate}}--</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <div class="pull-right">
+                        <a id="cancel" ng-href="#/viewloanaccount/{{loandetails.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                        <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
+                        <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+                     </div>
+                  </fieldset>
+               </form>
+           </div>
+       </wz-step>
+   </wizard>
+    
+     
+</div>

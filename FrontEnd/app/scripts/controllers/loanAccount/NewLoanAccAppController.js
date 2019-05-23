@@ -325,83 +325,83 @@
                 //     return;
                 // }
                 // Make sure charges and collaterals are empty before initializing.
-                // delete scope.formData.loan.charges;
-                // delete scope.formData.loan.collateral;
-                // var reqFirstDate = dateFilter(scope.date.first, scope.df);
-                // var reqSecondDate = dateFilter(scope.date.second, scope.df);
-                // var reqThirdDate = dateFilter(scope.date.third, scope.df);
-                // var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
-                // var reqFifthDate = dateFilter(scope.date.fifth, scope.df);
+                delete scope.formData.loan.charges;
+                delete scope.formData.loan.collateral;
+                var reqFirstDate = dateFilter(scope.date.first, scope.df);
+                var reqSecondDate = dateFilter(scope.date.second, scope.df);
+                var reqThirdDate = dateFilter(scope.date.third, scope.df);
+                var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
+                var reqFifthDate = dateFilter(scope.date.fifth, scope.df);
 
-                // if (scope.charges.length > 0) {
-                //     scope.formData.loan.charges = [];
-                //     for (var i in scope.charges) {
-                //         scope.formData.loan.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
-                //     }
-                // }
+                if (scope.charges.length > 0) {
+                    scope.formData.loan.charges = [];
+                    for (var i in scope.charges) {
+                        scope.formData.loan.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
+                    }
+                }
 
-                // if (scope.formData.loan.disbursementData.length > 0) {
-                //     for (var i in scope.formData.loan.disbursementData) {
-                //         scope.formData.loan.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.loan.disbursementData[i].expectedDisbursementDate, scope.df);
-                //     }
-                // }
-                // if (scope.collaterals.length > 0) {
-                //     scope.formData.loan.collateral = [];
-                //     for (var i in scope.collaterals) {
-                //         scope.formData.loan.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
-                //     }
-                //     ;
-                // }
+                if (scope.formData.loan.disbursementData.length > 0) {
+                    for (var i in scope.formData.loan.disbursementData) {
+                        scope.formData.loan.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.loan.disbursementData[i].expectedDisbursementDate, scope.df);
+                    }
+                }
+                if (scope.collaterals.length > 0) {
+                    scope.formData.loan.collateral = [];
+                    for (var i in scope.collaterals) {
+                        scope.formData.loan.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
+                    }
+                    ;
+                }
 
-                // if (this.formData.loan.syncRepaymentsWithMeeting) {
-                //     this.formData.loan.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
-                // }
-                // delete this.formData.loan.syncRepaymentsWithMeeting;
-                // this.formData.loan.interestChargedFromDate = reqThirdDate;
-                // this.formData.loan.repaymentsStartingFromDate = reqFourthDate;
-                // this.formData.loan.locale = scope.optlang.code;
-                // this.formData.loan.dateFormat = scope.df;
-                // this.formData.loan.loanType = scope.inparams.templateType;
-                // this.formData.loan.expectedDisbursementDate = reqSecondDate;
-                // this.formData.loan.submittedOnDate = reqFirstDate;
-                // this.formData.loan.createStandingInstructionAtDisbursement = scope.formData.loan.createStandingInstructionAtDisbursement;
-                // if (scope.date.recalculationRestFrequencyDate) {
-                //     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
-                //     scope.formData.loan.recalculationRestFrequencyDate = restFrequencyDate;
-                // }
-                // if (scope.date.recalculationCompoundingFrequencyDate) {
-                //     var restFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
-                //     scope.formData.loan.recalculationCompoundingFrequencyDate = restFrequencyDate;
-                // }
-                // if(this.formData.loan.interestCalculationPeriodType == 0){
-                //     this.formData.loan.allowPartialPeriodInterestCalcualtion = false;
-                // }
-                // if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
-                //     angular.forEach(scope.datatables, function (datatable, index) {
-                //         scope.columnHeaders = datatable.columnHeaderData;
-                //         angular.forEach(scope.columnHeaders, function (colHeader, i) {
-                //             scope.dateFormat = scope.df + " " + scope.tf
-                //             if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
-                //                 if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName])) {
-                //                     scope.formData.loan.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
-                //                         scope.dateFormat);
-                //                     scope.formData.loan.datatables[index].data.dateFormat = scope.dateFormat;
-                //                 }
-                //             } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
-                //                 if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date) && !_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time)) {
-                //                     scope.formData.loan.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
-                //                         + " " + dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time, scope.tf);
-                //                     scope.formData.loan.datatables[index].data.dateFormat = scope.dateFormat;
-                //                 }
-                //             }
-                //         });
-                //     });
-                // } else {
-                //     delete scope.formData.loan.datatables;
-                // }
-                // resourceFactory.loanResource.save(this.formData.loan, function (data) {
-                //     location.path('/viewloanaccount/' + data.loanId);
-                // });
+                if (this.formData.loan.syncRepaymentsWithMeeting) {
+                    this.formData.loan.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                }
+                delete this.formData.loan.syncRepaymentsWithMeeting;
+                this.formData.loan.interestChargedFromDate = reqThirdDate;
+                this.formData.loan.repaymentsStartingFromDate = reqFourthDate;
+                this.formData.loan.locale = scope.optlang.code;
+                this.formData.loan.dateFormat = scope.df;
+                this.formData.loan.loanType = scope.inparams.templateType;
+                this.formData.loan.expectedDisbursementDate = reqSecondDate;
+                this.formData.loan.submittedOnDate = reqFirstDate;
+                this.formData.loan.createStandingInstructionAtDisbursement = scope.formData.loan.createStandingInstructionAtDisbursement;
+                if (scope.date.recalculationRestFrequencyDate) {
+                    var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
+                    scope.formData.loan.recalculationRestFrequencyDate = restFrequencyDate;
+                }
+                if (scope.date.recalculationCompoundingFrequencyDate) {
+                    var restFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
+                    scope.formData.loan.recalculationCompoundingFrequencyDate = restFrequencyDate;
+                }
+                if(this.formData.loan.interestCalculationPeriodType == 0){
+                    this.formData.loan.allowPartialPeriodInterestCalcualtion = false;
+                }
+                if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
+                    angular.forEach(scope.datatables, function (datatable, index) {
+                        scope.columnHeaders = datatable.columnHeaderData;
+                        angular.forEach(scope.columnHeaders, function (colHeader, i) {
+                            scope.dateFormat = scope.df + " " + scope.tf
+                            if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
+                                if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName])) {
+                                    scope.formData.loan.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
+                                        scope.dateFormat);
+                                    scope.formData.loan.datatables[index].data.dateFormat = scope.dateFormat;
+                                }
+                            } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                                if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date) && !_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time)) {
+                                    scope.formData.loan.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
+                                        + " " + dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time, scope.tf);
+                                    scope.formData.loan.datatables[index].data.dateFormat = scope.dateFormat;
+                                }
+                            }
+                        });
+                    });
+                } else {
+                    delete scope.formData.loan.datatables;
+                }
+                resourceFactory.csLoanResource.save(this.formData, function (data) {
+                    location.path('/viewloanaccount/' + data.loanId);
+                });
             };
 
             scope.cancel = function () {
