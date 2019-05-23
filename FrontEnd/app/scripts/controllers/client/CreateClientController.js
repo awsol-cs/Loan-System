@@ -463,11 +463,13 @@
                 scope.saveLoanAccount();
                 scope.formData.client.active = true;
                 scope.formData.kyc.locale = scope.optlang.code;
-                scope.formData.comaker.kyc.locale = scope.optlang.code;
-                scope.formData.comaker.info.locale = scope.optlang.code;
-                if (scope.comaker.dateOfBirth) {
-                    this.formData.comaker.info.dateFormat = scope.df;
-                    this.formData.comaker.info.dateOfBirth = dateFilter(scope.comaker.dateOfBirth, scope.df);
+                if(scope.formData.comaker){
+                    scope.formData.comaker.kyc.locale = scope.optlang.code;
+                    scope.formData.comaker.info.locale = scope.optlang.code;
+                    if (scope.comaker.dateOfBirth) {
+                        this.formData.comaker.info.dateFormat = scope.df;
+                        this.formData.comaker.info.dateOfBirth = dateFilter(scope.comaker.dateOfBirth, scope.df);
+                    }
                 }
                 resourceFactory.csClientResource.save(scope.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);
