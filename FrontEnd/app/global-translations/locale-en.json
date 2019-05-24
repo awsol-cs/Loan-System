@@ -4354,5 +4354,7 @@
   "label.heading.currentclient": "Current Client",
   "label.heading.workflowmanagement": "Workflow Management",
   "label.anchor.workflowmanagement": "Workflow Management",
-  "label.workflowmanagement": "Manage Workflow of Loans"
+  "label.workflowmanagement": "Manage Workflow of Loans",
+  "label.button.printagreement":"Print Aggrement",
+  "label.button.reprintagreement":"Reprint Aggrement"
 }
