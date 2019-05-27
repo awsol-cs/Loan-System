@@ -10,6 +10,8 @@
             scope.hideAccrualTransactions = false;
             scope.isHideAccrualsCheckboxChecked = true;
             scope.loandetails = [];
+            scope.isDisabled=true;
+            scope.loanAccountNo = "";
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
@@ -165,6 +167,7 @@
                 scope.status = data.status.value;
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
                 scope.decimals = data.currency.decimalPlaces;
+
                 if (scope.loandetails.charges) {
                     scope.charges = scope.loandetails.charges;
                     for (var i in scope.charges) {
@@ -258,6 +261,7 @@
                 }
 
                 if (data.status.value == "Approved") {
+                    scope.isDisabled = false;
                     scope.buttons = { singlebuttons: [
                         {
                             name: (scope.loandetails.loanOfficerName?"button.changeloanofficer":"button.assignloanofficer"),
@@ -373,7 +377,7 @@
                         ]
 
                     };
-
+                        
                     if (data.canDisburse) {
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: "button.disburse",
@@ -757,6 +761,41 @@
                 location.path('/editcomaker/' + routeParams.id);
             }
 
+            scope.printLoanAgreement = function(){
+          
+                var jsonData = {
+                   "loanAccountNo":scope.loandetails.accountNo
+               };
+
+               var linkElement = document.createElement('a');
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/cs_reports/PDF?file=LoanAgreement";
+
+               // Allow untrusted urls for the ajax request.
+               // http://docs.angularjs.org/error/$sce/insecurl
+               reportURL = $sce.trustAsResourceUrl(reportURL);
+               reportURL = $sce.valueOf(reportURL);
+               http.post(reportURL, jsonData, {responseType: 'arraybuffer'}).
+                 success(function(data, status, headers, config) {
+                   var contentType = headers('Content-Type');
+                   var file = new Blob([data], {type: "application/pdf"});
+                   var fileContent = URL.createObjectURL(file);
+                   
+                   // Pass the form data to the iframe as a data url.
+                   scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+
+                   linkElement.setAttribute('href', scope.baseURL);
+                    linkElement.setAttribute("download", "LoanAgreement-" + scope.loandetails.accountNo + ".pdf");
+
+                   var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+
+                    linkElement.dispatchEvent(clickEvent);
+                 });
+            };
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {

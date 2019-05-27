@@ -4355,6 +4355,7 @@
   "label.heading.workflowmanagement": "Workflow Management",
   "label.anchor.workflowmanagement": "Workflow Management",
   "label.workflowmanagement": "Manage Workflow of Loans",
+<<<<<<< HEAD
   "label.heading.additionalclientinformation": "Additional Client Information",
   "label.heading.clientemploymentinformation": "Client Employment Information",
   "label.heading.personalreference": "Personal Reference",
@@ -4404,5 +4405,7 @@
   "label.input.relationshipofofficer": "Relationship of Officer",
   "label.menu.relationshipofofficer": "Select Relationship of Officer",
   "label.heading.comaker": "CoMaker",
-  "label.heading.editcomaker": "Edit CoMaker"
+  "label.heading.editcomaker": "Edit CoMaker",
+  "label.button.printagreement":"Print Aggrement",
+  "label.button.reprintagreement":"Reprint Aggrement"
 }

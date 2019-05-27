@@ -874,6 +874,9 @@
 
                     <uib-tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
                         <div class="pull-right" data-ng-show="choice">
+                            <button class="btn btn-primary" ng-disabled="isDisabled" ng-click="printLoanAgreement()">
+                                {{'label.button.printagreement' | translate}} <!-- Print Agreement -->
+                            </button>
                             <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="fa fa-plus "></i>{{'label.button.upload'
                                 | translate}}</a>
                         </div>
