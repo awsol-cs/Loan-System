@@ -4370,5 +4370,8 @@
   "label.input.docNumber":"Doc No.:",
   "label.input.pageNumber":"Page No.:",
   "label.input.serialNumber":"Series No.:",
-  "label.input.bookNumber":"Book No.:"
+  "label.input.bookNumber":"Book No.:",
+
+  "label.button.printagreement":"Print Aggrement",
+  "label.button.reprintagreement":"Reprint Aggrement"
 }
