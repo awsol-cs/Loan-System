@@ -55,6 +55,9 @@
                     link.href = '../../../static/' + scope.currentDocument;
                     link.style = "visibility:hidden";
                     //link.download = '../../../static' + scope.currentDocument;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                    }
 		   		
 		   };
