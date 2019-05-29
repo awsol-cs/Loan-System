@@ -187,15 +187,31 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
         JsonCommand coMakerKycCommand = coMakerCommand != null ? 
         		JsonCommand.fromExistingCommand(coMakerCommand, coMakerCommand.jsonElement("kyc")) : null;
         
-        JsonCommand image = jCom.parsedJson().getAsJsonObject().has("image") ? 
-        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("image")) :
-    			null;
-        JsonCommand documents = jCom.parsedJson().getAsJsonObject().has("documents") ? 
-        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("documents")) :
-        		null;
-        JsonCommand signature = jCom.parsedJson().getAsJsonObject().has("signature") ? 
-        		JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("signature")) :
-        		null;
+        JsonCommand image = null;
+        String clientImage = null;
+		if(jCom.parsedJson().getAsJsonObject().has("image") ) {
+			image = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("image"));
+			clientImage = image.stringValueOfParameterNamed("clientImage");
+		}
+        JsonCommand documents = null;
+        String clientGovId = null;
+        String clientDocument = null;
+		if(jCom.parsedJson().getAsJsonObject().has("documents") ) {
+			documents = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("documents"));
+	        clientGovId = documents.stringValueOfParameterNamed("clientGovId");
+	        clientDocument = documents.stringValueOfParameterNamed("clientDocument");
+		}
+        JsonCommand signature = null;
+        String termsConditionSign = null;
+        String loanAgreementSign = null;
+        String promiNoteSign = null;
+        
+		if(jCom.parsedJson().getAsJsonObject().has("signature")) {
+	        signature = JsonCommand.fromExistingCommand(jCom, jCom.jsonElement("signature"));
+	        termsConditionSign = signature.stringValueOfParameterNamed("termsConditionSign");
+	        loanAgreementSign = signature.stringValueOfParameterNamed("loanAgreementSign");
+	        promiNoteSign = signature.stringValueOfParameterNamed("promiNoteSign");
+		}
         try {
             Client newClient = addClient(clientCommand);
             CS_KycInfo clientKYC = addKYC(kycCommand, newClient);
@@ -205,14 +221,27 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
                 CS_KycInfo coMakerKyc = addKYC(coMakerKycCommand, null);
                 CS_CoMaker coMakerInfo = addCoMaker(coMakerInfoCommand, newLoan, coMakerKyc);
             }
-            if(image != null) {
-            	addClientImage(image, newClient.getId());
+            
+            if(image != null && image.hasParameter("clientImage")) {
+            	addClientImage(clientImage, newClient.getId());
             }
-            if(documents != null) {
-            	addClientDocuments(documents, newClient.getId());
+            if(documents != null && documents.hasParameter("clientGovId")) {
+            	addClientDocuments(clientGovId, "Government ID", newClient.getId());
             }
-            if(signature != null) {
-            	addClientDocuments(signature, newClient.getId());
+            if(documents != null && documents.hasParameter("clientDocument")) {
+            	addClientDocuments(clientDocument, "Document", newClient.getId());
+            }
+            if(signature != null && signature.hasParameter("termsConditionSign")) {
+            	addClientDocuments(termsConditionSign, "Terms and Condition Signature - " + newLoan.getAccountNumber(), 
+            			newLoan.getAccountNumber() + "-01", newClient.getId());
+            }
+            if(signature != null && signature.hasParameter("loanAgreementSign")) {
+            	addClientDocuments(loanAgreementSign, "Loan Agreement Signature - " + newLoan.getAccountNumber(), 
+            			newLoan.getAccountNumber() + "-02", newClient.getId());
+            }
+            if(signature != null && signature.hasParameter("promiNoteSign")) {
+            	addClientDocuments(promiNoteSign, "Promissory Note Signature - " + newLoan.getAccountNumber(), 
+            			newLoan.getAccountNumber() + "-03", newClient.getId());
             }
             return new CommandProcessingResultBuilder() //
                     .withCommandId(jCom.commandId()) //
@@ -347,21 +376,30 @@ public class CS_ClientWritePlatformServiceJpaRepositoryImpl implements CS_Client
         return JsonCommand.fromExistingCommand(command, jsonObject);
     }
     
-    private void addClientImage(final JsonCommand command, final Long clientId) {
+    private void addClientImage(final String command, final Long clientId) {
 
-        final Base64EncodedImage base64EncodedImage = ContentRepositoryUtils.extractImageFromDataURL(command.json());
+        final Base64EncodedImage base64EncodedImage = ContentRepositoryUtils.extractImageFromDataURL(command);
 
         this.imageWritePlatformService.saveOrUpdateImage("clients", clientId, base64EncodedImage);
         
     }
 
-    private void addClientDocuments(final JsonCommand command, final Long clientId){
+    private void addClientDocuments(final String command, final String documentName, final Long clientId){
     	
-        final Base64EncodedImage base64EncodedImage = ContentRepositoryUtils.extractImageFromDataURL(command.json());
-        final String documentName = command.stringValueOfParameterNamed("name");
+        final Base64EncodedImage base64EncodedImage = ContentRepositoryUtils.extractImageFromDataURL(command);
 
         final DocumentCommand documentCommand = new DocumentCommand(null, null, "clients", clientId, documentName, 
         		base64EncodedImage.getFileExtension(), null, "image", null, null);
+
+        this.documentWritePlatformService.createDocument(documentCommand, base64EncodedImage);
+    }
+
+    private void addClientDocuments(final String command, final String documentName, final String loanAccountNo, final Long clientId){
+    	
+        final Base64EncodedImage base64EncodedImage = ContentRepositoryUtils.extractImageFromDataURL(command);
+
+        final DocumentCommand documentCommand = new DocumentCommand(null, null, "clients", clientId, documentName, 
+        		loanAccountNo+base64EncodedImage.getFileExtension(), null, "image", null, null);
 
         this.documentWritePlatformService.createDocument(documentCommand, base64EncodedImage);
     }

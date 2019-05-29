@@ -282,7 +282,7 @@
   "label.input.dateformat": "Date format",
   "label.input.savingsaccount": "Default Savings Account",
   "label.input.no.decimalplaces": "Zero decimal places",
-  "label.input.gender": "Gender",
+  "label.input.gender": "Gender at Birth",
   "label.input.dateofbirth": "Date of Birth",
   "label.input.sqlSearch": "SQL Search",
   "label.input.transfertype": "Transfer Type",
@@ -4355,7 +4355,6 @@
   "label.heading.workflowmanagement": "Workflow Management",
   "label.anchor.workflowmanagement": "Workflow Management",
   "label.workflowmanagement": "Manage Workflow of Loans",
-<<<<<<< HEAD
   "label.heading.additionalclientinformation": "Additional Client Information",
   "label.heading.clientemploymentinformation": "Client Employment Information",
   "label.heading.personalreference": "Personal Reference",
