@@ -1,25 +1,64 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        StaticController: function (scope, routeParams, resourceFactory, location, route) {
+        StaticController: function (scope, routeParams, resourceFactory, location, route, $rootScope, http, $sce, API_VERSION) {
+
+                function formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [year, month, day].join('-');
+            }
+
+
            scope.getCurrentDocument = function() {
            	   scope.isVisible = false;
+               var fileName = scope.currentDocument.split('.');
+			   var reportURL = $rootScope.hostUrl + API_VERSION + "/cs_reports/PDF?file="+fileName[0];
+               
+                var jsonData = {
+                   "id" : parseInt(scope.selectedOffice),
+                   "startDate" : formatDate(scope.one),
+                   "endDate" : formatDate(scope.two),
+                   "subReportParam" : [
+                        "Balance-Sheet-1",
+                        "Balance-Sheet-2"
+                    ]
+               };
 
-			   	if(scope.currentDocument.includes(".pdf")){
-			   		scope.isVisible = scope.isVisible = true;
-			   		scope.pdf = {
-			   			src: '../../../static/' + scope.currentDocument,
-			   		};
-			   	}
-			   	else {
-			   	 	var link = document.createElement("a");
-    				link.href = '../../../static/' + scope.currentDocument;
-    				link.style = "visibility:hidden";
-    				//link.download = '../../../static' + scope.currentDocument;
-    				document.body.appendChild(link);
-				    link.click();
-				    document.body.removeChild(link);
-			   	}
+                   if(scope.currentDocument.includes(".pdf")){
+                       scope.isVisible = scope.isVisible = true;
+                     // Allow untrusted urls for the ajax request.
+                       // http://docs.angularjs.org/error/$sce/insecurl
+                       reportURL = $sce.trustAsResourceUrl(reportURL);
+                       reportURL = $sce.valueOf(reportURL);
+                       http.post(reportURL, jsonData, {responseType: 'arraybuffer'}).
+                         success(function(data, status, headers, config) {
+                           var contentType = headers('Content-Type');
+                           var file = new Blob([data], {type: "application/pdf"});
+                           var fileContent = URL.createObjectURL(file);
 
+                           scope.pdf = {
+                               src: $sce.trustAsResourceUrl(fileContent),
+                           };
+
+                         });
+
+
+                   }
+                   else {
+                        var link = document.createElement("a");
+                    link.href = '../../../static/' + scope.currentDocument;
+                    link.style = "visibility:hidden";
+                    //link.download = '../../../static' + scope.currentDocument;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                   }
 		   		
 		   };
 		   /*
@@ -33,6 +72,7 @@
 			  "July", "August", "September", "October", "November", "December"
 			];
 
+			scope.baseURL = "";
 		   	scope.SEC = "SECURITIES AND EXCHANGE COMMISSION";
             scope.AIS ="ANNUAL INFORMATION STATEMENT";
             scope.AISDay = new Date().getDate();
@@ -236,128 +276,129 @@
                 scope.hideAISReport = false;
                 scope.hideHeader = false;
 
-                var data = {
-                	fileName:"SEC_AIS_FORM",
-                    subReports:["SEC_AIS_FORM_PAGE_1",
-                                "SEC_AIS_FORM_PAGE_2_1",
-                                "SEC_AIS_FORM_PAGE_2_2",
-                                "SEC_AIS_FORM_PAGE_3",
-                                "SEC_AIS_FORM_ANNEX"],
-                    corpName:scope.CorpName,
-                    industryClass:scope.IndustryClass,
-                    principalAddress:scope.principalAddress,
-                    aisYear:scope.AISYear,
-                    secRegNo:scope.SECRegNo,
-                    secCoa: scope.SECCOA,
-                    secRegDate:scope.SECRegDate,
-                    secAnivDate:scope.SECAnivDate,
-                    contactPerson:scope.ContactPerson,
-                    contactInformation:scope.ContactInformation,
-                    designation:scope.Designation,
-                    emailAddress: scope.EmailAddr,
-                    pnoteAtbiCurr:scope.PNoteATBICURR,
-                    pnoteAtbiSt:scope.PNoteATBIST,
-                    pnoteAtbiLt:scope.PNoteATBILT,
-                    ragreeAtbiCurr:scope.RAgreeATBICURR,
-                    ragreeAtbiSt:scope.RAgreeATBIST,
-                    ragreeAtbiLt:scope.RAgreeATBILT,
-                    coaAtbiCurr:scope.COAATBICURR,
-                    coaAtbiSt:scope.COAATBIST,
-                    coaAtbiLt:scope.COATIOALT,
-                    copAtbiCurr:scope.COPATBICURR,
-                    copAtbiSt:scope.COPATBIST,
-                    copAtbiLt:scope.COPATBILT,
-                    oth1Atbi: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBI,
-                    oth1AtbiCurr: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBICURR,
-                    oth1AtbiSt: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBIST,
-                    oth1AtbiLt: (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBILT,
-                    oth2Atbi: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBI,
-                    oth2AtbiCurr: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBICURR,
-                    oth2AtbiSt: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBIST,
-                    oth2AtbiLt: (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBILT,
-                    oth3Atbi: (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBI,
-                    oth3AtbiCurr: (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBICURR,
-                    oth3AtbiSt: (scope.OTH3ATBI == "") ? "" : scope.OTH3ABIST,
-                    oth3AtbiLt: (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBILT,
-                    atbiSumSt:scope.ATBISUMST, // to be computed or converted
-                    atbiSumLt:scope.ATBISUMLT,
-                    pnoteTiCurr:scope.PNoteTICURR,
-                    pnoteTiMonthSt:scope.PNoteTIMonthST,
-                    pnoteTiMonthLt:scope.PNoteTIMonthLT,
-                    pnoteTiOaSt:scope.PNoteTIOAST,
-                    pnoteTiOaLt:scope.PNoteTIOALT,
-                    ragreeTiCurr:scope.RAgreeTICURR,
-                    ragreeTiMonthSt:scope.RAgreeTIMonthST,
-                    ragreeTiMonthLt:scope.RAgreeTIMonthLT,
-                    ragreeTiOaSt:scope.RAgreeTIOAST,
-                    ragreeTiOaLt:scope.RAgreeTIOALT,
-                    coaTiCurr:scope.COATICURR,
-                    coaTiMonthSt:scope.COATIMonthST,
-                    coaTiMonthLt:scope.COATIMonthLT,
-                    coaTiOaSt:scope.COATIOAST,
-                    coaTiOaLt:scope.COATIOALT,
-                    copTiCurr:scope.COPTICURR,
-                    copTiMonthSt:scope.COPTIMonthST,
-                    copTiMonthLt:scope.COPTIMonthLT,
-                    copTiOaSt:scope.COPTIOAST,
-                    copTiOaLt:scope.COPTIOALT,
-                    oth1Ti: (scope.OTH1TI == "") ? "" : scope.OTH1TI,
-                    oth1TiCurr: (scope.OTH1TI == "") ? "" : scope.OTH1TICURR,
-                    oth1TiMonthSt: (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthST,
-                    oth1TiMonthLt: (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthLT,
-                    oth1TiOaSt: (scope.OTH1TI == "") ? "" : scope.OTH1TIOAST,
-                    oth1TiOaLt: (scope.OTH1TI == "") ? "" : scope.OTH1TIOALT,
-                    oth2Ti: (scope.OTH2TI == "") ? "" : scope.OTH2TI,
-                    oth2TiCurr: (scope.OTH2TI == "") ? "" : scope.OTH2TICURR,
-                    oth2TiMonthSt: (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthST,
-                    oth2TiMonthLt: (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthLT,
-                    oth2TiOaSt: (scope.OTH2TI == "") ? "" : scope.OTH2TIOAST,
-                    oth2TiOaLt: (scope.OTH2TI == "") ? "" : scope.OTH2TIOALT,
-                    oth3Ti: (scope.OTH3TI == "") ? "" : scope.OTH3TI,
-                    oth3TiCurr: (scope.OTH3TI == "") ? "" : scope.OTH3TICURR,
-                    oth3TiMonthSt: (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthST,
-                    oth3TiMonthLt: (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthLT,
-                    oth3TiOaSt: (scope.OTH3TI == "") ? "" : scope.OTH3TIOAST,
-                    oth3TiOaLt: (scope.OTH3TI == "") ? "" : scope.OTH3TIOALT,
-                    tiSumMonthSt:scope.TISUMMonthST,
-                    tiSumMonthLt:scope.TISUMMonthLT,
-                    tiSumOaSt: scope.TISUMOAST,
-                    tiSumOaLt: scope.TISUMOALT,
-                    undersignedOfficerLoc:scope.UnsignedOfficerLoc,
-                    presidentName: scope.PresidentName,
-                    treasurerName: scope.TreasurerName,
-                    aisDay: scope.AISDay,
-                    aisMonth: new Date.getMonth() + 1,
-                    docNo: scope.DocumentNumber,
-                    pageNo: scope.PageNumber,
-                    bookNo: scope.BookNumber,
-                    serialNo: scope.SerialNumber,
-                    presidentSignature: scope.PresidentSignature,
-                    treasurerSignature: scope.TreasurerSignature,
-                    srcOption1:(scope.SRCOption1) ? "/" : "",
-                    srcOption2:(scope.SRCOption2) ? "/" : "",
-                    srcOption3:(scope.SRCOption3) ? "/" : "",
-                    srcOption4:(scope.SRCOption4) ? "/" : "",
-                    srcOption5:(scope.SRCOption5) ? "/" : ""
+                var jsonData = {
+                	"subReportParam": [
+				        "SEC_AIS_FORM_PAGE_1",
+				        "SEC_AIS_FORM_PAGE_2_1",
+				        "SEC_AIS_FORM_PAGE_2_2",
+				        "SEC_AIS_FORM_PAGE_3",
+				        "SEC_AIS_FORM_ANNEX"
+				    ],
+				    "corpName":scope.CorpName,
+                    "industryClass":scope.IndustryClass,
+                    "principalAddress":scope.PrincipalAddr,
+                    "aisYear":scope.AISYear.toString(),
+                    "secRegNo":scope.SECRegNo,
+                    "secCoa": scope.SECCOA,
+                    "secRegDate":scope.SECRegDate,
+                    "secAnivDate":scope.SECAnivDate,
+                    "contactPerson":scope.ContactPerson,
+                    "contactInformation":scope.ContactInformation,
+                    "designation":scope.Designation,
+                    "emailAddress": scope.EmailAddr,
+                    "pnoteAtbiCurr":scope.PNoteATBICURR,
+                    "pnoteAtbiSt":scope.PNoteATBIST,
+                    "pnoteAtbiLt":scope.PNoteATBILT,
+                    "ragreeAtbiCurr":scope.RAgreeATBICURR,
+                    "ragreeAtbiSt":scope.RAgreeATBIST,
+                    "ragreeAtbiLt":scope.RAgreeATBILT,
+                    "coaAtbiCurr":scope.COAATBICURR,
+                    "coaAtbiSt":scope.COAATBIST,
+                    "coaAtbiLt":scope.COATIOALT,
+                    "copAtbiCurr":scope.COPATBICURR,
+                    "copAtbiSt":scope.COPATBIST,
+                    "copAtbiLt":scope.COPATBILT,
+                    "oth1Atbi": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBI,
+                    "oth1AtbiCurr": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBICURR,
+                    "oth1AtbiSt": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBIST,
+                    "oth1AtbiLt": (scope.OTH1ATBI == "") ? "" : scope.OTH1ATBILT,
+                    "oth2Atbi": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBI,
+                    "oth2AtbiCurr": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBICURR,
+                    "oth2AtbiSt": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBIST,
+                    "oth2AtbiLt": (scope.OTH2ATBI == "") ? "" : scope.OTH2ATBILT,
+                    "oth3Atbi": (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBI,
+                    "oth3AtbiCurr": (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBICURR,
+                    "oth3AtbiSt": (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBIST,
+                    "oth3AtbiLt": (scope.OTH3ATBI == "") ? "" : scope.OTH3ATBILT,
+                    "atbiSumSt":scope.ATBISUMST, // to be computed or converted
+                    "atbiSumLt":scope.ATBISUMLT,
+                    "pnoteTiCurr":scope.PNoteTICURR,
+                    "pnoteTiMonthSt":scope.PNoteTIMonthST,
+                    "pnoteTiMonthLt":scope.PNoteTIMonthLT,
+                    "pnoteTiOaSt":scope.PNoteTIOAST,
+                    "pnoteTiOaLt":scope.PNoteTIOALT,
+                    "ragreeTiCurr":scope.RAgreeTICURR,
+                    "ragreeTiMonthSt":scope.RAgreeTIMonthST,
+                    "ragreeTiMonthLt":scope.RAgreeTIMonthLT,
+                    "ragreeTiOaSt":scope.RAgreeTIOAST,
+                    "ragreeTiOaLt":scope.RAgreeTIOALT,
+                    "coaTiCurr":scope.COATICURR,
+                    "coaTiMonthSt":scope.COATIMonthST,
+                    "coaTiMonthLt":scope.COATIMonthLT,
+                    "coaTiOaSt":scope.COATIOAST,
+                    "coaTiOaLt":scope.COATIOALT,
+                    "copTiCurr":scope.COPTICURR,
+                    "copTiMonthSt":scope.COPTIMonthST,
+                    "copTiMonthLt":scope.COPTIMonthLT,
+                    "copTiOaSt":scope.COPTIOAST,
+                    "copTiOaLt":scope.COPTIOALT,
+                    "oth1Ti": (scope.OTH1TI == "") ? "" : scope.OTH1TI,
+                    "oth1TiCurr": (scope.OTH1TI == "") ? "" : scope.OTH1TICURR,
+                    "oth1TiMonthSt": (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthST,
+                    "oth1TiMonthLt": (scope.OTH1TI == "") ? "" : scope.OTH1TIMonthLT,
+                    "oth1TiOaSt": (scope.OTH1TI == "") ? "" : scope.OTH1TIOAST,
+                    "oth1TiOaLt": (scope.OTH1TI == "") ? "" : scope.OTH1TIOALT,
+                    "oth2Ti": (scope.OTH2TI == "") ? "" : scope.OTH2TI,
+                    "oth2TiCurr": (scope.OTH2TI == "") ? "" : scope.OTH2TICURR,
+                    "oth2TiMonthSt": (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthST,
+                    "oth2TiMonthLt": (scope.OTH2TI == "") ? "" : scope.OTH2TIMonthLT,
+                    "oth2TiOaSt": (scope.OTH2TI == "") ? "" : scope.OTH2TIOAST,
+                    "oth2TiOaLt": (scope.OTH2TI == "") ? "" : scope.OTH2TIOALT,
+                    "oth3Ti": (scope.OTH3TI == "") ? "" : scope.OTH3TI,
+                    "oth3TiCurr": (scope.OTH3TI == "") ? "" : scope.OTH3TICURR,
+                    "oth3TiMonthSt": (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthST,
+                    "oth3TiMonthLt": (scope.OTH3TI == "") ? "" : scope.OTH3TIMonthLT,
+                    "oth3TiOaSt": (scope.OTH3TI == "") ? "" : scope.OTH3TIOAST,
+                    "oth3TiOaLt": (scope.OTH3TI == "") ? "" : scope.OTH3TIOALT,
+                    "tiSumMonthSt":scope.TISUMMonthST,
+                    "tiSumMonthLt":scope.TISUMMonthLT,
+                    "tiSumOaSt": scope.TISUMOAST,
+                    "tiSumOaLt": scope.TISUMOALT,
+                    "undersignedOfficerLoc":scope.UnsignedOfficerLoc,
+                    "presidentName": scope.PresidentName,
+                    "treasurerName": scope.TreasurerName,
+                    "aisDay": scope.AISDay.toString(),
+                    "aisMonth": (new Date().getMonth() + 1).toString(),
+                    "docNo": scope.SECDocNo,
+                    "pageNo": scope.SECPageNo,
+                    "bookNo": scope.SECBookNo,
+                    "serialNo": scope.SECSerialNo,
+                    "presidentSignature": scope.PresidentSignature,
+                    "treasurerSignature": scope.TreasurerSignature,
+                    "srcOption1":(scope.SRCOption1) ? "/" : "",
+                    "srcOption2":(scope.SRCOption2) ? "/" : "",
+                    'srcOption3':(scope.SRCOption3) ? "/" : "",
+                    "srcOption4":(scope.SRCOption4) ? "/" : "",
+                    'srcOption5':(scope.SRCOption5) ? "/" : ""
                 }
 
-                var reportURL = $rootScope.hostUrl + API_VERSION + "/generataReports/"+ "?output-type=" + encodeURIComponent('PDF'); 
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/cs_reports/PDF?file=SEC_AIS_FORM"; 
 
                 reportURL = $sce.trustAsResourceUrl(reportURL);
                 reportURL = $sce.valueOf(reportURL);
-                http.get(reportURL, {responseType: 'arraybuffer'}).
+                http.post(reportURL, jsonData, {responseType: 'arraybuffer'}).
                     success(function(data, status, headers, config) {
-                    var contentType = headers('Content-Type');
-                    var file = new Blob([data], {type: contentType});
-                    var fileContent = URL.createObjectURL(file);
+	                    var contentType = headers('Content-Type');
+	                    var file = new Blob([data], {type: contentType});
+	                    var fileContent = URL.createObjectURL(file);
 
-                    // Pass the form data to the iframe as a data url.
-                    scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+	                    // Pass the form data to the iframe as a data url.
+	                   	scope.baseURL = $sce.trustAsResourceUrl(fileContent);
                 });
 		    }
     	}
 	});
-    mifosX.ng.application.controller('StaticController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.StaticController]).run(function ($log) {
+    mifosX.ng.application.controller('StaticController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$rootScope', '$http', '$sce', 'API_VERSION', mifosX.controllers.StaticController]).run(function ($log) {
         $log.info("StaticController initialized");
     });
 }(mifosX.controllers || {}));
