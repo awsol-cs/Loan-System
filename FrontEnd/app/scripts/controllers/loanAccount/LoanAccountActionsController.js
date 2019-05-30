@@ -590,11 +590,11 @@
                 } else {
                     params.loanId = scope.accountId;
                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
-                        if(scope.action == "approve"){
-                            resourceFactory.approveMessageResource.post(function (data) {});
-                        }else if(scope.action == "reject"){
-                            resourceFactory.rejectMessageResource.post(function (data) {});
-                        }
+                        // if(scope.action == "approve"){
+                        //     resourceFactory.approveMessageResource.post(function (data) {});
+                        // }else if(scope.action == "reject"){
+                        //     resourceFactory.rejectMessageResource.post(function (data) {});
+                        // }
                         location.path('/viewloanaccount/' + data.loanId);
                     });
                 }

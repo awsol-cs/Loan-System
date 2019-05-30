@@ -749,6 +749,18 @@
                 return true;
             };
 
+            scope.checkCoMaker = false;
+
+            resourceFactory.csCoMakerResource.get({loanId: routeParams.id}, {}, function (data) {
+                if(data.info){
+                    scope.comaker = data;
+                    scope.checkCoMaker = true;
+                }
+            });
+            scope.routeToCoMaker = function(){
+                location.path('/editcomaker/' + routeParams.id);
+            }
+
             scope.printLoanAgreement = function(){
           
                 var jsonData = {

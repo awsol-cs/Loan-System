@@ -9,6 +9,7 @@
             scope.first.date = new Date();
             scope.first.submitondate = new Date ();
             scope.formData = {};
+            scope.formData.client = {};
             scope.formDat = {};
             scope.clientNonPersonDetails = {};
             scope.restrictDate = new Date();
@@ -25,14 +26,14 @@
             scope.addressTypeId={};
             entityname="ADDRESS";
             scope.addressArray=[];
-            scope.formData.address=[];
+            scope.formData.client.address=[];
             //familymembers
-            scope.formData.familyMembers=[];
+            scope.formData.client.familyMembers=[];
             scope.familyArray=[];
             scope.datatables = [];
             scope.noOfTabs = 1;
             scope.step = '-';
-            scope.formData.datatables = [];
+            scope.formData.client.datatables = [];
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
             scope.clientId = routeParams.clientId;
@@ -49,6 +50,7 @@
             scope.loanTerm = "";
             scope.loanPurpose = "";
             scope.enableLoanOption = false;
+            scope.comaker = {};
 
 
             var requestParams = {staffInSelectedOfficeOnly:true};
@@ -58,7 +60,7 @@
             if (routeParams.officeId) {
                 requestParams.officeId = routeParams.officeId;
             }
-            resourceFactory.clientTemplateResource.get(requestParams, function (data) {
+            resourceFactory.csClientTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.formData.officeId = scope.offices[0].id;
@@ -68,6 +70,14 @@
                 scope.clientClassificationOptions = data.clientClassificationOptions;
                 scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
+                scope.clientEducationalAttainmentOptions = data.clientEducationalAttainmentOptions;
+                scope.clientResidenceOwnershipOptions = data.clientResidenceOwnershipOptions;
+                scope.clientEmploymentOptions = data.clientEmploymentOptions;
+                scope.clientSelfEmployedOptions = data.clientSelfEmployedOptions;
+                scope.clientRankOptions = data.clientRankOptions;
+                scope.clientRelationshipOfOfficerOptions = data.clientRelationshipOfOfficerOptions;
+                scope.clientMaritalStatusOptions = data.clientMaritalStatusOptions;
+                scope.clientRelatedToOfficerOptions = data.clientRelatedToOfficerOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 scope.datatables = data.datatables;
                 if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
@@ -116,9 +126,11 @@
 
                 if(scope.enableAddress===true)
                 {
-                    scope.addressTypes=data.address.addressTypeIdOptions;
-                    scope.countryOptions=data.address.countryIdOptions;
-                    scope.stateOptions=data.address.stateProvinceIdOptions;
+                    scope.addressTypes=data.address[0].addressTypeIdOptions;
+                    scope.countryOptions=data.address[0].countryIdOptions;
+                    scope.stateOptions=data.address[0].stateProvinceIdOptions;
+                    console.log(scope.stateOptions);
+                    console.log(data.address[0].stateProvinceIdOptions);
 
                     resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
 
@@ -260,10 +272,10 @@
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
 
-                this.formData.locale = scope.optlang.code;
-                this.formData.active = this.formData.active || false;
-                this.formData.dateFormat = scope.df;
-                this.formData.activationDate = reqDate;
+                this.formData.client.locale = scope.optlang.code;
+                this.formData.client.active = this.formData.active || false;
+                this.formData.client.dateFormat = scope.df;
+                this.formData.client.activationDate = reqDate;
 
                 if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
                     angular.forEach(scope.datatables, function (datatable, index) {
@@ -272,56 +284,56 @@
                             scope.dateFormat = scope.df + " " + scope.tf
                             if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                                 if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName])) {
-                                    scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
+                                    scope.formData.client.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
                                         scope.dateFormat);
-                                    scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                    scope.formData.client.datatables[index].data.dateFormat = scope.dateFormat;
                                 }
                             } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
                                 if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date) && !_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time)) {
-                                    scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
+                                    scope.formData.client.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
                                         + " " + dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time, scope.tf);
-                                    scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                    scope.formData.client.datatables[index].data.dateFormat = scope.dateFormat;
                                 }
                             }
                         });
                     });
                 } else {
-                    delete scope.formData.datatables;
+                    delete scope.formData.client.datatables;
                 }
 
                 if (routeParams.groupId) {
-                    this.formData.groupId = routeParams.groupId;
+                    this.formData.client.groupId = routeParams.groupId;
                 }
 
                 if (routeParams.officeId) {
-                    this.formData.officeId = routeParams.officeId;
+                    this.formData.client.officeId = routeParams.officeId;
                 }
 
                 if (scope.first.submitondate) {
                     reqDate = dateFilter(scope.first.submitondate, scope.df);
-                    this.formData.submittedOnDate = reqDate;
+                    this.formData.client.submittedOnDate = reqDate;
                 }
 
                 if (scope.first.dateOfBirth) {
-                    this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
+                    this.formData.client.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
                 }
 
-                if (this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
-                    delete this.formData.fullname;
+                if (this.formData.client.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
+                    delete this.formData.client.fullname;
                 } else {
-                    delete this.formData.firstname;
-                    delete this.formData.middlename;
-                    delete this.formData.lastname;
+                    delete this.formData.client.firstname;
+                    delete this.formData.client.middlename;
+                    delete this.formData.client.lastname;
                 }
 
                 if(scope.first.incorpValidityTillDate) {
-                    this.formData.clientNonPersonDetails.locale = scope.optlang.code;
-                    this.formData.clientNonPersonDetails.dateFormat = scope.df;
-                    this.formData.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.first.incorpValidityTillDate, scope.df);
+                    this.formData.client.clientNonPersonDetails.locale = scope.optlang.code;
+                    this.formData.client.clientNonPersonDetails.dateFormat = scope.df;
+                    this.formData.client.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.first.incorpValidityTillDate, scope.df);
                 }
 
                 if (!scope.savings.opensavingsproduct) {
-                    this.formData.savingsProductId = null;
+                    this.formData.client.savingsProductId = null;
                 }
 
                 if(scope.enableAddress===true)
@@ -386,7 +398,7 @@
                             temp.isActive=scope.addressArray[i].isActive;
 
                         }
-                        scope.formData.address.push(temp);
+                        scope.formData.client.address.push(temp);
                     }
                 }
 
@@ -448,27 +460,27 @@
 
                     temp.locale = scope.optlang.code;
                     temp.dateFormat = scope.df;
-                    scope.formData.familyMembers.push(temp);
+                    scope.formData.client.familyMembers.push(temp);
                 }
-
-
-                resourceFactory.clientResource.save(this.formData, function (data) {
-                    var reqFirstDate = dateFilter(scope.first.submitondate, scope.df);
-                    var activateData = {
-                        "locale": scope.optlang.code,
-                        "dateFormat": scope.df,
-                        "activationDate": reqFirstDate
-                    };
-                    resourceFactory.clientResource.save({clientId: data.clientId, command: 'activate'}, activateData, function (data) {
-                        scope.saveLoanAccount(data.clientId);
-                    });
+                scope.saveLoanAccount();
+                scope.formData.client.active = true;
+                scope.formData.kyc.locale = scope.optlang.code;
+                if(scope.formData.comaker){
+                    scope.formData.comaker.kyc.locale = scope.optlang.code;
+                    scope.formData.comaker.info.locale = scope.optlang.code;
+                    if (scope.comaker.dateOfBirth) {
+                        this.formData.comaker.info.dateFormat = scope.df;
+                        this.formData.comaker.info.dateOfBirth = dateFilter(scope.comaker.dateOfBirth, scope.df);
+                    }
+                }
+                resourceFactory.csClientResource.save(scope.formData, function (data) {
+                    location.path('/viewclient/' + data.clientId);
                 });
             };
 
-            scope.saveLoanAccount = function (clientId) {
+            scope.saveLoanAccount = function () {
                 delete scope.loanAccount.charges;
                 delete scope.loanAccount.collateral;
-                scope.loanAccount.clientId = clientId
                 var reqFirstDate = dateFilter(scope.first.submitondate, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);
@@ -520,9 +532,10 @@
                 if(scope.datatablesLoan){
                     this.loanAccount.datatables = scope.formDatatablesData();
                 }
-                resourceFactory.loanResource.save(this.loanAccount, function (data) {
-                    location.path('/viewclient/' + data.clientId);
-                });
+                scope.formData.loan = this.loanAccount;
+                // resourceFactory.loanResource.save(this.loanAccount, function (data) {
+                //     location.path('/viewclient/' + data.clientId);
+                // });
             }
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
@@ -550,10 +563,7 @@
             }
 
             scope.loanProductChange = function (loanProductId) {
-                // _.isUndefined(scope.datatables) ? scope.tempDataTables = [] : scope.tempDataTables = scope.datatables;
-                // WizardHandler.wizard().removeSteps(1, scope.tempDataTables.length);
                 scope.inparams.productId = loanProductId;
-                // scope.datatables = [];
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.previewClientLoanAccInfo();
@@ -562,7 +572,6 @@
                     scope.noOfRepayment = data.numberOfRepayments;
                     scope.loanTerm = data.termFrequency + " " + data.termPeriodFrequencyType.value;
                     scope.disabled = false;
-                    // scope.handleDatatables(scope.datatablesLoan);
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -674,6 +683,119 @@
             scope.enabledLoan = function($index){
                 if($index == scope.datatables.length - 1){
                     scope.enableLoanOption = true;
+                }
+            }
+
+            scope.allowOtherEducationalAttainment = false;
+            scope.allowMonthlyRent = false;
+            scope.allowOtherEmployment = false;
+            scope.allowSelfEmployed = false;
+            scope.allowRelatedToOfficer = false;
+            scope.allowOtherEducationalAttainmentComaker = false;
+            scope.allowMonthlyRentComaker = false;
+            scope.allowOtherEmploymentComaker = false;
+            scope.allowSelfEmployedComaker = false;
+            scope.allowRelatedToOfficerComaker = false;
+            scope.allowCoMaker = false;
+
+            scope.checkDropdown = function(idChecker, isComaker){
+                scope.clientEducationalAttainmentOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Others"){
+                                scope.allowOtherEducationalAttainment = true;
+                                return;
+                            }
+                            scope.allowOtherEducationalAttainment = false;
+                        }
+                    }else{
+                        if(option.id == idChecker){
+                            if(option.name == "Others"){
+                                scope.allowOtherEducationalAttainmentComaker = true;
+                                return;
+                            }
+                            scope.allowOtherEducationalAttainmentComaker = false;
+                        }
+                    }
+                });
+                scope.clientResidenceOwnershipOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Rented"){
+                                scope.allowMonthlyRent = true;
+                                return;
+                            }
+                            scope.allowMonthlyRent = false;
+                        }
+                    }else{
+                        if(option.id == idChecker){
+                            if(option.name == "Rented"){
+                                scope.allowMonthlyRentComaker = true;
+                                return;
+                            }
+                            scope.allowMonthlyRentComaker = false;
+                        }
+                    }
+                    
+                });
+                scope.clientEmploymentOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Others"){
+                                scope.allowOtherEmployment = true;
+                                scope.allowSelfEmployed = false;
+                                return;
+                            }else if(option.name == "Self-Employed"){
+                                scope.allowOtherEmployment = false;
+                                scope.allowSelfEmployed = true;
+                                return;
+                            }
+                            scope.allowOtherEmployment = false;
+                            scope.allowSelfEmployed = false;
+                        }
+                    }else{
+                        if(option.id == idChecker){
+                            if(option.name == "Others"){
+                                scope.allowOtherEmploymentComaker = true;
+                                scope.allowSelfEmployedComaker = false;
+                                return;
+                            }else if(option.name == "Self-Employed"){
+                                scope.allowOtherEmploymentComaker = false;
+                                scope.allowSelfEmployedComaker = true;
+                                return;
+                            }
+                            scope.allowOtherEmploymentComaker = false;
+                            scope.allowSelfEmployedComaker = false;
+                        }
+                    }
+                    
+                });
+                scope.clientRelatedToOfficerOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Yes"){
+                                scope.allowRelatedToOfficer = true;
+                                return;
+                            }
+                            scope.allowRelatedToOfficer = false;
+                        }
+                    }else{
+                        if(option.id == idChecker){
+                            if(option.name == "Yes"){
+                                scope.allowRelatedToOfficerComaker = true;
+                                return;
+                            }
+                            scope.allowRelatedToOfficerComaker = false;
+                        }
+                    }
+                });
+            }
+
+            scope.checkLoanPrincipal = function(loanPrincipal){
+                if(loanPrincipal > scope.loanaccountinfo.proposedPrincipal){
+                    scope.allowCoMaker = true;
+                }else {
+                    scope.allowCoMaker = false;
                 }
             }
         }

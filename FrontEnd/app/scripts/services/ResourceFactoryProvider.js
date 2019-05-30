@@ -762,6 +762,17 @@
                     }),
                     rejectMessageResource: defineResource(apiVer+"/message/rejected", {}, {
                         post: {method: 'POST', params:{}}
+                    }),
+                    csClientTemplateResource: defineResource(apiVer+"/cs_clients/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    csClientResource: defineResource(apiVer + "/cs_clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
+                        update: { method: 'PUT'}
+                    }),
+                    csLoanResource: defineResource(apiVer + "/cs_loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', sqlSearch: '@sqlSearch'}, {
+                    }),
+                    csCoMakerResource: defineResource(apiVer + "/cs_loans/comaker/:loanId/:comakerId", {loanId: '@loanId'}, {
+                        update: { method: 'PUT'}
                     })
                 };
             }];

@@ -6,6 +6,7 @@
             scope.groupId = routeParams.groupId;
             scope.restrictDate = new Date();
             scope.formData = {};
+            scope.formData.loan = {};
             scope.loandetails = {};
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
@@ -15,7 +16,7 @@
             scope.datatables = [];
             scope.noOfTabs = 1;
             scope.step = '-';
-            scope.formData.datatables = [];
+            scope.formData.loan.datatables = [];
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
             scope.loanApp = "LoanApp";
@@ -27,13 +28,13 @@
 
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId;
-                scope.formData.clientId = scope.clientId;
+                scope.formData.loan.clientId = scope.clientId;
             }
 
 
             if (scope.groupId) {
                 scope.inparams.groupId = scope.groupId;
-                scope.formData.groupId = scope.groupId;
+                scope.formData.loan.groupId = scope.groupId;
             }
 
             if (scope.clientId && scope.groupId) {
@@ -83,7 +84,7 @@
 
             scope.handleDatatables = function (datatables) {
                 if (!_.isUndefined(datatables) && datatables.length > 0) {
-                    scope.formData.datatables = [];
+                    scope.formData.loan.datatables = [];
                     scope.formDat.datatables = [];
                     scope.noOfTabs = datatables.length + 1;
                     angular.forEach(datatables, function (datatable, index) {
@@ -93,8 +94,8 @@
                                 scope.formDat.datatables[index] = {data: {}};
                             }
 
-                            if (_.isEmpty(scope.formData.datatables[index])) {
-                                scope.formData.datatables[index] = {
+                            if (_.isEmpty(scope.formData.loan.datatables[index])) {
+                                scope.formData.loan.datatables[index] = {
                                     registeredTableName: datatable.registeredTableName,
                                     data: {locale: scope.optlang.code}
                                 };
@@ -127,42 +128,42 @@
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
                 scope.charges = scope.loanaccountinfo.charges || [];
-                scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
+                scope.formData.loan.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
                 scope.collaterals = [];
 
                 if (scope.loanaccountinfo.calendarOptions) {
-                    scope.formData.syncRepaymentsWithMeeting = true;
-                    scope.formData.syncDisbursementWithMeeting = true;
+                    scope.formData.loan.syncRepaymentsWithMeeting = true;
+                    scope.formData.loan.syncDisbursementWithMeeting = true;
                 }
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
-                scope.formData.productId = scope.loanaccountinfo.loanProductId;
-                scope.formData.fundId = scope.loanaccountinfo.fundId;
-                scope.formData.principal = scope.loanaccountinfo.principal;
-                scope.formData.loanTermFrequency = scope.loanaccountinfo.termFrequency;
-                scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
+                scope.formData.loan.productId = scope.loanaccountinfo.loanProductId;
+                scope.formData.loan.fundId = scope.loanaccountinfo.fundId;
+                scope.formData.loan.principal = scope.loanaccountinfo.principal;
+                scope.formData.loan.loanTermFrequency = scope.loanaccountinfo.termFrequency;
+                scope.formData.loan.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
                 scope.loandetails.loanTermFrequencyValue = scope.loanaccountinfo.termPeriodFrequencyType.value;
-                scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
-                scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
-                scope.formData.repaymentFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
+                scope.formData.loan.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
+                scope.formData.loan.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
+                scope.formData.loan.repaymentFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
                 scope.loandetails.repaymentFrequencyValue = scope.loanaccountinfo.repaymentFrequencyType.value;
-                scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
-                scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
-                scope.formData.isEqualAmortization = scope.loanaccountinfo.isEqualAmortization;
+                scope.formData.loan.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                scope.formData.loan.amortizationType = scope.loanaccountinfo.amortizationType.id;
+                scope.formData.loan.isEqualAmortization = scope.loanaccountinfo.isEqualAmortization;
                 scope.loandetails.amortizationValue = scope.loanaccountinfo.amortizationType.value;
-                scope.formData.interestType = scope.loanaccountinfo.interestType.id;
+                scope.formData.loan.interestType = scope.loanaccountinfo.interestType.id;
                 scope.loandetails.interestValue = scope.loanaccountinfo.interestType.value;
-                scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
+                scope.formData.loan.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
                 scope.loandetails.interestCalculationPeriodValue = scope.loanaccountinfo.interestCalculationPeriodType.value;
-                scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
-                scope.formData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
-                scope.formData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
-                scope.formData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
-                scope.formData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
-                scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
-                scope.loandetails.transactionProcessingStrategyValue = scope.formValue(scope.loanaccountinfo.transactionProcessingStrategyOptions,scope.formData.transactionProcessingStrategyId,'id','name');
-                scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
-                scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
-                scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
+                scope.formData.loan.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
+                scope.formData.loan.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
+                scope.formData.loan.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
+                scope.formData.loan.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
+                scope.formData.loan.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
+                scope.formData.loan.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
+                scope.loandetails.transactionProcessingStrategyValue = scope.formValue(scope.loanaccountinfo.transactionProcessingStrategyOptions,scope.formData.loan.transactionProcessingStrategyId,'id','name');
+                scope.formData.loan.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
+                scope.formData.loan.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
+                scope.formData.loan.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
 
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
@@ -172,14 +173,14 @@
                 }
 
                 if(scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
-                    scope.formData.isFloatingInterestRate = false ;
+                    scope.formData.loan.isFloatingInterestRate = false ;
                 }
 
-                scope.loandetails = angular.copy(scope.formData);
-                scope.loandetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
+                scope.loandetails = angular.copy(scope.formData.loan);
+                scope.loandetails.productName = scope.formValue(scope.products,scope.formData.loan.productId,'id','name');
             };
 
-            scope.$watch('formData',function(newVal){
+            scope.$watch('formData.loan',function(newVal){
                 scope.loandetails = angular.extend(scope.loandetails,newVal);
             },true);
 
@@ -208,22 +209,22 @@
 
 
             scope.addTranches = function () {
-                scope.formData.disbursementData.push({
+                scope.formData.loan.disbursementData.push({
                 });
             };
             scope.deleteTranches = function (index) {
-                scope.formData.disbursementData.splice(index, 1);
+                scope.formData.loan.disbursementData.splice(index, 1);
             }
 
             scope.syncRepaymentsWithMeetingchange = function () {
-                if (!scope.formData.syncRepaymentsWithMeeting) {
-                    scope.formData.syncDisbursementWithMeeting = false;
+                if (!scope.formData.loan.syncRepaymentsWithMeeting) {
+                    scope.formData.loan.syncDisbursementWithMeeting = false;
                 }
             };
 
             scope.syncDisbursementWithMeetingchange = function () {
-                if (scope.formData.syncDisbursementWithMeeting) {
-                    scope.formData.syncRepaymentsWithMeeting = true;
+                if (scope.formData.loan.syncDisbursementWithMeeting) {
+                    scope.formData.loan.syncRepaymentsWithMeeting = true;
                 }
             };
 
@@ -242,10 +243,10 @@
 
             scope.previewRepayments = function () {
                 // Make sure charges and collaterals are empty before initializing.
-                delete scope.formData.charges;
-                delete scope.formData.collateral;
-                if(_.isUndefined(scope.formData.datatables) || (!_.isUndefined(scope.formData.datatables) && scope.formData.datatables.length == 0)) {
-                    delete scope.formData.datatables;
+                delete scope.formData.loan.charges;
+                delete scope.formData.loan.collateral;
+                if(_.isUndefined(scope.formData.loan.datatables) || (!_.isUndefined(scope.formData.loan.datatables) && scope.formData.loan.datatables.length == 0)) {
+                    delete scope.formData.loan.datatables;
                 }
 
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
@@ -253,46 +254,46 @@
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);
                 var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
                 if (scope.charges.length > 0) {
-                    scope.formData.charges = [];
+                    scope.formData.loan.charges = [];
                     for (var i in scope.charges) {
-                        scope.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
+                        scope.formData.loan.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
                     }
                 }
 
-                if (scope.formData.disbursementData.length > 0) {
-                    for (var i in scope.formData.disbursementData) {
-                        scope.formData.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.disbursementData[i].expectedDisbursementDate, scope.df);
+                if (scope.formData.loan.disbursementData.length > 0) {
+                    for (var i in scope.formData.loan.disbursementData) {
+                        scope.formData.loan.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.loan.disbursementData[i].expectedDisbursementDate, scope.df);
                     }
                 }
 
                 if (scope.collaterals.length > 0) {
-                    scope.formData.collateral = [];
+                    scope.formData.loan.collateral = [];
                     for (var i in scope.collaterals) {
-                        scope.formData.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
+                        scope.formData.loan.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
                     }
                     ;
                 }
 
-                if (this.formData.syncRepaymentsWithMeeting) {
-                    this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
-                    scope.syncRepaymentsWithMeeting = this.formData.syncRepaymentsWithMeeting;
+                if (this.formData.loan.syncRepaymentsWithMeeting) {
+                    this.formData.loan.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    scope.syncRepaymentsWithMeeting = this.formData.loan.syncRepaymentsWithMeeting;
                 }
-                delete this.formData.syncRepaymentsWithMeeting;
+                delete this.formData.loan.syncRepaymentsWithMeeting;
 
-                this.formData.interestChargedFromDate = reqThirdDate;
-                this.formData.repaymentsStartingFromDate = reqFourthDate;
-                this.formData.locale = scope.optlang.code;
-                this.formData.dateFormat = scope.df;
-                this.formData.loanType = scope.inparams.templateType;
-                this.formData.expectedDisbursementDate = reqSecondDate;
-                this.formData.submittedOnDate = reqFirstDate;
-                if(this.formData.interestCalculationPeriodType == 0){
-                    this.formData.allowPartialPeriodInterestCalcualtion = false;
+                this.formData.loan.interestChargedFromDate = reqThirdDate;
+                this.formData.loan.repaymentsStartingFromDate = reqFourthDate;
+                this.formData.loan.locale = scope.optlang.code;
+                this.formData.loan.dateFormat = scope.df;
+                this.formData.loan.loanType = scope.inparams.templateType;
+                this.formData.loan.expectedDisbursementDate = reqSecondDate;
+                this.formData.loan.submittedOnDate = reqFirstDate;
+                if(this.formData.loan.interestCalculationPeriodType == 0){
+                    this.formData.loan.allowPartialPeriodInterestCalcualtion = false;
                 }
-                resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
+                resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData.loan, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
-                    scope.formData.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
+                    scope.formData.loan.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
                 });
 
             }
@@ -324,8 +325,8 @@
                 //     return;
                 // }
                 // Make sure charges and collaterals are empty before initializing.
-                delete scope.formData.charges;
-                delete scope.formData.collateral;
+                delete scope.formData.loan.charges;
+                delete scope.formData.loan.collateral;
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);
@@ -333,47 +334,47 @@
                 var reqFifthDate = dateFilter(scope.date.fifth, scope.df);
 
                 if (scope.charges.length > 0) {
-                    scope.formData.charges = [];
+                    scope.formData.loan.charges = [];
                     for (var i in scope.charges) {
-                        scope.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
+                        scope.formData.loan.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
                     }
                 }
 
-                if (scope.formData.disbursementData.length > 0) {
-                    for (var i in scope.formData.disbursementData) {
-                        scope.formData.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.disbursementData[i].expectedDisbursementDate, scope.df);
+                if (scope.formData.loan.disbursementData.length > 0) {
+                    for (var i in scope.formData.loan.disbursementData) {
+                        scope.formData.loan.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.loan.disbursementData[i].expectedDisbursementDate, scope.df);
                     }
                 }
                 if (scope.collaterals.length > 0) {
-                    scope.formData.collateral = [];
+                    scope.formData.loan.collateral = [];
                     for (var i in scope.collaterals) {
-                        scope.formData.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
+                        scope.formData.loan.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
                     }
                     ;
                 }
 
-                if (this.formData.syncRepaymentsWithMeeting) {
-                    this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                if (this.formData.loan.syncRepaymentsWithMeeting) {
+                    this.formData.loan.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
-                delete this.formData.syncRepaymentsWithMeeting;
-                this.formData.interestChargedFromDate = reqThirdDate;
-                this.formData.repaymentsStartingFromDate = reqFourthDate;
-                this.formData.locale = scope.optlang.code;
-                this.formData.dateFormat = scope.df;
-                this.formData.loanType = scope.inparams.templateType;
-                this.formData.expectedDisbursementDate = reqSecondDate;
-                this.formData.submittedOnDate = reqFirstDate;
-                this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
+                delete this.formData.loan.syncRepaymentsWithMeeting;
+                this.formData.loan.interestChargedFromDate = reqThirdDate;
+                this.formData.loan.repaymentsStartingFromDate = reqFourthDate;
+                this.formData.loan.locale = scope.optlang.code;
+                this.formData.loan.dateFormat = scope.df;
+                this.formData.loan.loanType = scope.inparams.templateType;
+                this.formData.loan.expectedDisbursementDate = reqSecondDate;
+                this.formData.loan.submittedOnDate = reqFirstDate;
+                this.formData.loan.createStandingInstructionAtDisbursement = scope.formData.loan.createStandingInstructionAtDisbursement;
                 if (scope.date.recalculationRestFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
-                    scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                    scope.formData.loan.recalculationRestFrequencyDate = restFrequencyDate;
                 }
                 if (scope.date.recalculationCompoundingFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
-                    scope.formData.recalculationCompoundingFrequencyDate = restFrequencyDate;
+                    scope.formData.loan.recalculationCompoundingFrequencyDate = restFrequencyDate;
                 }
-                if(this.formData.interestCalculationPeriodType == 0){
-                    this.formData.allowPartialPeriodInterestCalcualtion = false;
+                if(this.formData.loan.interestCalculationPeriodType == 0){
+                    this.formData.loan.allowPartialPeriodInterestCalcualtion = false;
                 }
                 if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
                     angular.forEach(scope.datatables, function (datatable, index) {
@@ -382,23 +383,23 @@
                             scope.dateFormat = scope.df + " " + scope.tf
                             if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                                 if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName])) {
-                                    scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
+                                    scope.formData.loan.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName],
                                         scope.dateFormat);
-                                    scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                    scope.formData.loan.datatables[index].data.dateFormat = scope.dateFormat;
                                 }
                             } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
                                 if (!_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date) && !_.isUndefined(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time)) {
-                                    scope.formData.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
+                                    scope.formData.loan.datatables[index].data[scope.columnHeaders[i].columnName] = dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].date, scope.df)
                                         + " " + dateFilter(scope.formDat.datatables[index].data[scope.columnHeaders[i].columnName].time, scope.tf);
-                                    scope.formData.datatables[index].data.dateFormat = scope.dateFormat;
+                                    scope.formData.loan.datatables[index].data.dateFormat = scope.dateFormat;
                                 }
                             }
                         });
                     });
                 } else {
-                    delete scope.formData.datatables;
+                    delete scope.formData.loan.datatables;
                 }
-                resourceFactory.loanResource.save(this.formData, function (data) {
+                resourceFactory.csLoanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
             };
@@ -408,6 +409,16 @@
                     location.path('/viewgroup/' + scope.groupId);
                 } else if (scope.clientId) {
                     location.path('/viewclient/' + scope.clientId);
+                }
+            }
+
+            scope.allowCoMaker = false;
+
+            scope.checkLoanPrincipal = function(loanPrincipal){
+                if(loanPrincipal > scope.loanaccountinfo.proposedPrincipal){
+                    scope.allowCoMaker = true;
+                }else {
+                    scope.allowCoMaker = false;
                 }
             }
         }

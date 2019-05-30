@@ -1,12 +1,13 @@
 <div class="content-container" ng-controller="ClientActionsController">
-    <form name="clientactionform" novalidate="" class="card form-horizontal well">
+    <div class="card form-horizontal well">
+        <wizard current-step="step()" on-finish="submitDatatable()">
+            <wz-step wz-title="{{breadcrumbName | translate}}">
+        <form name="clientactionform" novalidate="">
         <ul class="breadcrumb">
             <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
             <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{breadcrumbName | translate}}</li>
         </ul>
-        <wizard current-step="step()" on-finish="submitDatatable()">
-            <wz-step wz-title="{{breadcrumbName | translate}}">
         <div ng-show="submittedDatatables.length>0" uib-alert type="success">
             <span ng-repeat="table in submittedDatatables"><i class="fa fa-check"></i>Entry in ` {{table}} ` has been made successfully. If the inputs are changed, the datatable entries will be updated.<br></span>
         </div>
@@ -151,5 +152,6 @@
                 </form>
             </div>
         </wz-step>
-
+    </wizard>
+</div>
 </div>
