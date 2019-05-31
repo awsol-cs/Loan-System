@@ -62,17 +62,18 @@ import net.sf.jasperreports.engine.JREmptyDataSource;
 
 import javax.annotation.Resource;
 
-import org.apache.fineract.infrastructure.core.service.TomcatJdbcDataSourcePerTenantService;
+import org.cs.portfolio.documentmanagement.contentrepository.ReportsRepository;
+import org.apache.fineract.infrastructure.documentmanagement.domain.Document;
 
 @Service
 public class ReportServiceImpl implements ReportService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
     private static final String MIFOS_BASE_DIR = System.getProperty("user.home") + File.separator + ".mifosx";
-    private static final String imagePath = MIFOS_BASE_DIR + File.separator + "images" + File.separator;
+    private ReportsRepository reportsRepository;
 
     Connection conn = null;
-
+    
     public ReportServiceImpl() {
         try {
             Context ctx = ctx = new InitialContext();
@@ -82,6 +83,11 @@ public class ReportServiceImpl implements ReportService {
             ne.printStackTrace();
         }
     }
+    
+    @Autowired
+    public ReportServiceImpl(final ReportsRepository reportsRepository) {
+    	this.reportsRepository = reportsRepository;
+    }
 
     @Override
     public Response generateSimpleReport(Object report, String fileName, ExportReportType exportReportType) {
@@ -90,8 +96,10 @@ public class ReportServiceImpl implements ReportService {
 
         try {
             HashMap<String, Object> map = (HashMap<String, Object>)report;
-            map.put("imagePath", imagePath);
-
+            if(map.get("loanAccountNo") != null && map.get("documentType") != null) {
+            	Document doc = getDocumentByFileName(map.get("loanAccountNo").toString(), map.get("documentType").toString());
+            	map.put("imagePath", doc.getLocation());
+            }
             File reportLocation = new File(MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + fileName + ".jasper");
             if(reportLocation.exists()) {
                 stream = FileUtils.openInputStream(reportLocation);
@@ -130,15 +138,14 @@ public class ReportServiceImpl implements ReportService {
     }
 
     private void generateReportParameters(Map<String, Object> reportParameters, HashMap<String, Object> map) {
-        map.forEach((key, value) -> {
+    	map.forEach((key, value) -> {
             reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key), Converter.convert(value));
             if(value instanceof Iterable) {
                 Iterator iter = ((Iterable) value).iterator();
                 int ctr = 0;
                 while(iter.hasNext()) {
                     ctr++;
-                    reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key + ctr),
-                            MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + iter.next().toString() + ".jasper");
+                    reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key + ctr), value);
                 }
             }
         });
@@ -250,4 +257,10 @@ public class ReportServiceImpl implements ReportService {
             return null;
         }
     }
+    
+    private Document getDocumentByFileName(String account, String type) {
+    	String fileName = account + "-" + type + ".png";
+    	return reportsRepository.findByFileName(fileName);
+    }
+    
 }
