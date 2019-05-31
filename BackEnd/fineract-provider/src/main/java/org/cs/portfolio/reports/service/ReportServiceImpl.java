@@ -70,6 +70,8 @@ public class ReportServiceImpl implements ReportService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
     private static final String MIFOS_BASE_DIR = System.getProperty("user.home") + File.separator + ".mifosx";
+    
+    @Autowired
     private ReportsRepository reportsRepository;
 
     Connection conn = null;
@@ -82,11 +84,6 @@ public class ReportServiceImpl implements ReportService {
         } catch(Exception ne) {
             ne.printStackTrace();
         }
-    }
-    
-    @Autowired
-    public ReportServiceImpl(final ReportsRepository reportsRepository) {
-    	this.reportsRepository = reportsRepository;
     }
 
     @Override
