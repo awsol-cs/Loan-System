@@ -139,16 +139,7 @@ public class ReportServiceImpl implements ReportService {
 
     private void generateReportParameters(Map<String, Object> reportParameters, HashMap<String, Object> map) {
     	map.forEach((key, value) -> {
-            if(value instanceof Iterable) {
-                Iterator iter = ((Iterable) value).iterator();
-                int ctr = 0;
-                while(iter.hasNext()) {
-                    ctr++;
-                    reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key + ctr), Converter.convert(value));
-                }
-            } else {
-            	reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key), Converter.convert(value));
-            }
+            reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key), Converter.convert(value));
         });
     }
 
