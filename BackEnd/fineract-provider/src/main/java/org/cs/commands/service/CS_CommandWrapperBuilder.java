@@ -190,4 +190,35 @@ public class CS_CommandWrapperBuilder {
         this.href = "/loans/" + loanId;
         return this;
     }
+
+    public CS_CommandWrapperBuilder cs_CreateClient() {
+        this.actionName = "CREATE";
+        this.entityName = "CS_CLIENT";
+        this.href = "/clients/template";
+        return this;
+    }
+
+    public CS_CommandWrapperBuilder cs_UpdateClient(final Long clientId) {
+        this.actionName = "UPDATE";
+        this.entityName = "CS_CLIENT";
+        this.entityId = clientId;
+        this.clientId = clientId;
+        this.href = "/cs_clients/" + clientId;
+        return this;
+    }
+
+    public CS_CommandWrapperBuilder cs_CreateLoan() {
+        this.actionName = "CREATE";
+        this.entityName = "CS_LOAN";
+        this.href = "/loans";
+        return this;
+    }
+
+    public CS_CommandWrapperBuilder cs_UpdateLoan(final Long comakerId) {
+        this.actionName = "UPDATE";
+        this.entityName = "CS_COMAKER";
+        this.entityId = comakerId;
+        this.href = "/loans/comaker/" + comakerId;
+        return this;
+    }
 }

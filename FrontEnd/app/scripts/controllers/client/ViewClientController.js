@@ -174,7 +174,7 @@
             } ;
 
             scope.haveFile = [];
-            resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
+            resourceFactory.csClientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
@@ -959,7 +959,9 @@
 
             var getCreditBureau = function(){
                 resourceFactory.creditBureauSummary.get( function (data) {
-                    scope.creditBureauName = data[0].creditBureauName;
+                    if(!data){
+                        scope.creditBureauName = data[0].creditBureauName;
+                    }
                 });
                 if(!scope.creditBureau){
                     scope.creditBureau = {};

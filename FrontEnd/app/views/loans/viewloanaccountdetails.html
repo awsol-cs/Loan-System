@@ -1021,6 +1021,285 @@
                             </div>
                         </div>
                     </uib-tab>
+                    <uib-tab heading="{{ 'label.heading.comaker' | translate }}" ng-if="checkCoMaker" >
+
+                            <br/>
+
+                              <div class="pull-right">
+                                 <a id="save1"  class="btn btn-primary" ng-click="routeToCoMaker()">
+                                    {{'label.button.edit' | translate}}
+                                 </a>
+                              </div>
+
+                            <br/>
+
+                            <div class="row">
+                                     <label class="col-sm-2" for="firstname">{{'label.input.firstname' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="firstname" name="firstname">{{comaker.info.firstname}}</p>
+                                     </div>
+
+                                    <label class="control-label col-sm-2" for="middlename">{{'label.input.middlename' | translate}}</label>
+                                     <div class="col-sm-1">
+                                        <p id="middlename" name="middlename">{{comaker.info.middlename}}</p>
+                                     </div>
+                                    <label class="control-label col-sm-2" for="lastname">{{'label.input.lastname' | translate}}</label>
+                                     <div class="col-sm-1">
+                                        <p id="lastname" name="lastname">{{comaker.info.lastname}}</p>
+                                     </div>
+                              </div>
+
+                            <div class="row">
+                                     <label class="col-sm-2" for="dateOfBirth">{{'label.input.dateofbirth' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="dateOfBirth" name="dateOfBirth">{{comaker.info.dateOfBirth | DateFormat }}</p>
+                                     </div>
+                              </div>
+
+                            <div class="row">
+                                     <label class="col-sm-2" for="gender">{{'label.input.gender' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="gender" name="gender">{{comaker.info.gender.name | translate }}</p>
+                                     </div>
+                              </div>
+
+                            <div class="row">
+                                     <label class="col-sm-2" for="mobileNo">{{'label.input.mobileNumber' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="mobileNo" name="mobileNo">{{comaker.info.mobileNo | translate }}</p>
+                                     </div>
+                              </div>
+                            <br/>
+                       <h3><strong>{{ 'label.heading.additionalclientinformation' | translate }}</strong></h3>
+                            <br/>
+                            <div class="row">
+                                     <label class="col-sm-2" for="nationality">{{'label.input.nationality' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="nationality" name="nationality">{{comaker.kyc.nationality}}</p>
+                                     </div>
+
+                                    <label class="control-label col-sm-2" for="noOfDependents">{{'label.input.noofdependents' | translate}}</label>
+                                     <div class="col-sm-1">
+                                        <p id="noOfDependents" name="noOfDependents">{{comaker.kyc.noOfDependents}}</p>
+                                     </div>
+                                     <label class="control-label col-sm-2">{{'label.input.maritalstatus' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="maritalStatus" name="maritalStatus">{{comaker.kyc.maritalStatus.name}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+
+                                     <label class="col-sm-2">{{'label.input.educationalattainment' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="nationality" name="nationality">{{comaker.kyc.educationalAttainment.name}}</p>
+                                     </div>
+                                     <div ng-if="comaker.kyc.educationalAttainment.name == 'Others'">
+                                        <label class="col-sm-2" for="othersEducationalAttainment">{{'label.input.othereducationalattainment' | translate}}</label>
+                                         <div class="col-sm-1">
+                                            <p id="othersEducationalAttainment" name="othersEducationalAttainment">{{comaker.kyc.othersEducationalAttainment}}</p>
+                                         </div>
+                                     </div>
+                              </div>
+                            <div class="row">
+
+                                     <label class="col-sm-2">{{'label.input.schoollastattended' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="schoolLastAttended" name="schoolLastAttended">{{comaker.kyc.schoolLastAttended}}</p>
+                                     </div>
+
+                                    <label class="control-label col-sm-2" for="placeOfBirth">{{'label.input.placeofbirth' | translate}}</label>
+                                     <div class="col-sm-1">
+                                        <p id="placeOfBirth" name="placeOfBirth">{{comaker.kyc.placeOfBirth}}</p>
+                                     </div>
+                                     <label class="control-label col-sm-2">{{'label.input.mothermaidenname' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="motherMaidenName" name="motherMaidenName">{{comaker.kyc.motherMaidenName}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+
+                                     <label class="col-sm-2">{{'label.input.residenceownership' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="residenceOwnership" name="residenceOwnership">{{comaker.kyc.residenceOwnership.name}}</p>
+                                     </div>
+                                     <div ng-if="comaker.kyc.residenceOwnership.name == 'Rented'">
+                                        <label class="col-sm-2" for="rentedResidenceOwnership">{{'label.input.monthlyrent' | translate}}</label>
+                                         <div class="col-sm-1">
+                                            <p id="rentedResidenceOwnership" name="rentedResidenceOwnership">{{comaker.kyc.rentedResidenceOwnership}}</p>
+                                         </div>
+                                     </div>
+                              </div>
+                        <h3><strong>{{ 'label.heading.clientemploymentinformation' | translate }}</strong></h3>
+                            <br/>
+                            <div class="row">
+
+                                     <label class="col-sm-2">{{'label.input.employment' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="employment" name="employment">{{comaker.kyc.employment.name}}</p>
+                                     </div>
+                                     <div ng-if="comaker.kyc.employment.name == 'Others'">
+                                        <label class="col-sm-2" for="otherEmployment">{{'label.input.otheremployment' | translate}}</label>
+                                         <div class="col-sm-3">
+                                            <p id="otherEmployment" name="otherEmployment">{{comaker.kyc.otherEmployment}}</p>
+                                         </div>
+                                     </div>
+                              </div>
+                            <div class="row" ng-if="comaker.kyc.employment.name == 'Self-Employed'">
+                                     <label class="col-sm-2">{{'label.input.selfemployed' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="selfEmployed" name="selfEmployed">{{comaker.kyc.selfEmployed.name}}</p>
+                                     </div>
+                                    <label class="col-sm-2" for="yearsInOperation">{{'label.input.yearsinoperation' | translate}}</label>
+                                     <div class="col-sm-1">
+                                        <p id="yearsInOperation" name="yearsInOperation">{{comaker.kyc.yearsInOperation}}</p>
+                                     </div>
+                                    <label class="col-sm-2" for="noOfEmployees">{{'label.input.numberofemployees' | translate}}</label>
+                                     <div class="col-sm-1">
+                                        <p id="noOfEmployees" name="noOfEmployees">{{comaker.kyc.noOfEmployees}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="nameOfPresentEmployerBusiness">{{'label.input.nameofemployer' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="nameOfPresentEmployerBusiness" name="nameOfPresentEmployerBusiness">{{comaker.kyc.nameOfPresentEmployerBusiness}}</p>
+                                     </div>
+
+                                    <label class="control-label col-sm-2" for="natureOfBusiness">{{'label.input.natureofbusiness' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="natureOfBusiness" name="natureOfBusiness">{{comaker.kyc.natureOfBusiness}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="officeAddress">{{'label.input.officeaddress' | translate}}</label>
+                                     <div class="col-sm-8">
+                                        <p id="officeAddress" name="officeAddress">{{comaker.kyc.officeAddress}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="officePhone">{{'label.input.officephone' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="officePhone" name="officePhone">{{comaker.kyc.officePhone}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="officeMobilePhone">{{'label.input.mobilenumber' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="officeMobilePhone" name="officeMobilePhone">{{comaker.kyc.officeMobilePhone}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="officeLocalNumber">{{'label.input.localnumber' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="officeLocalNumber" name="officeLocalNumber">{{comaker.kyc.officeLocalNumber}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="officeFaxNumber">{{'label.input.faxnumber' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="officeFaxNumber" name="officeFaxNumber">{{comaker.kyc.officeFaxNumber}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="officeEmailAddress">{{'label.input.emailaddress' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="officeEmailAddress" name="officeEmailAddress">{{comaker.kyc.officeEmailAddress}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="rank">{{'label.input.rank' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="rank" name="rank">{{comaker.kyc.rank.name}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="titleOrPosition">{{'label.input.titleorposition' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="titleOrPosition" name="titleOrPosition">{{comaker.kyc.titleOrPosition}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="grossAnnualIncome">{{'label.input.grossannualincome' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="grossAnnualIncome" name="grossAnnualIncome">{{comaker.kyc.grossAnnualIncome}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="otherIncome">{{'label.input.otherincome' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="otherIncome" name="otherIncome">{{comaker.kyc.otherIncome}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="nameOfPreviousEmployer">{{'label.input.nameofpreviousemployer' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="nameOfPreviousEmployer" name="nameOfPreviousEmployer">{{comaker.kyc.nameOfPreviousEmployer}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="officeAddressPrevious">{{'label.input.officeaddressofpreviousemployer' | translate}}</label>
+                                     <div class="col-sm-8">
+                                        <p id="officeAddressPrevious" name="officeAddressPrevious">{{comaker.kyc.officeAddressPrevious}}</p>
+                                     </div>
+                              </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="yearsWithPresentEmployer">{{'label.input.yearswithpresentemployer' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="yearsWithPresentEmployer" name="yearsWithPresentEmployer">{{comaker.kyc.yearsWithPresentEmployer}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="yearsWithPreviousEmployer">{{'label.input.yearswithpreviousemployer' | translate}}</label>
+                                     <div class="col-sm-3">
+                                        <p id="yearsWithPreviousEmployer" name="yearsWithPreviousEmployer">{{comaker.kyc.yearsWithPreviousEmployer}}</p>
+                                     </div>
+                              </div>
+                        <h3><strong>{{ 'label.heading.personalreference' | translate }}</strong></h3>
+                            <br/>
+                            <div class="row">
+                                     <label class="col-sm-2" for="nameReference">{{'label.input.name' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="nameReference" name="nameReference">{{comaker.kyc.nameReference}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="relationshipReference">{{'label.input.relationship' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="relationshipReference" name="relationshipReference">{{comaker.kyc.relationshipReference}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="employerReference">{{'label.input.nameofemployerref' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="employerReference" name="employerReference">{{comaker.kyc.employerReference}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="addressReference">{{'label.input.address' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="addressReference" name="addressReference">{{comaker.kyc.addressReference}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="contactNumberReference">{{'label.input.contactnumber' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="contactNumberReference" name="contactNumberReference">{{comaker.kyc.contactNumberReference}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="mobileReference">{{'label.input.mobilenumber' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="mobileReference" name="mobileReference">{{comaker.kyc.mobileReference}}</p>
+                                     </div>
+                            </div>
+                            <div class="row">
+                                     <label class="col-sm-2" for="relatedToOfficer">{{'label.input.relatedtoofficer' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="relatedToOfficer" name="relatedToOfficer">{{comaker.kyc.relatedToOfficer.name}}</p>
+                                     </div>
+                            </div>
+                            <div class="row" ng-if="comaker.kyc.relatedToOfficer.name == 'Yes'">
+                                     <label class="col-sm-2" for="nameOfOfficer">{{'label.input.nameofofficer' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="nameOfOfficer" name="nameOfOfficer">{{comaker.kyc.nameOfOfficer}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="contactNumberOfficer">{{'label.input.contactnumberofofficer' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="contactNumberOfficer" name="contactNumberOfficer">{{comaker.kyc.contactNumberOfficer}}</p>
+                                     </div>
+                                     <label class="col-sm-2" for="relationshipOfOfficer">{{'label.input.relationshipofofficer' | translate}}</label>
+                                     <div class="col-sm-2">
+                                        <p id="relationshipOfOfficer" name="relationshipOfOfficer">{{comaker.kyc.relationshipOfOfficer.name}}</p>
+                                     </div>
+                            </div>
+                    </uib-tab>
                 </uib-tabset>
             </div>
         </div>

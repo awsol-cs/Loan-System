@@ -1066,6 +1066,9 @@
             .when('/report/special_form_of_financial_statement_report', {
                 templateUrl: 'views/reports/special_form_of_financial_statement_report.html'
             })
+            .when('/editcomaker/:id', {
+                templateUrl: 'views//loans/editcomaker.html'
+            })
             .otherwise({
                 templateUrl: "views/errors/404.html"
             })

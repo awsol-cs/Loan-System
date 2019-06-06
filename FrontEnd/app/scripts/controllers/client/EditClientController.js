@@ -10,7 +10,10 @@
             scope.opensavingsproduct = 'false';
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
-            resourceFactory.clientResource.get({clientId: routeParams.id, template:'true', staffInSelectedOfficeOnly:true}, function (data) {
+            scope.formData = {};
+            scope.formData.kyc = {};
+            scope.formData.client = {};
+            resourceFactory.csClientResource.get({clientId: routeParams.id, template:'true', staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.savingproducts = data.savingProductOptions;
@@ -20,8 +23,16 @@
                 scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
                 scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
                 scope.clientLegalFormOptions = data.clientLegalFormOptions;
+                scope.clientEducationalAttainmentOptions = data.clientEducationalAttainmentOptions;
+                scope.clientResidenceOwnershipOptions = data.clientResidenceOwnershipOptions;
+                scope.clientEmploymentOptions = data.clientEmploymentOptions;
+                scope.clientSelfEmployedOptions = data.clientSelfEmployedOptions;
+                scope.clientRankOptions = data.clientRankOptions;
+                scope.clientRelationshipOfOfficerOptions = data.clientRelationshipOfOfficerOptions;
+                scope.clientMaritalStatusOptions = data.clientMaritalStatusOptions;
+                scope.clientRelatedToOfficerOptions = data.clientRelatedToOfficerOptions;
                 scope.officeId = data.officeId;
-                scope.formData = {
+                scope.formData.client = {
                     firstname: data.firstname,
                     lastname: data.lastname,
                     middlename: data.middlename,
@@ -41,28 +52,28 @@
                 };
 
                 if(data.gender){
-                    scope.formData.genderId = data.gender.id;
+                    scope.formData.client.genderId = data.gender.id;
                 }
 
                 if(data.clientType){
-                    scope.formData.clientTypeId = data.clientType.id;
+                    scope.formData.client.clientTypeId = data.clientType.id;
                 }
 
                 if(data.clientClassification){
-                    scope.formData.clientClassificationId = data.clientClassification.id;
+                    scope.formData.client.clientClassificationId = data.clientClassification.id;
                 }
 
                 if(data.legalForm){
                     scope.displayPersonOrNonPersonOptions(data.legalForm.id);
-                    scope.formData.legalFormId = data.legalForm.id;
+                    scope.formData.client.legalFormId = data.legalForm.id;
                 }
 
                 if(data.clientNonPersonDetails.constitution){
-                    scope.formData.clientNonPersonDetails.constitutionId = data.clientNonPersonDetails.constitution.id;
+                    scope.formData.client.clientNonPersonDetails.constitutionId = data.clientNonPersonDetails.constitution.id;
                 }
 
                 if(data.clientNonPersonDetails.mainBusinessLine){
-                    scope.formData.clientNonPersonDetails.mainBusinessLineId = data.clientNonPersonDetails.mainBusinessLine.id;
+                    scope.formData.client.clientNonPersonDetails.mainBusinessLineId = data.clientNonPersonDetails.mainBusinessLine.id;
                 }
 
                 if (data.savingsProductId != null) {
@@ -94,7 +105,35 @@
                     var submittedOnDate = dateFilter(data.timeline.submittedOnDate, scope.df);
                     scope.date.submittedOnDate = new Date(submittedOnDate);
                 }
+                scope.formData.kyc = data.kycInfo;
+                scope.formData.kyc.maritalStatusId = data.kycInfo.maritalStatus.id;
+                scope.formData.kyc.educationalAttainmentId = data.kycInfo.educationalAttainment.id;
+                scope.formData.kyc.residenceOwnershipId = data.kycInfo.residenceOwnership.id;
+                scope.formData.kyc.employmentId = data.kycInfo.employment.id;
+                scope.formData.kyc.selfEmployedId = data.kycInfo.selfEmployed.id;
+                scope.formData.kyc.rankId = data.kycInfo.rank.id;
+                scope.formData.kyc.relatedToOfficerId = data.kycInfo.relatedToOfficer.id;
+                scope.formData.kyc.relationshipOfOfficerId = data.kycInfo.relationshipOfOfficer.id;
 
+                scope.allowOtherEducationalAttainment = 
+                    data.kycInfo.educationalAttainment.name == "Others" ? true : false;
+                scope.allowMonthlyRent = 
+                    data.kycInfo.residenceOwnership.name == "Rented" ? true : false;
+                scope.allowOtherEmployment = 
+                    data.kycInfo.employment.name == "Others" ? true : false;
+                scope.allowSelfEmployed = 
+                    data.kycInfo.employment.name == "Self-Employed" ? true : false;
+                scope.allowRelatedToOfficer = 
+                    data.kycInfo.relatedToOfficer.name == "Yes" ? true : false;
+
+                delete scope.formData.kyc.maritalStatus;
+                delete scope.formData.kyc.educationalAttainment;
+                delete scope.formData.kyc.residenceOwnership;
+                delete scope.formData.kyc.employment;
+                delete scope.formData.kyc.selfEmployed;
+                delete scope.formData.kyc.rank;
+                delete scope.formData.kyc.relatedToOfficer;
+                delete scope.formData.kyc.relationshipOfOfficer;
             });
 
             scope.displayPersonOrNonPersonOptions = function (legalFormId) {
@@ -106,39 +145,116 @@
             };
 
             scope.submit = function () {
-                this.formData.locale = scope.optlang.code;
-                this.formData.dateFormat = scope.df;
+                this.formData.client.locale = scope.optlang.code;
+                this.formData.client.dateFormat = scope.df;
                 if (scope.choice === 1) {
                     if (scope.date.activationDate) {
-                        this.formData.activationDate = dateFilter(scope.date.activationDate, scope.df);
+                        this.formData.client.activationDate = dateFilter(scope.date.activationDate, scope.df);
                     }
                 }
                 if(scope.date.dateOfBirth){
-                    this.formData.dateOfBirth = dateFilter(scope.date.dateOfBirth,  scope.df);
+                    this.formData.client.dateOfBirth = dateFilter(scope.date.dateOfBirth,  scope.df);
                 }
 
                 if(scope.date.submittedOnDate){
-                    this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate,  scope.df);
+                    this.formData.client.submittedOnDate = dateFilter(scope.date.submittedOnDate,  scope.df);
                 }
 
                 if(scope.date.incorpValidityTillDate){
-                    this.formData.clientNonPersonDetails.locale = scope.optlang.code;
-                    this.formData.clientNonPersonDetails.dateFormat = scope.df;
-                    this.formData.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.date.incorpValidityTillDate,  scope.df);
+                    this.formData.client.clientNonPersonDetails.locale = scope.optlang.code;
+                    this.formData.client.clientNonPersonDetails.dateFormat = scope.df;
+                    this.formData.client.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.date.incorpValidityTillDate,  scope.df);
                 }
 
-                if(this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
-                    delete this.formData.fullname;
+                if(this.formData.client.legalFormId == scope.clientPersonId || this.formData.client.legalFormId == null) {
+                    delete this.formData.client.fullname;
                 }else {
-                    delete this.formData.firstname;
-                    delete this.formData.middlename;
-                    delete this.formData.lastname;
+                    delete this.formData.client.firstname;
+                    delete this.formData.client.middlename;
+                    delete this.formData.client.lastname;
                 }
+                this.formData.kyc.locale = scope.optlang.code;
 
-                resourceFactory.clientResource.update({'clientId': routeParams.id}, this.formData, function (data) {
+                resourceFactory.csClientResource.update({'clientId': routeParams.id}, this.formData, function (data) {
                     location.path('/viewclient/' + routeParams.id);
                 });
             };
+
+
+            scope.allowOtherEducationalAttainment = false;
+            scope.allowMonthlyRent = false;
+            scope.allowOtherEmployment = false;
+            scope.allowSelfEmployed = false;
+            scope.allowRelatedToOfficer = false;
+
+            scope.checkDropdown = function(idChecker, isComaker){
+                scope.clientEducationalAttainmentOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Others"){
+                                scope.allowOtherEducationalAttainment = true;
+                                return;
+                            }
+                            scope.allowOtherEducationalAttainment = false;
+                            delete scope.formData.kyc.othersEducationalAttainment;
+                        }
+                    }
+                });
+                scope.clientResidenceOwnershipOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Rented"){
+                                scope.allowMonthlyRent = true;
+                                return;
+                            }
+                            scope.allowMonthlyRent = false;
+                            delete scope.formData.kyc.rentedResidenceOwnership;
+                        }
+                    }
+                    
+                });
+                scope.clientEmploymentOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Others"){
+                                scope.allowOtherEmployment = true;
+                                scope.allowSelfEmployed = false;
+                                delete scope.formData.kyc.selfEmployedId;
+                                delete scope.formData.kyc.yearsInOperation;
+                                delete scope.formData.kyc.noOfEmployees;
+                                return;
+                            }else if(option.name == "Self-Employed"){
+                                scope.allowOtherEmployment = false;
+                                scope.allowSelfEmployed = true;
+                                delete scope.formData.kyc.otherEmployment;
+                                return;
+                            }
+                            scope.allowOtherEmployment = false;
+                            scope.allowSelfEmployed = false;
+                            delete scope.formData.kyc.otherEmployment;
+                            delete scope.formData.kyc.selfEmployedId;
+                            delete scope.formData.kyc.yearsInOperation;
+                            delete scope.formData.kyc.noOfEmployees;
+                        }
+                    }
+                    
+                });
+                scope.clientRelatedToOfficerOptions.forEach(function(option){
+                    if(!isComaker){
+                        if(option.id == idChecker){
+                            if(option.name == "Yes"){
+                                scope.allowRelatedToOfficer = true;
+                                return;
+                            }
+                            scope.allowRelatedToOfficer = false;
+                            delete scope.formData.kyc.nameOfOfficer;
+                            delete scope.formData.kyc.contactNumberOfficer;
+                            delete scope.formData.kyc.relationshipOfOfficerId;
+                        }
+                    }
+                });
+            }
+
         }
     });
     mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', 'Upload', '$rootScope', mifosX.controllers.EditClientController]).run(function ($log) {
