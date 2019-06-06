@@ -97,9 +97,12 @@ public class ReportServiceImpl implements ReportService {
             	Document doc = getDocumentByFileName(map.get("loanAccountNo").toString(), map.get("documentType").toString());
             	map.put("imagePath", doc.getLocation());
             }
-            File reportLocation = new File(MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + fileName + ".jasper");
-            if(reportLocation.exists()) {
-                stream = FileUtils.openInputStream(reportLocation);
+            if(fileName != null) {
+	            File reportLocation = new File(MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + fileName + ".jasper");
+	            if(reportLocation.exists()) {
+	                stream = FileUtils.openInputStream(reportLocation);
+	                map.put("subReportPath", MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator);
+	            }
             }
 
             Map<String, Object> reportParameters = new HashMap<>();
