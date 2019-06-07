@@ -101,7 +101,6 @@ public class ReportServiceImpl implements ReportService {
 	            File reportLocation = new File(MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + fileName + ".jasper");
 	            if(reportLocation.exists()) {
 	                stream = FileUtils.openInputStream(reportLocation);
-	                map.put("subReportPath", MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator);
 	            }
             }
 
@@ -140,6 +139,15 @@ public class ReportServiceImpl implements ReportService {
     private void generateReportParameters(Map<String, Object> reportParameters, HashMap<String, Object> map) {
     	map.forEach((key, value) -> {
             reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key), Converter.convert(value));
+            if(value instanceof Iterable) {
+                Iterator iter = ((Iterable) value).iterator();
+                int ctr = 0;
+                while(iter.hasNext()) {
+                    ctr++;
+                    reportParameters.put(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, key + ctr),
+                            MIFOS_BASE_DIR + File.separator  + "jasperReports" + File.separator + iter.next().toString() + ".jasper");
+                }
+            }
         });
     }
 
