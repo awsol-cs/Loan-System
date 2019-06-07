@@ -20,6 +20,8 @@
             scope.showTrancheAmountTotal = 0;
             scope.processDate = false;
             scope.submittedDatatables = [];
+            scope.client = {}
+            scope.clientAccountNo = ""
             var submitStatus = [];
 
             rootScope.RequestEntities = function(entity,status,productId){
@@ -70,6 +72,10 @@
                 if(!productId){
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id}, function (data) {
                         scope.productId = data.loanProductId;
+                        scope.clientAccountNo = data.clientAccountNo;
+                        resourceFactory.csClientResource.get({clientId: data.clientId}, function (data) {
+                            scope.client = data;
+                        });
                         rootScope.RequestEntities(entity,status,scope.productId);
                     });
                 }
@@ -125,6 +131,7 @@
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.form.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         scope.productId = data.loanProductId;
+                        scope.clientAccountNo = data.clientAccountNo;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                             scope.approveTranches = true;
@@ -134,6 +141,9 @@
                             scope.disbursementDetails[i].principal = data.disbursementDetails[i].principal;
                             scope.showTrancheAmountTotal += Number(data.disbursementDetails[i].principal) ;
                         }
+                        resourceFactory.csClientResource.get({clientId: data.clientId}, function (data) {
+                            scope.client = data;
+                        });
                         scope.fetchEntities('m_loan','APPROVE',scope.productId);
                     });
                     break;
@@ -590,12 +600,57 @@
                 } else {
                     params.loanId = scope.accountId;
                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
-                        // if(scope.action == "approve"){
-                        //     resourceFactory.approveMessageResource.post(function (data) {});
-                        // }else if(scope.action == "reject"){
-                        //     resourceFactory.rejectMessageResource.post(function (data) {});
-                        // }
-                        location.path('/viewloanaccount/' + data.loanId);
+                        var loanId = data.loanId
+                        var username = "AWSI_Tonie";
+                        var password = "Wasd8426";
+
+                        var header = "Basic " + window.btoa(username + ":" + password);
+                        if(scope.action == "approve"){
+                            var data = JSON.stringify({
+                              "from": "Loan-System SMS",
+                              "to": scope.client.mobileNo,
+                              "text": "Your Loan: " + scope.clientAccountNo + " has been Approve"
+                            });
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.withCredentials = false;
+
+                            xhr.addEventListener("readystatechange", function () {
+                              if (this.readyState === this.DONE) {
+                                console.log(this.responseText);
+                              }
+                            });
+
+                            xhr.open("POST", "https://pkm23.api.infobip.com/sms/2/text/single");
+                            xhr.setRequestHeader("authorization", header);
+                            xhr.setRequestHeader("content-type", "application/json");
+                            xhr.setRequestHeader("accept", "application/json");
+
+                            xhr.send(data);
+                        }else if(scope.action == "reject"){
+                            var data = JSON.stringify({
+                              "from": "Loan-System SMS",
+                              "to": scope.client.mobileNo,
+                              "text": "Your Loan: " + scope.clientAccountNo + " has been Rejected"
+                            });
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.withCredentials = false;
+
+                            xhr.addEventListener("readystatechange", function () {
+                              if (this.readyState === this.DONE) {
+                                console.log(this.responseText);
+                              }
+                            });
+
+                            xhr.open("POST", "https://pkm23.api.infobip.com/sms/2/text/single");
+                            xhr.setRequestHeader("authorization", header);
+                            xhr.setRequestHeader("content-type", "application/json");
+                            xhr.setRequestHeader("accept", "application/json");
+
+                            xhr.send(data);
+                        }
+                        location.path('/viewloanaccount/' + loanId);
                     });
                 }
             };

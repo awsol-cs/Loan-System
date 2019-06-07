@@ -764,7 +764,8 @@
             scope.printLoanAgreement = function(){
           
                 var jsonData = {
-                   "loanAccountNo":scope.loandetails.accountNo
+                   "loanAccountNo":scope.loandetails.accountNo,
+                   "documentType":"01"
                };
 
                var linkElement = document.createElement('a');
