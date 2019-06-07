@@ -21,7 +21,7 @@
             scope.processDate = false;
             scope.submittedDatatables = [];
             scope.client = {}
-            scope.clientAccountNo = ""
+            scope.accountNo = ""
             var submitStatus = [];
 
             rootScope.RequestEntities = function(entity,status,productId){
@@ -72,7 +72,7 @@
                 if(!productId){
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id}, function (data) {
                         scope.productId = data.loanProductId;
-                        scope.clientAccountNo = data.clientAccountNo;
+                        scope.accountNo = data.accountNo;
                         resourceFactory.csClientResource.get({clientId: data.clientId}, function (data) {
                             scope.client = data;
                         });
@@ -131,7 +131,7 @@
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.form.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         scope.productId = data.loanProductId;
-                        scope.clientAccountNo = data.clientAccountNo;
+                        scope.accountNo = data.accountNo;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                             scope.approveTranches = true;
@@ -601,15 +601,12 @@
                     params.loanId = scope.accountId;
                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
                         var loanId = data.loanId
-                        var username = "AWSI_Tonie";
-                        var password = "Wasd8426";
-
-                        var header = "Basic " + window.btoa(username + ":" + password);
+                        var header = "App 913429ef66af4f1bcc68670ec35ab205-10e9f8fc-1ccf-4a6a-a8f6-8b429e002e67";
                         if(scope.action == "approve"){
                             var data = JSON.stringify({
                               "from": "Loan-System SMS",
                               "to": scope.client.mobileNo,
-                              "text": "Your Loan: " + scope.clientAccountNo + " has been Approve"
+                              "text": "Your Loan: " + scope.accountNo + " has been Approved"
                             });
 
                             var xhr = new XMLHttpRequest();
@@ -631,7 +628,7 @@
                             var data = JSON.stringify({
                               "from": "Loan-System SMS",
                               "to": scope.client.mobileNo,
-                              "text": "Your Loan: " + scope.clientAccountNo + " has been Rejected"
+                              "text": "Your Loan: " + scope.accountNo + " has been Rejected"
                             });
 
                             var xhr = new XMLHttpRequest();
