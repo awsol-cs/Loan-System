@@ -601,7 +601,8 @@
                     params.loanId = scope.accountId;
                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
                         var loanId = data.loanId
-                        var header = "App 913429ef66af4f1bcc68670ec35ab205-10e9f8fc-1ccf-4a6a-a8f6-8b429e002e67";
+                        //Removed API key from this, Please Request New API to use and insert it in String header.
+                        var header = "App ";
                         if(scope.action == "approve"){
                             var data = JSON.stringify({
                               "from": "Loan-System SMS",
